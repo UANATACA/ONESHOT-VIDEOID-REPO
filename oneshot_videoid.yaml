@@ -5,7 +5,7 @@ info:
     $ref: ./oneshot_videoid_gui.md
   version: v1
   x-logo:
-    url: https://raw.githubusercontent.com/UANATACA/ONESHOT-REPO/main/img/oneshot_logo.png?token=ATF574UWGCYOZPK5RIPMLJ3ALW6HA
+    url: https://raw.githubusercontent.com/UANATACA/ONESHOT-CLASSIC-REPO/main/img/oneshot_logo.png
     altText: Oneshot logo
 servers:
 - url: https://one-shot.developers.uanataca.com
