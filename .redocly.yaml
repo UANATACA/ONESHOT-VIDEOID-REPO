@@ -1,5 +1,5 @@
 apiDefinitions:
-  main: oneshot.yaml
+  main: oneshot_videoid.yaml
 referenceDocs:
   hideDownloadButton: true
   showConsole: true

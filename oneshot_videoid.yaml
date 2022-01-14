@@ -2,7 +2,7 @@ openapi: 3.0.1
 info:
   title: UANATACA ONE-SHOT SIGNATURE API DOCUMENTATION
   description: 
-    $ref: ./oneshot_gui.md
+    $ref: ./oneshot_videoid_gui.md
   version: v1
   x-logo:
     url: https://raw.githubusercontent.com/UANATACA/ONESHOT-REPO/main/img/oneshot_logo.png?token=ATF574UWGCYOZPK5RIPMLJ3ALW6HA
