@@ -24,7 +24,7 @@ The electronic signatures are performed on Uanataca Trusted Service Center side,
 </div>
 <br></br>
 
-![img](https://github.com/UANATACA/ONESHOT-REPO/raw/main/img/oneshot-hiw.png)
+![img](https://github.com/UANATACA/ONESHOT-VIDEOID-REPO/raw/main/img/oneshot-hiw.png)
 
 
 # Test Environment
@@ -81,7 +81,7 @@ The following images summarize One-Shot Signature flow involving both authentica
 
 > Uanataca SMS
 
-![img](https://github.com/UANATACA/ONESHOT-REPO/raw/main/img/oneshot_flc1.png)
+![img](https://github.com/UANATACA/ONESHOT-VIDEOID-REPO/raw/main/img/oneshot_flc1.png)
 
 </br>
 
@@ -106,7 +106,7 @@ The following images summarize One-Shot Signature flow involving both authentica
 > Other authentication methods
 
 
-![img](https://github.com/UANATACA/ONESHOT-REPO/raw/main/img/oneshot_flc2.png)
+![img](https://github.com/UANATACA/ONESHOT-VIDEOID-REPO/raw/main/img/oneshot_flc2.png)
 
 </br>
 
@@ -363,7 +363,7 @@ In 1-step mode Video ID, a request approval also implies its validation. For thi
 
 </br>
 
-![img](https://raw.githubusercontent.com/UANATACA/ONESHOT-REPO/test2/img/oneshot_1step.png)
+![img](https://raw.githubusercontent.com/UANATACA/ONESHOT-VIDEOID-REPO/test2/img/oneshot_1step.png)
 
 </br>
 
@@ -620,7 +620,7 @@ In 2-Step mode Video ID, request validations and approvals are performed in diff
 
 </br>
 
-![img](https://raw.githubusercontent.com/UANATACA/ONESHOT-REPO/test2/img/oneshot_2step.png)
+![img](https://raw.githubusercontent.com/UANATACA/ONESHOT-VIDEOID-REPO/test2/img/oneshot_2step.png)
 
 </br>
 
@@ -916,7 +916,7 @@ In External mode Video ID, digital evidences are uploaded to an independent Vide
 
 </br>
 
-![img](https://raw.githubusercontent.com/UANATACA/ONESHOT-REPO/test2/img/oneshot_ext.png)
+![img](https://raw.githubusercontent.com/UANATACA/ONESHOT-VIDEOID-REPO/test2/img/oneshot_ext.png)
 
 </br>
 
@@ -1309,7 +1309,7 @@ See the configuration description in:<br>
 
 This configuration requires a server with a Linux CentOS operating system.
 
-<a href="#section/Video-tutorials/Docker-Optimizer-Configuration"><img src="https://raw.githubusercontent.com/UANATACA/ONESHOT-REPO/main/img4.png"></a><a href="#section/Video-tutorials/Docker-Optimizer-Configuration"><b>&nbsp;Watch on video!</b></a>
+<a href="#section/Video-tutorials/Docker-Optimizer-Configuration"><img src="https://raw.githubusercontent.com/UANATACA/ONESHOT-VIDEOID-REPO/main/img4.png"></a><a href="#section/Video-tutorials/Docker-Optimizer-Configuration"><b>&nbsp;Watch on video!</b></a>
 
 
 > STEP 1: Install Docker and Docker-Compose.
@@ -1338,7 +1338,7 @@ Run the following commands in this order.
 Run command **docker-compose version** to check the installation. The outcome should show this information:
 
 
-![img](https://github.com/UANATACA/ONESHOT-REPO/raw/main/img/oneshot-docker1.png)
+![img](https://github.com/UANATACA/ONESHOT-VIDEOID-REPO/raw/main/img/oneshot-docker1.png)
 
 </br>
 
@@ -1350,7 +1350,7 @@ Move One-Shot Optimizer folder to the path **/opt** in the server.
 
 The outcome should look like this:
 
-![img](https://github.com/UANATACA/ONESHOT-REPO/raw/main/img/oneshot-docker2.png)
+![img](https://github.com/UANATACA/ONESHOT-VIDEOID-REPO/raw/main/img/oneshot-docker2.png)
 
 
 </br>
@@ -1363,7 +1363,7 @@ In high performance environments working with a pool of Optimizers, service sett
 
 Docker-compose.yml settings file:
 
-![img](https://github.com/UANATACA/ONESHOT-REPO/raw/test3/img/oneshot-docker3.png)
+![img](https://github.com/UANATACA/ONESHOT-VIDEOID-REPO/raw/main/img/oneshot-docker3.png)
 
 </br>
 
@@ -1433,7 +1433,7 @@ Then restart network services with command **service network restart**.
 
 Example:
 
-![img](https://github.com/UANATACA/ONESHOT-REPO/raw/main/img/oneshot-docker4.png)
+![img](https://github.com/UANATACA/ONESHOT-VIDEOID-REPO/raw/main/img/oneshot-docker4.png)
 
 </br>
 
@@ -1522,7 +1522,7 @@ settings.ini file location:
 **/opt/oneshot_optimizer/common/etc/certs/prod** or custom mapped volume (Docker)</br>
 **/opt/bit4id/oneshot_optimizer/etc/certs/prod** (Virtual Machine)
 
-![img](https://github.com/UANATACA/ONESHOT-REPO/raw/test3/img/oneshot-docker5.png)
+![img](https://github.com/UANATACA/ONESHOT-VIDEOID-REPO/raw/main/img/oneshot-docker5.png)
 
 The following is a view of the settings.ini file. **Important: If billing password is specified, it must be previously converted into Base64 format.** Run the following command to convert your password to base64:
 
