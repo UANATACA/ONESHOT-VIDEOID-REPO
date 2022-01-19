@@ -377,32 +377,6 @@ paths:
                 "environment": "test"
               }
             }'
-      - lang: JavaScript
-        source: |
-          const resp = await fetch(
-            `https://one-shot.developers.uanataca.com/api/v1/settings`,
-            {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify({
-                tsa: {tsa_url: 'https://tsa.access.bit4id.org:13035/tsa/test01'},
-                request: {
-                  default_profile: 'PFnubeQAFCiudadano',
-                  default_ra: '1000'
-                },
-                billing: {
-                  billing_username: 'user@uanataca.com',
-                  billing_password: 'ejVxTnFrZkI='
-                },
-                general: {environment: 'test'}
-              })
-            }
-          );
-
-          const data = await resp.json();
-          console.log(data);
       - lang: Python
         source: |
           import requests
@@ -664,24 +638,6 @@ paths:
               "metadata": "bmF2ZWdhZG9yIMOhw6HDocOhw6EKMTIzNAplc3RvIGVzIHVuYSBwcnVlYmE6IGhveSBlcwptYXJ0ZXNzcwp4eXoxMjM0",
               "metadata_oid": "1.8.6.7.4.1.47289.100.2.9"
             }'
-      - lang: JavaScript
-        source: |
-          const resp = await fetch(
-            `https://one-shot.developers.uanataca.com/api/v1/metadata`,
-            {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify({
-                metadata: 'bmF2ZWdhZG9yIMOhw6HDocOhw6EKMTIzNAplc3RvIGVzIHVuYSBwcnVlYmE6IGhveSBlcwptYXJ0ZXNzcwp4eXoxMjM0',
-                metadata_oid: '1.8.6.7.4.1.47289.100.2.9'
-              })
-            }
-          );
-
-          const data = await resp.json();
-          console.log(data);
       - lang: Python
         source: |
           import requests
@@ -848,15 +804,6 @@ paths:
       - lang: curl
         source: |
           curl -i -X GET https://one-shot.developers.uanataca.com/api/v1/metadata/1b8eac803b75418e8e1a9cad0e342949
-      - lang: JavaScript
-        source: |
-          const resp = await fetch(
-            `https://one-shot.developers.uanataca.com/api/v1/metadata/1b8eac803b75418e8e1a9cad0e342949`,
-            {method: 'GET'}
-          );
-
-          const data = await resp.text();
-          console.log(data);
       - lang: Python
         source: |
           import requests
@@ -947,15 +894,6 @@ paths:
       - lang: curl
         source: |
           curl -i -X DELETE https://one-shot.developers.uanataca.com/api/v1/metadata/1b8eac803b75418e8e1a9cad0e342949
-      - lang: JavaScript
-        source: |
-          const resp = await fetch(
-            `https://one-shot.developers.uanataca.com/api/v1/metadata/1b8eac803b75418e8e1a9cad0e342949`,
-            {method: 'DELETE'}
-          );
-
-          const data = await resp.text();
-          console.log(data);
       - lang: Python
         source: |
           import requests
@@ -1070,26 +1008,6 @@ paths:
               "pin": "belorado74",
               "env": "test"
             }'
-      - lang: JavaScript
-        source: |
-          const resp = await fetch(
-            'https://one-shot.developers.uanataca.com/api/v1/token',
-            {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify({
-                'username': '9001800',
-                'password': 'Gy6F89xK',
-                'pin': 'belorado74',
-                'env': 'test'
-              })
-            }
-          );
-
-          const data = await resp.json();
-          console.log(data);
       - lang: Python
         source: |
           import requests
@@ -1224,15 +1142,6 @@ paths:
       x-codeSamples:
       - lang: curl
         source: "curl -i -X GET \\ \n  https://one-shot.developers.uanataca.com/api/v1/token/a44765ab8ca04e429a565f02d22179a0\n"
-      - lang: JavaScript
-        source: |
-          const resp = await fetch(
-            'https://one-shot.developers.uanataca.com/api/v1/token/a44765ab8ca04e429a565f02d22179a0',
-            {method: 'GET'}
-          );
-
-          const data = await resp.text();
-          console.log(data);
       - lang: Python
         source: |
           import requests
@@ -1323,15 +1232,6 @@ paths:
         source: |
           curl -i -X DELETE \
             https://one-shot.developers.uanataca.com/api/v1/token/a44765ab8ca04e429a565f02d22179a0
-      - lang: JavaScript
-        source: |
-          const resp = await fetch(
-            'https://one-shot.developers.uanataca.com/api/v1/token/a44765ab8ca04e429a565f02d22179a0',
-            {method: 'DELETE'}
-          );
-
-          const data = await resp.text();
-          console.log(data);
       - lang: Python
         source: |
           import requests
@@ -1422,15 +1322,6 @@ paths:
         source: |
           curl -i -X GET \
             https://one-shot.developers.uanataca.com/api/v1/tokens
-      - lang: JavaScript
-        source: |
-          const resp = await fetch(
-            'https://one-shot.developers.uanataca.com/api/v1/tokens',
-            {method: 'GET'}
-          );
-
-          const data = await resp.text();
-          console.log(data);
       - lang: Python
         source: |
           import requests
@@ -1747,41 +1638,6 @@ paths:
             -F env=test \
             -F billing_username=user@uanataca.com \
             -F billing_password=ejVxTnFrZkI= \
-      - lang: JavaScript
-        source: |
-          var formdata = new FormData();
-          formdata.append("given_name", "John");
-          formdata.append("surname_1", "Smith");
-          formdata.append("surname_2", "Lopez");
-          formdata.append("id_document_type", "IDC");
-          formdata.append("id_document_country", "ES");
-          formdata.append("serial_number", "12345678A");
-          formdata.append("email", "john_smithlop@uanataca.com");
-          formdata.append("mobile_phone_number", "+34999999999");
-          formdata.append("registration_authority", "124");
-          formdata.append("profile", "PFnubeQAFCiudadano");
-          formdata.append("token", "6d1cae4d55be4cdf9cac50ee36f73406");
-          formdata.append("username", "9001800");
-          formdata.append("password", "Gy6F89xK");
-          formdata.append("pin", "belorado74");
-          formdata.append("document_front", fileInput.files[0], "sample_folder/img_front.png");
-          formdata.append("document_rear", fileInput.files[0], "sample_folder/img_rear.png");
-          formdata.append("document_owner", fileInput.files[0], "sample_folder/img_owner.png");
-          formdata.append("env", "test");
-          formdata.append("billing_username", "user@uanataca.com");
-          formdata.append("billing_password", "ejVxTnFrZkI=");
-
-          var requestOptions = {
-            method: 'POST',
-            headers: myHeaders,
-            body: formdata,
-            redirect: 'follow'
-          };
-
-          fetch("https://one-shot.developers.uanataca.com/api/v1/request", requestOptions)
-            .then(response => response.text())
-            .then(result => console.log(result))
-            .catch(error => console.log('error', error));
       - lang: Python
         source: |
           import requests
@@ -2027,30 +1883,6 @@ paths:
               "webhook_url": "my-webhook-url.com",
               "env": "test"
             }'
-      - lang: Javascript
-        source: |
-          const resp = await fetch(
-            `https://one-shot.developers.uanataca.com/api/v1/videoid`,
-            {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify({
-              'mobile_phone_number': '+34699999999',
-              'email': 'mail@domain',
-              'registration_authority': '139',
-              'profile': 'PFnubeQAFCiudadano',
-              'billing_username': 'user@uanataca.com',
-              'billing_password': 'ejVxTnFrZkI=',
-              'webhook_url': 'my-webhook-url.com',
-              'env': 'test'
-              })
-            }
-          );
-
-          const data = await resp.json();
-          console.log(data);
       - lang: Python
         source: |
           import requests
@@ -2263,59 +2095,6 @@ paths:
                 "similarity_level": "high"
               }
             }'
-      - lang: Javascript
-        source: |
-          const resp = await fetch(
-            `https://one-shot.developers.uanataca.com/api/v1/videoid/45836/evidences`,
-            {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify({
-                acceptance: {
-                  description: 'User Accepted Terms and Conditions and Privacy Policy',
-                  url-doc-privacypolicy: 'https://www.uanataca.com/public/pki/privacidad-PSC/',
-                  ip: '186.0.91.53',
-                  url-web-videoid: 'https://cms.access.bit4id.org:13035/lcmpl/videoid/46b92251-4ba8-4930-a5aa-8631ec4666b6',
-                  user-agent: 'Mozilla/5.0 (Linux; Android 11; AC2003) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.88 Mobile Safari/537.36',
-                  date: '1622823879708',
-                  url-doc-termsconditions: 'https://www.uanataca.com/public/pki/terminos-VID/'
-                },
-                videoid_data: {
-                  images: {
-                    document_front: '/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAIBAQEBAQIBAQECAgICAgQDAgICAgUEBAM (...)',
-                    document_rear: '/I7ye60+aOKS0mVGVSD9RVfyXukjmnS3cAEbpMVm6M1ncWqS3FszptO1lPRRDJ+orI8b (...)',
-                    document_photo: 'AkjOOwFfHFrrNlpXxcbU9QuIIIkvR56yddgHpX3GEj1PmanmdS/xV1ySVlv/AIbXLPO (...)',
-                    document_owner: 'SSVnovgCZ4Lhk+R3lJPUDJr5t/Z/wBV1DWfjRbeI75B5iQytcykc7yMEAV2/iwC0T34 (...)'
-                  },
-                  ocr_data: {
-                    given_name: 'Name',
-                    surname_1: 'Surname',
-                    surname_2: 'Surname 2',
-                    mobile_phone_number: '+34999999999',
-                    email: 'mail@domain',
-                    serial_number: 'A9999999E',
-                    id_document_type: 'IDC',
-                    id_document_country: ES
-                  },
-                  security_checks: {
-                    otp_validation: true,
-                    documents_match: true,
-                    data_integrity: true,
-                    document_notcopy: true,
-                    document_notexpired: true,
-                    document_notunderage: true,
-                    liveliness: true
-                  },
-                  similarity_level: 'high'
-                }
-              })
-            }
-          );
-
-          const data = await resp.json();
-          console.log(data);
       - lang: Python
         source: |
           import requests
@@ -2547,23 +2326,6 @@ paths:
         source: "curl -i -X POST \\\n  https://one-shot.developers.uanataca.com/api/v1/videoid/45836/evidences/video/\
           \ \\\n  -H 'Content-Type: multipart/form-data' \\\n  -F video=@sample_folder/sample_video.mp4\
           \ \n"
-      - lang: Javascript
-        source: |
-          var formdata = new FormData();
-          formdata.append("type", "document_front");
-          formdata.append("video", fileInput.files[0], "sample_folder/sample_video.mp4");
-
-          var requestOptions = {
-            method: 'POST',
-            headers: myHeaders,
-            body: formdata,
-            redirect: 'follow'
-          };
-
-          fetch("https://one-shot.developers.uanataca.com/api/v1/videoid/45836/evidences/video/", requestOptions)
-            .then(response => response.text())
-            .then(result => console.log(result))
-            .catch(error => console.log('error', error));
       - lang: Python
         source: |
           import requests
@@ -2725,15 +2487,6 @@ paths:
         source: |
           curl -i -X GET \
             https://one-shot.developers.uanataca.com/api/v1/request/29571
-      - lang: JavaScript
-        source: |
-          const resp = await fetch(
-            'https://one-shot.developers.uanataca.com/api/v1/request/29571',
-            {method: 'GET'}
-          );
-
-          const data = await resp.text();
-          console.log(data);
       - lang: Python
         source: |
           import requests
@@ -2907,33 +2660,6 @@ paths:
               "profile": "PFnubeQAFCiudadano",
               "country_name": "ES"
             }'
-      - lang: JavaScript
-        source: |
-          const resp = await fetch(
-            `https://one-shot.developers.uanataca.com/api/v1/request/45836`,
-            {
-              method: 'PUT',
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify({
-                scratchcard: '1234567',
-                given_name: 'John',
-                surname_1: 'Smith',
-                surname_2: 'Lopez',
-                birth_date: '01/01/2000',
-                email: 'mail@domain.com',
-                mobile_phone_number: '+34999999999',
-                serial_number: 'A9999999E',
-                registration_authority: '1234',
-                profile: 'PFnubeQAFCiudadano',
-                country_name: 'ES'
-              })
-            }
-          );
-
-          const data = await resp.json();
-          console.log(data);
       - lang: Python
         source: |      
           import requests
@@ -3075,15 +2801,6 @@ paths:
         source: |
           curl -i -X DELETE \
             https://one-shot.developers.uanataca.com/api/v1/request/45836/
-      - lang: Javascript
-        source: |
-          const resp = await fetch(
-            'https://one-shot.developers.uanataca.com/api/v1/requests/45836/',
-            {method: 'DELETE'}
-          );
-
-          const data = await resp.text();
-          console.log(data);
       - lang: Python
         source: |
           import requests
@@ -3174,15 +2891,6 @@ paths:
         source: |
           curl -i -X GET \
             https://one-shot.developers.uanataca.com/api/v1/async/status/29571
-      - lang: JavaScript
-        source: |
-          const resp = await fetch(
-            'https://one-shot.developers.uanataca.com/api/v1/async/status/29571',
-            {method: 'GET'}
-          );
-
-          const data = await resp.text();
-          console.log(data);
       - lang: Python
         source: |
           import requests
@@ -3261,15 +2969,6 @@ paths:
         source: |
           curl -i -X POST \
             https://one-shot.developers.uanataca.com/api/v1/otp/29571
-      - lang: JavaScript
-        source: |
-          const resp = await fetch(
-            'https://one-shot.developers.uanataca.com/api/v1/otp/29571',
-            {method: 'POST'}
-          );
-
-          const data = await resp.text();
-          console.log(data);
       - lang: Python
         source: |
           import requests
@@ -3362,29 +3061,6 @@ paths:
                           "page": 0
                       }
                 }'
-      - lang: JavaScript
-        source: |
-          const resp = await fetch(
-            'https://one-shot.developers.uanataca.com/api/v1/sign/29571',
-            {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify({
-                  "secret"   : "052174",
-                  "options": {
-                      "5f04778a-54f6-426a-b204-5573eb01e5da": {
-                          "position": "300, 100, 500, 150",
-                          "image": "b0b6370e-8b54-4d8b-ab6f-a002cf08dd28",
-                          "page": 0
-                      }
-                    })
-            }
-          );
-
-          const data = await resp.json();
-          console.log(data);
       - lang: Python
         source: |
           import requests
@@ -3517,29 +3193,6 @@ paths:
                           "page": 0
                       }
                 }'
-      - lang: JavaScript
-        source: |
-          const resp = await fetch(
-            'https://one-shot.developers.uanataca.com/api/v1/async/sign/29571',
-            {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify({
-                  "secret"   : "052174",
-                  "options": {
-                      "5f04778a-54f6-426a-b204-5573eb01e5da": {
-                          "position": "300, 100, 500, 150",
-                          "image": "b0b6370e-8b54-4d8b-ab6f-a002cf08dd28",
-                          "page": 0
-                      }
-                    })
-            }
-          );
-
-          const data = await resp.json();
-          console.log(data);
       - lang: Python
         source: |
           import requests
@@ -3670,22 +3323,6 @@ paths:
             https://one-shot.developers.uanataca.com/api/v1/document/29571 \
             -H 'Content-Type: multipart/form-data' \
             -F file=@sample_folder/document.pdf
-      - lang: JavaScript
-        source: |
-          var formdata = new FormData();
-          formdata.append("file", fileInput.files[0], "sample_folder/document.pdf");
-
-          var requestOptions = {
-            method: 'POST',
-            headers: myHeaders,
-            body: formdata,
-            redirect: 'follow'
-          };
-
-          fetch("https://one-shot.developers.uanataca.com/api/v1/document/29571", requestOptions)
-            .then(response => response.text())
-            .then(result => console.log(result))
-            .catch(error => console.log('error', error));
       - lang: Python
         source: |
           import requests
@@ -3805,15 +3442,6 @@ paths:
         source: |
           curl -i -X GET \
             https://one-shot.developers.uanataca.com/api/v1/document/29571/signed/a73b1253-838f-4340-8ae8-e0a1524f7472
-      - lang: JavaScript
-        source: |
-          const resp = await fetch(
-            'https://one-shot.developers.uanataca.com/api/v1/document/29571/signed/a73b1253-838f-4340-8ae8-e0a1524f7472',
-            {method: 'GET'}
-          );
-
-          const data = await resp.text();
-          console.log(data);
       - lang: Python
         source: |
           import requests
@@ -3906,15 +3534,6 @@ paths:
         source: |
           curl -i -X DELETE \
             https://one-shot.developers.uanataca.com/api/v1/document/29571/signed/a73b1253-838f-4340-8ae8-e0a1524f7472
-      - lang: JavaScript
-        source: |
-          const resp = await fetch(
-            'https://one-shot.developers.uanataca.com/api/v1/document/29571/signed/a73b1253-838f-4340-8ae8-e0a1524f7472',
-            {method: 'DELETE'}
-          );
-
-          const data = await resp.text();
-          console.log(data);
       - lang: Python
         source: |
           import requests
@@ -4022,15 +3641,6 @@ paths:
         source: |
           curl -i -X GET \
             https://one-shot.developers.uanataca.com/api/v1/documents/29571
-      - lang: JavaScript
-        source: |
-          const resp = await fetch(
-            'https://one-shot.developers.uanataca.com/api/v1/documents/29571',
-            {method: 'GET'}
-          );
-
-          const data = await resp.text();
-          console.log(data);
       - lang: Python
         source: |
           import requests
@@ -4105,15 +3715,6 @@ paths:
         source: |
           curl -i -X DELETE \
             https://one-shot.developers.uanataca.com/api/v1/documents/29571
-      - lang: JavaScript
-        source: |
-          const resp = await fetch(
-            'https://one-shot.developers.uanataca.com/api/v1/documents/29571',
-            {method: 'DELETE'}
-          );
-
-          const data = await resp.text();
-          console.log(data);
       - lang: Python
         source: |
           import requests
@@ -4185,15 +3786,6 @@ paths:
         source: |
           curl -i -X GET \
             https://one-shot.developers.uanataca.com/api/v1/document/29571/contract
-      - lang: JavaScript
-        source: |
-          const resp = await fetch(
-            'https://one-shot.developers.uanataca.com/api/v1/document/29571/contract',
-            {method: 'GET'}
-          );
-
-          const data = await resp.text();
-          console.log(data);
       - lang: Python
         source: |
           import requests
@@ -4277,22 +3869,6 @@ paths:
             https://one-shot.developers.uanataca.com/api/v1/image \
             -H 'Content-Type: multipart/form-data' \
             -F image=@sample_folder/image.png
-      - lang: JavaScript
-        source: |
-          var formdata = new FormData();
-          formdata.append("image", fileInput.files[0], "sample_folder/image.png");
-
-          var requestOptions = {
-            method: 'POST',
-            headers: myHeaders,
-            body: formdata,
-            redirect: 'follow'
-          };
-
-          fetch("https://one-shot.developers.uanataca.com/api/v1/image", requestOptions)
-            .then(response => response.text())
-            .then(result => console.log(result))
-            .catch(error => console.log('error', error));
       - lang: Python
         source: |
           import requests
@@ -4383,15 +3959,6 @@ paths:
         source: |
           curl -i -X GET \
             https://one-shot.developers.uanataca.com/api/v1/image/bfd74f73-7b22-40a6-ad37-6fc867263309
-      - lang: JavaScript
-        source: |
-          const resp = await fetch(
-            'https://one-shot.developers.uanataca.com/api/v1/image/bfd74f73-7b22-40a6-ad37-6fc867263309',
-            {method: 'GET'}
-          );
-
-          const data = await resp.text();
-          console.log(data);
       - lang: Python
         source: |
           import requests
@@ -4466,15 +4033,6 @@ paths:
         source: |
           curl -i -X DELETE \
             https://one-shot.developers.uanataca.com/api/v1/image/bfd74f73-7b22-40a6-ad37-6fc867263309
-      - lang: JavaScript
-        source: |
-          const resp = await fetch(
-            'https://one-shot.developers.uanataca.com/api/v1/image/bfd74f73-7b22-40a6-ad37-6fc867263309',
-            {method: 'DELETE'}
-          );
-
-          const data = await resp.text();
-          console.log(data);
       - lang: Python
         source: |
           import requests
@@ -4601,15 +4159,6 @@ paths:
         source: |
           curl -i -X DELETE \
             https://one-shot.developers.uanataca.com/api/v1/images
-      - lang: JavaScript
-        source: |
-          const resp = await fetch(
-            'https://one-shot.developers.uanataca.com/api/v1/images',
-            {method: 'DELETE'}
-          );
-
-          const data = await resp.text();
-          console.log(data);
       - lang: Python
         source: |
           import requests
@@ -4655,15 +4204,6 @@ paths:
       source: |
         curl -i -X GET \
           https://one-shot.developers.uanataca.com/api/v1/images
-    - lang: JavaScript
-      source: |
-        const resp = await fetch(
-          'https://one-shot.developers.uanataca.com/api/v1/images',
-          {method: 'GET'}
-        );
-
-        const data = await resp.text();
-        console.log(data);
     - lang: Python
       source: |
         import requests
@@ -4804,27 +4344,6 @@ paths:
               "pin": "belorado74",
               "rao_id": "1400"
             }'
-      - lang: Javascript
-        source: |
-          const resp = await fetch(
-            `https://one-shot.developers.uanataca.com/api/v1/videoid/45836/validate`,
-            {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify({
-                token: '6d1cae4d55be4cdf9cac50ee36f73406',
-                username: '5012345',
-                password: 'Gy6F37xK',
-                pin: 'belorado74',
-                rao_id: '1400'
-              })
-            }
-          );
-
-          const data = await resp.json();
-          console.log(data);
       - lang: Python
         source: |
           import requests
@@ -4999,28 +4518,6 @@ paths:
               "rao_id": "1400",
               "reason": "Expired document"
             }'
-      - lang: Javascript
-        source: |
-          const resp = await fetch(
-            `https://one-shot.developers.uanataca.com/api/v1/requests/45836/refuse`,
-            {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify({
-                token: '6d1cae4d55be4cdf9cac50ee36f73406',
-                username: '5012345',
-                password: 'Gy6F37xK',
-                pin: 'belorado74',
-                rao_id: '1400',
-                reason: 'Expired document'
-              })
-            }
-          );
-
-          const data = await resp.json();
-          console.log(data);
       - lang: Python
         source: |
           import requests
@@ -5197,27 +4694,6 @@ paths:
               "pin": "belorado74",
               "rao": "898"
             }'
-      - lang: Javascript
-        source: |
-          const resp = await fetch(
-            'https://one-shot.developers.uanataca.com/api/v1/request/45836/approve/',
-            {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify({
-                token: '6d1cae4d55be4cdf9cac50ee36f73406',
-                username: 'RAO_Name',
-                password: 'Gy6F89xK',
-                pin: 'belorado74',
-                rao: '898'
-              })
-            }
-          );
-
-          const data = await resp.json();
-          console.log(data);
       - lang: Python
         source: |
           import requests
@@ -5341,15 +4817,6 @@ paths:
         source: |
           curl -i -X GET \
             https://one-shot.developers.uanataca.com/api/v1/videoid/45836/download/video
-      - lang: Javascript
-        source: |
-          const resp = await fetch(
-            `https://one-shot.developers.uanataca.com/api/v1/videoid/45836/download/video`,
-            {method: 'GET'}
-          );
-
-          const data = await resp.text();
-          console.log(data);
       - lang: Python
         source: |
           import requests
