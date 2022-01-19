@@ -1743,7 +1743,7 @@ paths:
             -F pin=belorado74 \
             -F document_front=@sample_folder/img_front.png \
             -F document_rear=@sample_folder/img_rear.png \
-            -F document_owner=@sample_folder/img_selfie.png \
+            -F document_owner=@sample_folder/img_owner.png \
             -F env=test \
             -F billing_username=user@uanataca.com \
             -F billing_password=ejVxTnFrZkI= \
@@ -1766,7 +1766,7 @@ paths:
           formdata.append("pin", "belorado74");
           formdata.append("document_front", fileInput.files[0], "sample_folder/img_front.png");
           formdata.append("document_rear", fileInput.files[0], "sample_folder/img_rear.png");
-          formdata.append("document_selfie", fileInput.files[0], "sample_folder/img_selfie.png");
+          formdata.append("document_owner", fileInput.files[0], "sample_folder/img_owner.png");
           formdata.append("env", "test");
           formdata.append("billing_username", "user@uanataca.com");
           formdata.append("billing_password", "ejVxTnFrZkI=");
@@ -1808,7 +1808,7 @@ paths:
           files=[
             ('document_front',('file',open('sample_folder/img_front.png','rb'),'image/png')),
             ('document_rear',('file',open('sample_folder/img_rear.png','rb'),'image/png')),
-            ('document_owner',('file',open('sample_folder/img_selfie.png','rb'),'image/png'))
+            ('document_owner',('file',open('sample_folder/img_owner.png','rb'),'image/png'))
           ]
           headers = {
             'Content-Type': 'application/json'
@@ -1819,10 +1819,11 @@ paths:
           print(response.text)
       - lang: Node.js
         source: |
-          const fs = require('fs');
-          const FormData = require('form-data');
-          const fetch = require('node-fetch');
-          const formData = new FormData();
+          import fetch from "node-fetch";
+          import FormData from "form-data";
+          import fs from "fs";
+
+          var formData = new FormData();
 
           formData.append('given_name', 'John');
           formData.append('surname_1', 'Smith');
@@ -1840,19 +1841,17 @@ paths:
           formData.append('pin', 'belorado74');
           formData.append('document_front', fs.createReadStream('sample_folder/img_front.png'));
           formData.append('document_rear', fs.createReadStream('sample_folder/img_rear.png'));
-          formData.append('document_owner', fs.createReadStream('sample_folder/img_selfie.png'));
+          formData.append('document_owner', fs.createReadStream('sample_folder/img_owner.png'));
           formdata.append("env", "test");
           formdata.append("billing_username", "user@uanataca.com");
           formdata.append("billing_password", "ejVxTnFrZkI=");
 
-          const url = 'https://one-shot.developers.uanataca.com/api/v1/request';
+          var url = 'https://one-shot.developers.uanataca.com/api/v1/request';
 
-          const options = {
+          var options = {
             method: 'POST',
-            headers: {
-              Accept: 'text/plain',
-              'Content-Type': 'multipart/form-data; boundary=---011000010111000001101001'
-            }
+            body: formData,
+            redirect: 'follow'
           };
 
           options.body = formData;
@@ -1883,7 +1882,7 @@ paths:
           request.AddParameter("pin", "belorado74");
           request.AddFile("document_front", "sample_folder/img_front.png");
           request.AddFile("document_rear", "sample_folder/img_rear.png");
-          request.AddFile("document_owner", "sample_folder/img_selfie.png");
+          request.AddFile("document_owner", "sample_folder/img_owner.png");
           request.AddParameter("env", "test");
           request.AddParameter("billing_username", "user@uanataca.com");
           request.AddParameter("billing_password", "ejVxTnFrZkI=");
@@ -2573,6 +2572,7 @@ paths:
           print(response.text)
       - lang: Node.js
         source: |
+
           const fs = require('fs');
           const FormData = require('form-data');
           const fetch = require('node-fetch');
@@ -3678,21 +3678,20 @@ paths:
           print(response.text)
       - lang: Node.js
         source: |
-          const fs = require('fs');
-          const FormData = require('form-data');
-          const fetch = require('node-fetch');
-          const formData = new FormData();
+          import fetch from "node-fetch";
+          import FormData from "form-data";
+          import fs from "fs";
+
+          var formData = new FormData();
 
           formData.append('file', fs.createReadStream('sample_folder/document.pdf'));
 
-          const url = 'https://one-shot.developers.uanataca.com/api/v1/document/29571';
+          var url = 'https://one-shot.developers.uanataca.com/api/v1/document/29571';
 
-          const options = {
+          var options = {
             method: 'POST',
-            headers: {
-              Accept: 'text/plain',
-              'Content-Type': 'multipart/form-data; boundary=---011000010111000001101001'
-            }
+            body: formData,
+            redirect: 'follow'
           };
 
           options.body = formData;
@@ -4268,21 +4267,20 @@ paths:
           print(response.text)
       - lang: Node.js
         source: |
-          const fs = require('fs');
-          const FormData = require('form-data');
-          const fetch = require('node-fetch');
-          const formData = new FormData();
+          import fetch from "node-fetch";
+          import FormData from "form-data";
+          import fs from "fs";
+
+          var formData = new FormData();
 
           formData.append('image', fs.createReadStream('sample_folder/document.pdf'));
 
-          const url = 'https://one-shot.developers.uanataca.com/api/v1/images';
+          var url = 'https://one-shot.developers.uanataca.com/api/v1/images';
 
-          const options = {
+          var options = {
             method: 'POST',
-            headers: {
-              Accept: 'text/plain',
-              'Content-Type': 'multipart/form-data; boundary=---011000010111000001101001'
-            }
+            body: formData,
+            redirect: 'follow'
           };
 
           options.body = formData;
