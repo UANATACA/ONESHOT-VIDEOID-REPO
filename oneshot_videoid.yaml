@@ -3909,32 +3909,32 @@ paths:
             .then(res => res.json())
             .then(json => console.log(json))
             .catch(err => console.error('error:' + err));
-        - lang: 'C#'
-          source: |
-                  using System;
-                  using System.Threading.Tasks;
-                  using RestSharp;
+      - lang: 'C#'
+        source: |
+                using System;
+                using System.Threading.Tasks;
+                using RestSharp;
 
-                  public class Program
-                  {
-                    public static Task Main(string[] args)
-                      {
-                          var client = new RestClient("https://one-shot.developers.uanataca.com/api/v1/images");
-                          client.Timeout = -1;
+                public class Program
+                {
+                  public static Task Main(string[] args)
+                    {
+                        var client = new RestClient("https://one-shot.developers.uanataca.com/api/v1/images");
+                        client.Timeout = -1;
 
-                          string imgPath = "./path_to_img/image.png"; // path to image
+                        string imgPath = "./path_to_img/image.png"; // path to image
 
-                          var request = new RestRequest(Method.POST);
-                          request.AlwaysMultipartFormData = true;
-                          request.AddHeader("content-type", "multipart/form-data");
-                          request.AddFile("image", imgPath, "image/png");
+                        var request = new RestRequest(Method.POST);
+                        request.AlwaysMultipartFormData = true;
+                        request.AddHeader("content-type", "multipart/form-data");
+                        request.AddFile("image", imgPath, "image/png");
 
-                          IRestResponse response = client.Execute(request);
+                        IRestResponse response = client.Execute(request);
 
-                          Console.WriteLine(response.Content);
-                          return Task.CompletedTask;
-                      }
-                  }
+                        Console.WriteLine(response.Content);
+                        return Task.CompletedTask;
+                    }
+                }
   /api/v1/image/{uid}:
     get:
       tags:
