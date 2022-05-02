@@ -363,7 +363,7 @@ This workflow defines the complete process of issuing eIDAS certificates.
 
 </br>
 
-![img](https://raw.githubusercontent.com/UANATACA/ONESHOT-VIDEOID-REPO/raw/main/img/oneshot_1step.png)
+![img](https://raw.githubusercontent.com/UANATACA/ONESHOT-VIDEOID-REPO/main/img/oneshot_1step.png)
 
 </br>
 
@@ -619,7 +619,7 @@ In External mode Video ID, digital evidences are uploaded to an independent Vide
 
 </br>
 
-![img](https://raw.githubusercontent.com/UANATACA/ONESHOT-VIDEOID-REPO/raw/main/img/oneshot_ext.png)
+![img](https://raw.githubusercontent.com/UANATACA/ONESHOT-VIDEOID-REPO/main/img/oneshot_ext.png)
 
 </br>
 
