@@ -363,7 +363,7 @@ This workflow defines the complete process of issuing eIDAS certificates.
 
 </br>
 
-![img](https://raw.githubusercontent.com/UANATACA/ONESHOT-VIDEOID-REPO/img/oneshot_1step.png)
+![img](https://raw.githubusercontent.com/UANATACA/ONESHOT-VIDEOID-REPO/raw/main/img/oneshot_1step.png)
 
 </br>
 
@@ -619,7 +619,7 @@ In External mode Video ID, digital evidences are uploaded to an independent Vide
 
 </br>
 
-![img](https://raw.githubusercontent.com/UANATACA/ONESHOT-VIDEOID-REPO/img/oneshot_ext.png)
+![img](https://raw.githubusercontent.com/UANATACA/ONESHOT-VIDEOID-REPO/raw/main/img/oneshot_ext.png)
 
 </br>
 
@@ -1011,7 +1011,7 @@ See the configuration description in:<br>
 
 This configuration requires a server with a Linux CentOS operating system.
 
-<a href="#section/Video-tutorials/Docker-Optimizer-Configuration"><img src="https://raw.githubusercontent.com/UANATACA/ONESHOT-VIDEOID-REPO/img/img4.png"></a><a href="#section/Video-tutorials/Docker-Optimizer-Configuration"><b>&nbsp;Watch on video!</b></a>
+<a href="#section/Video-tutorials/Docker-Optimizer-Configuration"><img src="https://raw.githubusercontent.com/UANATACA/ONESHOT-VIDEOID-REPO/main/img/img4.png"></a><a href="#section/Video-tutorials/Docker-Optimizer-Configuration"><b>&nbsp;Watch on video!</b></a>
 
 
 > STEP 1: Install Docker and Docker-Compose.
