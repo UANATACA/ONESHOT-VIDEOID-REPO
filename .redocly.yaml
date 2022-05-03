@@ -94,7 +94,7 @@ referenceDocs:
       width: '40%'
       textColor: '#FFFFFF'
     codeSample:
-      backgroundColor: '#242424'
+      backgroundColor: '#62829c'
       borderRadius: '10px'         
     logo:
       gutter: '0px'
