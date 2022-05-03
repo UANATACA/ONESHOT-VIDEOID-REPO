@@ -4788,7 +4788,7 @@ components:
         options:
           type: object
           properties:
-            position:
+            document:
               type: string
               description: The coordinates in points (pt) for signature image position
                 and size, starting from bottom left corner (x1,y1,x2,y2).<br> 1px
