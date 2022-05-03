@@ -4790,9 +4790,8 @@ components:
           properties:
             document:
               type: string
-              description: The coordinates in points (pt) for signature image position
-                and size, starting from bottom left corner (x1,y1,x2,y2).<br> 1px
-                = 0.75pt
+              description: The previously uploaded document id. In
+                case of multiple documents, a properties block would be required for each document desired
             position:
               type: string
               description: The coordinates in points (pt) for signature image position
