@@ -4788,6 +4788,10 @@ components:
         options:
           type: object
           properties:
+            document:
+              type: string
+              description: The previously uploaded document uuid. In case of multiple documents,
+              a properties object would be required for each document desired.
             position:
               type: string
               description: The coordinates in points (pt) for signature image position
