@@ -73,8 +73,8 @@ referenceDocs:
         fontSize: '12px'
         fontFamily: 'Courier, monospace'
         fontWeight: 400
-        color: '#E20D1B'
-        backgroundColor: '#DFDFDF'
+        color: '#62829c'
+        backgroundColor: '#62829c'
     menu:
       width: '260px'
       backgroundColor: '#F8F8F8'
