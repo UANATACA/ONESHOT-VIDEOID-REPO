@@ -89,7 +89,7 @@ referenceDocs:
       showDarkRightPanel: true        
     rightPanel:
       backgroundColor: '#585856'
-      panelBackgroundColor: '#000000'
+      panelBackgroundColor: '#49495e'
       panelControlsBackgroundColor: '#495675'
       width: '40%'
       textColor: '#FFFFFF'
