@@ -4772,7 +4772,8 @@ components:
             method, a customer code is provided.
         use_signature_text:
           type: boolean
-          description: 'This parameter disables the signature image text (Default: true)'
+          description: 'This parameter disables the signature image text'
+          default: true
         metadata:
           type: string
           description: The metadata unique id code obtained from <a href='#tag/Metadata/paths/~1api~1v1~1metadata/post'>
