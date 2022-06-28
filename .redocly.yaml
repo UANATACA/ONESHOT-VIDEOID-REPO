@@ -2,7 +2,6 @@ apiDefinitions:
   main: oneshot_videoid.yaml
 referenceDocs:
   hideDownloadButton: true
-  showConsole: true
   scrollYOffset: main-header # Esto baja el panel verical izquierdo justo debajo del header
   generateCodeSamples:
     languages:
@@ -11,7 +10,7 @@ referenceDocs:
       - lang: "Node.js"
       - lang: "C#"
       - lang: "Java"
-  hideRequestPayloadSample: true
+  hideRequestPayloadSample: false
   theme:
     spacing:
       sectionHorizontal: 80
