@@ -11,6 +11,7 @@ referenceDocs:
       - lang: "C#"
       - lang: "Java"
   hideRequestPayloadSample: false
+  hideTryItPanel: true
   theme:
     spacing:
       sectionHorizontal: 80
