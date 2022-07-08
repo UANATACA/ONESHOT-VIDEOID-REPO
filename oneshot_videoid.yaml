@@ -3275,8 +3275,7 @@ paths:
       - Documents
       summary: UPLOAD DOCUMENT
       description: Uploads a pdf document to be signed. The document is associated
-        to a signature request.
-        In case of hash signature instead of 'file' parameter, 'hashfile' needs to be used to upload a json file which contains a specific structure.
+        to a signature request.</br>In case of hash signature instead of 'file' parameter, 'hashfile' needs to be used to upload a json file which contains a specific structure.
       parameters:
       - name: pk
         in: path
