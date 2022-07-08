@@ -3276,6 +3276,7 @@ paths:
       summary: UPLOAD DOCUMENT
       description: Uploads a pdf document to be signed. The document is associated
         to a signature request.
+        In case of hash signature instead of 'file' parameter, 'hashfile' needs to be used to upload a json file which contains a specific structure.
       parameters:
       - name: pk
         in: path
@@ -3295,6 +3296,12 @@ paths:
                   items:
                     type: string
                     format: binary
+                hashfile:
+                  description: Local path of the json file containing a hash in base64 plus all the information required
+                  type: array
+                  items: 
+                    type: string
+                    format: binarty
         required: true
       responses:
         200:
@@ -3320,6 +3327,10 @@ paths:
             https://one-shot.developers.uanataca.com/api/v1/document/29571 \
             -H 'Content-Type: multipart/form-data' \
             -F file=@sample_folder/document.pdf
+          curl -i -X POST \
+            https://one-shot.developers.uanataca.com/api/v1/document/29571 \
+            -H 'Content-Type: multipart/form-data' \
+            -F hashfile=@sample_folder/hash.json
       - lang: Python
         source: |
           import requests
@@ -3393,7 +3404,7 @@ paths:
       tags:
       - Documents
       summary: RETRIEVE DOCUMENT
-      description: Retrieves the specified original or signed document.
+      description: Retrieves the specified original or signed document. In case of raw hash signature, the result obtained would be a p7m structure.
       parameters:
       - name: pk
         in: path
@@ -3433,7 +3444,7 @@ paths:
                 \ R] >>\n endobj\n\n\n3 0 obj\n <</Type/Page/Parent 2 0 R/Resources<</Font<</F1\
                 \ 5 0 R>>/ExtGState<</GS7 7 0 R/GS8 8 0 R>>/ProcSet[/PDF/Text/ImageB/ImageC/ImageI]\
                 \ >>/MediaBox[ 0 0 595.32 841.92] /Contents 4 0 R/Group<</Type/Group/S/Transparency/CS/DeviceRGB>>/Tabs/S/StructParents\
-                \ 0>>\n endobj\n (...)\n "
+                \ 0>>\n endobj\n (...)\n " 
       x-codeSamples:
       - lang: curl
         source: |
