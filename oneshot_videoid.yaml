@@ -3296,7 +3296,7 @@ paths:
                     type: string
                     format: binary
                 hashfile:
-                  description: Local path to the json file containing a base64 hash along with all the required information
+                  description: Local path to the JSON file containing a base64 hash along with all the required information
                   type: array
                   items: 
                     type: string
