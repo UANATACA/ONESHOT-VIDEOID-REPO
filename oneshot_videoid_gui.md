@@ -73,7 +73,20 @@ Want to configure your own test-mode Optimizer? Find instructions in the <a href
 <div style="text-align: justify">
 In a common One-Shot Signature service, an OTP (One-Time Password) code is sent via SMS to the end user, directly from Uanataca services. The OTP verification method is used to trigger the issuance of the single-use digital signature certificate, which is inmediately used to sign the request associated documents e.g. the service contract.
 <br></br>
-One-Shot Signature can use other external authentication methods instead of Uanataca SMS. This alternative methods are subjected to approval.
+It is possible to perform a raw hash signature to obtain a PKCS#7 signed data structure with a few slightly changes on the <a href="#tag/Documents/paths/~1api~1v1~1document~1{pk}/post">Upload Document</a> call.</br> 
+One of the mentioned changes is that a JSON file needs to be uploaded with the following structure instead of a regular PDF file:
+
+	{
+    	"messageDigest": "MC8GyT4JVGFu1SuUGBbkP7Rp8g==",
+    	"digestAlgorithm": "sha256",
+    	"addAuthAttribute": 1,
+    	"addSigningTime": 1,
+    	"otherAuthAttributes": []
+	}
+
+When executing <a href="#tag/Documents/paths/~1api~1v1~1document~1{pk}~1{type}~1{uid}/get">Retrieve Document</a> call at the end of the flow, a .p7m file can be obtained ready to be used in a further envelope.
+<br></br>
+Also, One-Shot Signature can use other external authentication methods instead of Uanataca SMS. This alternative methods are subjected to approval.
 <br></br>
 The following images summarize One-Shot Signature flow involving both authentication methods:
 </div>

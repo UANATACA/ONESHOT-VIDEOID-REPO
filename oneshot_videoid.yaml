@@ -3275,7 +3275,7 @@ paths:
       - Documents
       summary: UPLOAD DOCUMENT
       description: Uploads a pdf document to be signed. The document is associated
-        to a signature request.</br>In case of hash signature instead of 'file' parameter, 'hashfile' needs to be used to upload a json file which contains a specific structure.
+        to a signature request.</br>In case of raw hash signature instead of 'file', 'hashfile' needs to be used to upload a <a href="#section/Classic-Workflow">json file</a> containing a specific structure.
       parameters:
       - name: pk
         in: path
@@ -3290,17 +3290,17 @@ paths:
               type: object
               properties:
                 file:
-                  description: Local path of the pdf file to be signed
+                  description: Local path to the pdf file to be signed
                   type: array
                   items:
                     type: string
                     format: binary
                 hashfile:
-                  description: Local path of the json file containing a hash in base64 plus all the information required
+                  description: Local path to the json file containing a base64 hash along with all the required information
                   type: array
                   items: 
                     type: string
-                    format: binarty
+                    format: binary
         required: true
       responses:
         200:
@@ -3326,6 +3326,8 @@ paths:
             https://one-shot.developers.uanataca.com/api/v1/document/29571 \
             -H 'Content-Type: multipart/form-data' \
             -F file=@sample_folder/document.pdf
+
+
           curl -i -X POST \
             https://one-shot.developers.uanataca.com/api/v1/document/29571 \
             -H 'Content-Type: multipart/form-data' \
