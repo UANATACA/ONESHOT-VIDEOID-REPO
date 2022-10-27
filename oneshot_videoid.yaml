@@ -313,6 +313,7 @@ paths:
       tags:
       - Settings
       summary: UPDATE SETTINGS
+      security: []
       description: Updates configuration parameters present in <a href="#section/Configuration/Service-settings">settings.ini</a>
         file.
       requestBody:
@@ -701,6 +702,7 @@ paths:
       tags:
       - Metadata
       summary: DELETE ALL METADATA
+      security: []
       description: Deletes all metadata objects available.
       responses:
         200:
@@ -851,6 +853,7 @@ paths:
       tags:
       - Metadata
       summary: DELETE METADATA
+      security: []
       description: Deletes the metadata associated to an specific id.
       parameters:
       - name: metadata_uid
