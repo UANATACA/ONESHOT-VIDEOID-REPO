@@ -3,7 +3,7 @@ info:
   title: UANATACA ONE-SHOT SIGNATURE API DOCUMENTATION
   description: 
     $ref: ./oneshot_videoid_gui.md
-  version: v1
+  version: 1.0.0
   x-logo:
     url: https://raw.githubusercontent.com/UANATACA/ONESHOT-VIDEOID-REPO/main/img/oneshot_logo.png
     altText: Oneshot logo
