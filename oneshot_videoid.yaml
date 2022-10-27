@@ -7,6 +7,8 @@ info:
   x-logo:
     url: https://raw.githubusercontent.com/UANATACA/ONESHOT-VIDEOID-REPO/main/img/oneshot_logo.png
     altText: Oneshot logo
+rules:
+  security-defined: error
 servers:
 - url: https://one-shot.developers.uanataca.com
 tags:
