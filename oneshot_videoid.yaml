@@ -1,4 +1,6 @@
 openapi: 3.0.1
+rules:
+  security-defined: off
 info:
   title: UANATACA ONE-SHOT SIGNATURE API DOCUMENTATION
   description: 
