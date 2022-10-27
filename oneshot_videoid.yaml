@@ -2935,7 +2935,8 @@ paths:
       summary: GENERATE OTP
       description: Generates a One-Time Password (OTP) code for the user. The OTP
         is sent directly to the user's mobile phone as an SMS message.</br> <html><blockquote
-        style='background-color:#faf3ac; border-color:#DFDFDF; color:#3b3b3b;'></blockquote></html>
+        style='background-color:#faf3ac; border-color:#DFDFDF; color:#3b3b3b;'><b>⚠This
+        method is only required and available for requests using Uanataca SMS method</b></blockquote></html>
       parameters:
       - name: pk
         in: path
