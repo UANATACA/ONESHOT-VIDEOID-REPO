@@ -1,6 +1,4 @@
 openapi: 3.0.1
-rules:
-  security-defined: off
 info:
   title: UANATACA ONE-SHOT SIGNATURE API DOCUMENTATION
   description: 
@@ -223,6 +221,7 @@ paths:
       tags:
       - Settings
       summary: HELLO
+      security: []
       description: Checks if server is UP.
       responses:
         200:
@@ -246,6 +245,7 @@ paths:
       tags:
       - Settings
       summary: GET SETTINGS
+      security: []
       description: Retrieves the content of the settings.ini file.
       responses:
         200:
@@ -473,6 +473,7 @@ paths:
       tags:
       - Settings
       summary: VERSION
+      security: []
       description: Retrieves the current Optimizer version.
       responses:
         200:
@@ -534,6 +535,7 @@ paths:
       tags:
       - Metadata
       summary: LIST METADATA
+      security: []
       description: Lists all metadata objects available.
       responses:
         200:
@@ -580,6 +582,7 @@ paths:
       tags:
       - Metadata
       summary: UPLOAD METADATA
+      security: []
       description: Uploads all metadata information previously converted into Base64
         format.
       requestBody:
@@ -721,6 +724,7 @@ paths:
       tags:
       - Metadata
       summary: GET METADATA
+      security: []
       description: Retrieves the metadata associated to an specific id.
       parameters:
       - name: metadata_uid
@@ -938,6 +942,7 @@ paths:
       tags:
       - Tokens
       summary: CREATE TOKEN
+      security: []
       description: Creates a new token that contains the Registration Authority Officer
         (RAO) credentials.
       requestBody:
@@ -1082,6 +1087,7 @@ paths:
       tags:
       - Tokens
       summary: GET TOKEN
+      security: []
       description: Retrieves the token associated credentials with the given unique identifier.<br> The response gets a `true` or `false` value regarding if password and PIN parameters are associated to the token.
       parameters:
       - name: uid
@@ -1185,6 +1191,7 @@ paths:
       tags:
       - Tokens
       summary: DELETE TOKEN
+      security: []
       description: Deletes the token with the specified unique identifier.
       parameters:
       - name: uid
@@ -1276,6 +1283,7 @@ paths:
       tags:
       - Tokens
       summary: LIST TOKENS
+      security: []
       description: Returns a list of all tokens available and their associated data.
       responses:
         200:
@@ -1366,6 +1374,7 @@ paths:
       tags:
       - Requests
       summary: CREATE REQUEST
+      security: []
       description: Creates a new digital signature request for the user identified.
       requestBody:
         content:
@@ -1760,6 +1769,7 @@ paths:
       tags:
       - Video ID
       summary: CREATE VIDEO ID REQUEST
+      security: []
       description: Creates a new signature request to be used over Video ID validation
         process.
       requestBody:
@@ -1969,6 +1979,7 @@ paths:
       tags:
       - Video ID
       summary: UPLOAD DATA EVIDENCES
+      security: []
       description: Upload Request associated data
       parameters:
       - name: request_pk
@@ -2268,6 +2279,7 @@ paths:
       tags:
       - Video ID
       summary: UPLOAD VIDEO
+      security: []
       description: Upload Request associated video
       parameters:
       - name: request_pk
@@ -2400,6 +2412,7 @@ paths:
       tags:
       - Requests
       summary: GET REQUEST
+      security: []
       description: Retrieve request information with the id obtained in the **CREATE
         REQUEST** response.
       parameters:
@@ -2530,6 +2543,7 @@ paths:
       tags:
       - Video ID
       summary: UPDATE REQUEST
+      security: []
       description: Updates a Video ID signature request.
       parameters:
       - name: request_pk
@@ -2754,6 +2768,7 @@ paths:
       tags:
       - Video ID
       summary: CANCEL REQUEST
+      security: []
       description: Cancels the Video ID One-Shot Signature request
       parameters:
       - name: request_pk
@@ -2840,6 +2855,7 @@ paths:
       tags:
       - Requests
       summary: GET REQUEST ASYNCHRONOUS
+      security: []
       description: Shows the status of a Request executed under asynchronous mode.
       parameters:
       - name: pk
@@ -2935,6 +2951,7 @@ paths:
       tags:
       - Requests
       summary: GENERATE OTP
+      security: []
       description: Generates a One-Time Password (OTP) code for the user. The OTP
         is sent directly to the user's mobile phone as an SMS message.</br>
       parameters:
@@ -3011,6 +3028,7 @@ paths:
       tags:
       - Requests
       summary: SIGN
+      security: []
       description: Signs all documents associated to a request using a single-use
         certificate generated for the signature request.
       parameters:
@@ -3143,6 +3161,7 @@ paths:
       tags:
       - Requests
       summary: ASYNCHRONOUS SIGN 
+      security: []
       description: (Asynchronous mode) Signs all documents associated to a request using a single-use
         certificate generated for the signature request. 
       parameters:
@@ -3274,6 +3293,7 @@ paths:
       tags:
       - Documents
       summary: UPLOAD DOCUMENT
+      security: []
       description: Uploads a pdf document to be signed. The document is associated
         to a signature request.</br>In case of raw hash signature instead of 'file', 'hashfile' needs to be used to upload a <a href="#section/Classic-Workflow">JSON file</a> containing a specific structure.
       parameters:
@@ -3405,6 +3425,7 @@ paths:
       tags:
       - Documents
       summary: RETRIEVE DOCUMENT
+      security: []
       description: Retrieves the specified original or signed document. In case of raw hash signature, the result obtained would be a p7m structure.
       parameters:
       - name: pk
@@ -3495,6 +3516,7 @@ paths:
       tags:
       - Documents
       summary: DELETE DOCUMENT
+      security: []
       description: Deletes the specified original or signed document.
       parameters:
       - name: pk
@@ -3588,6 +3610,7 @@ paths:
       tags:
       - Documents
       summary: LIST DOCUMENTS
+      security: []
       description: Lists all documents associated to a specific request.
       parameters:
       - name: pk
@@ -3694,6 +3717,7 @@ paths:
       tags:
       - Documents
       summary: DELETE ALL DOCUMENTS
+      security: []
       description: Deletes all documents associated to a specific request.
       parameters:
       - name: pk
@@ -3769,6 +3793,7 @@ paths:
       tags:
       - Documents
       summary: RETRIEVE CONTRACT
+      security: []
       description: Retrieve the service contract regarding the user's digital certificate
         issuing.
       parameters:
@@ -3840,6 +3865,7 @@ paths:
       tags:
       - Images
       summary: UPLOAD IMAGE
+      security: []
       description: Uploads an image for using in a visual graphic signature.
       requestBody:
         content:
@@ -3949,6 +3975,7 @@ paths:
       tags:
       - Images
       summary: RETRIEVE IMAGE
+      security: []
       description: Retrieves a previously uploaded image.
       parameters:
       - name: uid
@@ -4012,6 +4039,7 @@ paths:
       tags:
       - Images
       summary: DELETE IMAGE
+      security: []
       description: Deletes a previously uploaded image.
       parameters:
       - name: uid
@@ -4087,6 +4115,7 @@ paths:
       tags:
       - Images
       summary: LIST IMAGES
+      security: []
       description: Lists all uploaded images.
       responses:
         200:
@@ -4145,6 +4174,7 @@ paths:
       tags:
       - Images
       summary: DELETE ALL IMAGES
+      security: []
       description: Deletes all uploaded images.
       responses:
         200:
@@ -4258,6 +4288,7 @@ paths:
       tags:
       - Video ID
       summary: REFUSE REQUEST
+      security: []
       description: Refuse validation for a Video ID Request
       parameters:
       - name: request_pk
@@ -4435,6 +4466,7 @@ paths:
       tags:
       - Video ID
       summary: APPROVE REQUEST
+      security: []
       description: Approval of a request by a RAO. At this moment the RAO will sign
         the receipt and the contract.
       parameters:
@@ -4620,6 +4652,7 @@ paths:
       tags:
       - Video ID
       summary: DOWNLOAD VIDEO
+      security: []
       description: Download the video file associated to a Request
       parameters:
       - name: request_pk
