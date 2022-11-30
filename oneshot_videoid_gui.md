@@ -439,7 +439,7 @@ This call should return the following JSON object:
 		}
 	}
 
-This output tells us that a single token "6d1cae4d55be4cdf9cac50ee36f73406" exists. This token is associated to the RAO account with id "9001800" and can be used instead of the password and pin.
+This output tells us that a single token "fd6a21e6fb7d43b9893a520d67d6ff60" exists. This token is associated to the RAO account with id "1125824" and can be used instead of the password and pin.
 
 To use tokens in a production environment, you will need to create them first using the corresponding <a href="#tag/Tokens/paths/~1api~1v1~1token/post">Create token</a> API call.
 
@@ -1737,41 +1737,41 @@ There are some shared values between the API call and this file, and some regard
 
 The following is a view of the settings.ini file: 
 
-	1 |	[general]
-	2 |	environment = sandbox
-	3 | usepdfclean = false
-	4 |	configuration = default
-	5 |	rootstore = uanataca
+	1 |[general]
+	2 |environment = sandbox
+	3 |usepdfclean = false
+	4 |configuration = default
+	5 |rootstore = uanataca
 	6 |
-	7 |	[tsa]
-	8 |	tsa_url = https://tsa.uanataca.com/tsa/tss03
+	7 |[tsa]
+	8 |tsa_url = https://tsa.uanataca.com/tsa/tss03
 	9 |
-	10|	[billing]
-	11|	billing_username = user@uanataca.com
-	12|	billing_password = ejVxTnFrZkaI=
+	10|[billing]
+	11|billing_username = user@uanataca.com
+	12|billing_password = ejVxTnFrZkaI=
 	13|
-	14|	[request]
-	15|	default_profile = PFnubeQAFCiudadano
-	16|	default_ra = 1000
+	14|[request]
+	15|default_profile = PFnubeQAFCiudadano
+	16|default_ra = 1000
 	17|
-	18| [proxy]
-	19| useproxy = false
-	20| proxy_host = 192.168.1.34
-	21| proxy_port = 8888
-	22| proxy_protocol = http
-	23| proxy_username = user
-	24| proxy_password = password
-	25| useproxycredentials = true
+	18|[proxy]
+	19|useproxy = false
+	20|proxy_host = 192.168.1.34
+	21|proxy_port = 8888
+	22|proxy_protocol = http
+	23|proxy_username = user
+	24|proxy_password = password
+	25|useproxycredentials = true
 
-`environment`: Work environment of the optimizer, taken as default if not send through API
-`usepdfclean`: Enables sanitization of loaded documents. If the document contains multiple signatures this process would remove the previous signatures that the document has as they got treaten like an external structure to PDF standard
-`configuration`: Configuration preset, only for determinated use-cases
-`rootstore`: Chains of trust that the optimizer will work with, the value can be set with the customer name, only for determinated use-cases
-`tsa_url`: Timestamping to apply on signatures
-`billing_username`: Billing username of the desired environment
-`billing_password`: Billing password codified in base64
-`default_profile`: Certificate profile to issue, taken as default if not sent through API
-`default_ra`: Registration Authority in which to issue, taken as default if not send through API
+`environment`: Work environment of the optimizer, taken as default if not send through API <br/>
+`usepdfclean`: Enables sanitization of loaded documents. If the document contains multiple signatures this process would remove the previous signatures that the document has as they got treaten like an external structure to PDF standard<br/>
+`configuration`: Configuration preset, only for determinated use-cases<br/>
+`rootstore`: Chains of trust that the optimizer will work with, the value can be set with the customer name, only for determinated use-cases<br/>
+`tsa_url`: Timestamping to apply on signatures<br/>
+`billing_username`: Billing username of the desired environment<br/>
+`billing_password`: Billing password codified in base64<br/>
+`default_profile`: Certificate profile to issue, taken as default if not sent through API<br/>
+`default_ra`: Registration Authority in which to issue, taken as default if not send through API<br/>
 
 The file `settings.ini` contains default parameters that can also be adjusted via API using the <a href='#tag/Settings/paths/~1api~1v1~1settings/post'>Update Settings</a> call.
 
