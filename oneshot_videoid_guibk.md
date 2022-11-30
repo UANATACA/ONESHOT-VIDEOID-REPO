@@ -45,8 +45,8 @@ List Tokens call output:
 	{
 		"status": "200 OK",
 		"details": {
-			"fd6a21e6fb7d43b9893a520d67d6ff60": {
-				"username": "1125824",
+			"6d1cae4d55be4cdf9cac50ee36f73406": {
+				"username": "9001800",
 				"password": true,
 				"pin": true,
 				"NOTE": "On this demo environment, this method will only return the demo token"
@@ -58,7 +58,7 @@ List Tokens call output:
 
 When using our test-mode Optimizer, you must consider:
 
-1) Billing credentials are required. </br>
+1) No Billing credentials are required. </br>
 2) The Registration Authority id number will be explicitly assigned by our staff. </br>
 3) The token ´6d1cae4d55be4cdf9cac50ee36f73406´ is valid for using in <a href="#tag/Requests/paths/~1api~1v1~1request/post">Create Request</a> call. Cannot be deleted. </br>
 
@@ -73,7 +73,20 @@ Want to configure your own test-mode Optimizer? Find instructions in the <a href
 <div style="text-align: justify">
 In a common One-Shot Signature service, an OTP (One-Time Password) code is sent via SMS to the end user, directly from Uanataca services. The OTP verification method is used to trigger the issuance of the single-use digital signature certificate, which is inmediately used to sign the request associated documents e.g. the service contract.
 <br></br>
-One-Shot Signature can use other external authentication methods instead of Uanataca SMS. This alternative methods are subjected to approval.
+It is possible to perform a raw hash signature to obtain a PKCS#7 signed data structure with a few slightly changes on the <a href="#tag/Documents/paths/~1api~1v1~1document~1{pk}/post">Upload Document</a> call.</br> 
+One of the mentioned changes is that a JSON file needs to be uploaded with the following structure instead of a regular PDF file:
+
+	{
+    	"messageDigest": "MC8GyT4JVGFu1SuUGBbkP7Rp8g==",
+    	"digestAlgorithm": "sha256",
+    	"addAuthAttribute": 1,
+    	"addSigningTime": 1,
+    	"otherAuthAttributes": []
+	}
+
+When executing <a href="#tag/Documents/paths/~1api~1v1~1document~1{pk}~1{type}~1{uid}/get">Retrieve Document</a> call at the end of the flow, a .p7m file can be obtained ready to be used in a further envelope.
+<br></br>
+Also, One-Shot Signature can use other external authentication methods instead of Uanataca SMS. This alternative methods are subjected to approval.
 <br></br>
 The following images summarize One-Shot Signature flow involving both authentication methods:
 </div>
@@ -165,525 +178,8 @@ This call should return the following JSON object:
 	{
 		"status": "200 OK",
 		"details": {
-			"fd6a21e6fb7d43b9893a520d67d6ff60": {
-				"username": "1125824",
-				"password": true,
-				"pin": true
-			}
-		}
-	}
-
-This output tells us that a single token "6d1cae4d55be4cdf9cac50ee36f73406" exists. This token is associated to the RAO account with id "9001800" and can be used instead of the password and pin.
-
-To use tokens in a production environment, you will need to create them first using the corresponding <a href="#tag/Tokens/paths/~1api~1v1~1token/post">Create token</a> API call.
-
-
-</br>
-
-> **STEP 2: CREATE A NEW DIGITAL SIGNATURE REQUEST**
-
-</br>
-
-**API Reference:** <a href="#tag/Requests/paths/~1api~1v1~1request/post">Create Request</a>
-
-In One-Shot Signature Service, all data corresponding to a given digital signature is collected within a Digital Signature Request. This includes both the identifying information of the signing user -provided when you create the signature request- and the document or documents to be signed, to be uploaded in an upcoming step.
-
-This call must include enough information to identify both the signing user and the RAO approving the request. The full description of the arguments accepted by this endpoint can be found in the API call detailed documentation, but for now it is enough to include at least the following:
-
-	curl --location --request POST 'https://one-shot.developers.uanataca.com/api/v1/request' \
-		 --form 'token=fd6a21e6fb7d43b9893a520d67d6ff60' \
-		 --form 'profile=PFnubeQAFCiudadano' \
-		 --form 'given_name=name_of_the_user' \
-		 --form 'surname_1=surname_of_the_user' \
-		 --form 'email=user-example@domain.com' \
-		 --form 'mobile_phone_number=+343391234567' \
-		 --form 'document_front=@document_front.png' \
-		 --form 'document_rear=@document_rear.png' \
-		 --form 'document_owner=@document_owner.png'
-
-where "token" is the token representing the RAO's credentials obtained in the previous step.
-
-If the signature request is completed successfully, we will get the unique identifier assigned to it:
-
-	{
-		"status": "201 Created",
-		"details": 1464
-	}
-
-The code shown above will be used to identify the created signature request in subsequent calls.
-
-
-</br>
-
-> **STEP 3: UPLOAD A DOCUMENT**
-
-</br>
-
-**API Reference:** <a href="#tag/Documents/paths/~1api~1v1~1document~1{pk}/post">Upload Document</a>
-
-
-After creating the the signature request, we can associate all pdf documents that must be signed by the user.
-
-	curl -F "file=@doc.pdf" -X POST https://one-shot.developers.uanataca.com/api/v1/document/1464
-
-	#For multiple documents
-	curl -F "file=@doc.pdf" -X POST https://one-shot.developers.uanataca.com/api/v1/document/1464 \
-		 -F "file2=@doc.pdf" -X POST https://one-shot.developers.uanataca.com/api/v1/document/1464 \
-
-
-Note that the number at the end of the call is the request id we obtained in the previous step.
-
-If the upload is successful, the response will contain the identifier assigned to each document:
-
-	{
-		"status": "200 OK",
-		"details": "712c29ac-a2dc-4530-8c67-d0f227d8294b"
-	}
-
-	#Multiple documents response
-	{
-	"status": "200 OK",
-	"details": [
-	{
-	"digest": "8cb5502501c9e5c9fb6869670fd83ad4f7df948f01826a41e6e5649fa0d8b3ad",
-	"uid": "ec27331a-a78a-4461-b897-8e2ca158cef7",
-	"key": "file2",
-	"filename": "doc.pdf"
-	},
-	{
-	"digest": "8cb5502501c9e5c9fb6869670fd83ad4f7df948f01826a41e6e5649fa0d8b3ad",
-	"uid": "7c0acde7-2f56-49b3-a129-a00d910912ef",
-	"key": "file",
-	"filename": "doc.pdf"
-			}
-		]
-	}
-
-</br>
-
-> **STEP 4: RETRIEVE SERVICE CONTRACT**
-
-</br>
-
-**API Reference:** <a href="#tag/Documents/paths/~1api~1v1~1document~1{pk}~1contract/get">Retrieve Contract</a>
-
-As a Trusted Service Provider, Uanataca must inform certificate requesters about terms and conditions ruling the issuance of certificates. 
-
-A service contract is generated for each digital certificate issue. The user must view the request-associated service contract to be signed in the same step as the documents, using the one-time certificate just issued.
-
-	curl -X GET https://one-shot.developers.uanataca.com/api/v1/document/1464/contract
-
-The response by the server will be the service contract document file in binary format:
-
-	%PDF
-	...
-
-</br>
-
-> **STEP 5: GENERATE AN OTP (only for Uanataca SMS)**
-
-</br>
-
-**API Reference:** <a href="#tag/Requests/paths/~1api~1v1~1otp~1{pk}/post">Generate OTP code</a>
-
-<blockquote style="background-color: #faf3ac; border-color: #5a5a5a; color: #3b3b3b;">This step applies only for signatures made using Uanataca SMS method.</blockquote>
-
-Once the documents to be signed are ready, we need to generate a secure One-time password (OTP) that allows the user to sign them. The OTP code is generated by executing the **Generate OTP** call and the resulting OTP is sent as an SMS message directly to the phone number is provided when creating the signature request.
-
-When calling the OTP endpoint you must add the request identifier returned by the **Create Request** call:
-
-	curl -X POST https://one-shot.developers.uanataca.com/api/v1/otp/1464
-
-A successful call will look like this:
-
-	{
-		"status": "200 OK",
-		"details": "OTP generated"
-	}
-
-With this call, an SMS with the secret code is sent to the mobile phone number associated to the signature request.
-
-
-</br>
-
-> **STEP 6: SIGN THE DOCUMENT**
-
-</br>
-
-**API Reference:** <a href="#tag/Requests/paths/~1api~1v1~1sign~1{pk}/post">Sign</a>
-
-In this step the digital signature certificate is issued, then it signs all documents previously uploaded for the signature request.
-
-Execute the sign call with the request id and json parameters containing the OTP code sent:
-
-	curl -d @params.json -H "Content-Type: application/json -X POST https://one-shot.developers.uanataca.com/api/v1/sign/1464
-
-params.json for Uanataca SMS:
-
-	{
-		"secret": "123456"
-	}
-
-params.json for other authentication methods:
-
-	{
-		"secret": "123456"
-		"ext_unlock_type": "biometric"
-		"ext_unlock_value": "12345678-12345678"
-	}
-
-</br>
-
-A successful call will result in the following response:
-
-	{
-		"status": "200 OK",
-		"details": "Documents correctly signed"
-	}
-
-</br>
-
-> **STEP 7: RETRIEVE SIGNED DOCUMENT**
-
-</br>
-
-API reference: <a href="#tag/Documents/paths/~1api~1v1~1document~1{pk}~1{type}~1{uid}/get">Retrieve Document</a>
-
-Once the signature is done, the next step is to get all signed documents.
-
-To do this, query with an HTTP GET request the endpoint /api/v1/document/{pk}/{type}/{uid}, where {pk} is the Request's unique identifier, {type} is the type of the document (it can be "original" for the uploaded document or "signed" for the digitally-signed version) and {uid} is the document unique identifier.
-
-	curl -X GET https://one-shot.developers.uanataca.com/api/v1/document/1464/signed/712c29ac-a2dc-4530-8c67-d0f227d8294b
-
-The response obtained by the server will be the document in binary format:
-
-	%PDF
-	...
-
-</br>
-
-> **STEP 8: DELETE DOCUMENTS FROM OPTIMIZER**
-
-</br>
-
-**API reference:** <a href="#tag/Documents/paths/~1api~1v1~1documents~1{pk}/delete">Delete All Documents</a>
-
-<blockquote style="background-color: #faf3ac; border-color: #5a5a5a; color: #3b3b3b;">⚠ Since the service does not delete uploaded files unless explicitly requested through an API call, it is <strong>strongly recommended</strong> that you backup any file you want to preserve using an alternative system.</blockquote>
-
-Delete all documents associated to a finished digital signature request.
-
-	curl -X DELETE https://one-shot.developers.uanataca.com/api/v1/documents/1464
-
-
-</br>
-
-#Alternative Workflows
-
-
-##Hash signature flow
-
-Our software nowadays is capable of performing a hash signature with the return of a p7m structure (CMS object) instead of building and returning a whole built document.
-It's important to mention that this modality needs a specific extracted message digest. These would be the objects that the hash should contain to be introduced into the optimizer.
-![img](https://raw.githubusercontent.com/UANATACA/ONESHOT-VIDEOID-REPO/main/img/hashobjects.png)
-
-This is the structure that the uploaded json needs to contain to be able to perform this signature.
-
-	{
-    "messageDigest": "MC8GCSqGSIb3DQEJBDEiBCCxXpcEPsmyTVAGFu1ScquUGBbN3En9x21Tpkp8g==",
-    "digestAlgorithm": "sha256",
-    "addAuthAttribute": 1,
-    "addSigningTime": 1,
-    "otherAuthAttributes": []
-	}
-	
-*The hash signature process involves the following steps:*
-
-**1) RETRIEVE AN EXISTING TOKEN FOR THE RAO**
-
-**2) CREATE A NEW DIGITAL SIGNATURE REQUEST**
-
-**3) UPLOAD A DOCUMENT**
-
-**4) RETRIEVE SERVICE CONTRACT**
-
-**5) GENERATE AN OTP (only for Uanataca SMS)**
-
-**6) SIGN THE HASH**
-
-**7) RETRIEVE SIGNED P7M**
-
-**8) DELETE DOCUMENTS FROM OPTIMIZER**
-
-</br>
-
-> **STEP 1: RETRIEVE AN EXISTING TOKEN FOR THE RAO**
-
-</br>
-
-**API Reference:** <a href="#tag/Tokens/paths/~1api~1v1~1tokens/get">List Tokens</a>
-
-The test-mode One-Shot Optimizer is pre-configured with a Registration Authority Officer (RAO) account ready to be used within the test environment. This account has an associated token that can be used to identify the RAO in API calls.
-
-	curl -X GET https://one-shot.developers.uanataca.com/api/v1/tokens
-
-This call should return the following JSON object:
-
-	{
-		"status": "200 OK",
-		"details": {
-			"fd6a21e6fb7d43b9893a520d67d6ff60": {
-				"username": "1125824",
-				"password": true,
-				"pin": true
-			}
-		}
-	}
-
-This output tells us that a single token "6d1cae4d55be4cdf9cac50ee36f73406" exists. This token is associated to the RAO account with id "9001800" and can be used instead of the password and pin.
-
-To use tokens in a production environment, you will need to create them first using the corresponding <a href="#tag/Tokens/paths/~1api~1v1~1token/post">Create token</a> API call.
-
-
-</br>
-
-> **STEP 2: CREATE A NEW DIGITAL SIGNATURE REQUEST**
-
-</br>
-
-**API Reference:** <a href="#tag/Requests/paths/~1api~1v1~1request/post">Create Request</a>
-
-In One-Shot Signature Service, all data corresponding to a given digital signature is collected within a Digital Signature Request. This includes both the identifying information of the signing user -provided when you create the signature request- and the document or documents to be signed, to be uploaded in an upcoming step.
-
-This call must include enough information to identify both the signing user and the RAO approving the request. The full description of the arguments accepted by this endpoint can be found in the API call detailed documentation, but for now it is enough to include at least the following:
-
-	curl --location --request POST 'https://one-shot.developers.uanataca.com/api/v1/request' \
-		 --form 'token=fd6a21e6fb7d43b9893a520d67d6ff60' \
-		 --form 'profile=PFnubeQAFCiudadano' \
-		 --form 'given_name=name_of_the_user' \
-		 --form 'surname_1=surname_of_the_user' \
-		 --form 'email=user-example@domain.com' \
-		 --form 'mobile_phone_number=+343391234567' \
-		 --form 'document_front=@document_front.png' \
-		 --form 'document_rear=@document_rear.png' \
-		 --form 'document_owner=@document_owner.png'
-
-where "token" is the token representing the RAO's credentials obtained in the previous step.
-
-If the signature request is completed successfully, we will get the unique identifier assigned to it:
-
-	{
-		"status": "201 Created",
-		"details": 1464
-	}
-
-The code shown above will be used to identify the created signature request in subsequent calls.
-
-
-</br>
-
-> **STEP 3: UPLOAD A DOCUMENT**
-
-</br>
-
-**API Reference:** <a href="#tag/Documents/paths/~1api~1v1~1document~1{pk}/post">Upload Document</a>
-
-
-After creating the the signature request, we can associate all pdf documents that must be signed by the user.
-
-	curl -F "file=@doc.pdf" -X POST https://one-shot.developers.uanataca.com/api/v1/document/1464
-
-	#For multiple documents
-	curl -F "file=@doc.pdf" -X POST https://one-shot.developers.uanataca.com/api/v1/document/1464 \
-		 -F "file2=@doc.pdf" -X POST https://one-shot.developers.uanataca.com/api/v1/document/1464 \
-
-
-Note that the number at the end of the call is the request id we obtained in the previous step.
-
-If the upload is successful, the response will contain the identifier assigned to each document:
-
-	{
-		"status": "200 OK",
-		"details": "712c29ac-a2dc-4530-8c67-d0f227d8294b"
-	}
-
-	#Multiple documents response
-	{
-	"status": "200 OK",
-	"details": [
-	{
-	"digest": "8cb5502501c9e5c9fb6869670fd83ad4f7df948f01826a41e6e5649fa0d8b3ad",
-	"uid": "ec27331a-a78a-4461-b897-8e2ca158cef7",
-	"key": "file2",
-	"filename": "doc.pdf"
-	},
-	{
-	"digest": "8cb5502501c9e5c9fb6869670fd83ad4f7df948f01826a41e6e5649fa0d8b3ad",
-	"uid": "7c0acde7-2f56-49b3-a129-a00d910912ef",
-	"key": "file",
-	"filename": "doc.pdf"
-			}
-		]
-	}
-
-</br>
-
-> **STEP 4: RETRIEVE SERVICE CONTRACT**
-
-</br>
-
-**API Reference:** <a href="#tag/Documents/paths/~1api~1v1~1document~1{pk}~1contract/get">Retrieve Contract</a>
-
-As a Trusted Service Provider, Uanataca must inform certificate requesters about terms and conditions ruling the issuance of certificates. 
-
-A service contract is generated for each digital certificate issue. The user must view the request-associated service contract to be signed in the same step as the documents, using the one-time certificate just issued.
-
-	curl -X GET https://one-shot.developers.uanataca.com/api/v1/document/1464/contract
-
-The response by the server will be the service contract document file in binary format:
-
-	%PDF
-	...
-
-</br>
-
-> **STEP 5: GENERATE AN OTP (only for Uanataca SMS)**
-
-</br>
-
-**API Reference:** <a href="#tag/Requests/paths/~1api~1v1~1otp~1{pk}/post">Generate OTP code</a>
-
-<blockquote style="background-color: #faf3ac; border-color: #5a5a5a; color: #3b3b3b;">This step applies only for signatures made using Uanataca SMS method.</blockquote>
-
-Once the documents to be signed are ready, we need to generate a secure One-time password (OTP) that allows the user to sign them. The OTP code is generated by executing the **Generate OTP** call and the resulting OTP is sent as an SMS message directly to the phone number is provided when creating the signature request.
-
-When calling the OTP endpoint you must add the request identifier returned by the **Create Request** call:
-
-	curl -X POST https://one-shot.developers.uanataca.com/api/v1/otp/1464
-
-A successful call will look like this:
-
-	{
-		"status": "200 OK",
-		"details": "OTP generated"
-	}
-
-With this call, an SMS with the secret code is sent to the mobile phone number associated to the signature request.
-
-
-</br>
-
-> **STEP 6: SIGN THE DOCUMENT**
-
-</br>
-
-**API Reference:** <a href="#tag/Requests/paths/~1api~1v1~1sign~1{pk}/post">Sign</a>
-
-In this step the digital signature certificate is issued, then it signs all documents previously uploaded for the signature request.
-
-Execute the sign call with the request id and json parameters containing the OTP code sent:
-
-	curl -d @params.json -H "Content-Type: application/json -X POST https://one-shot.developers.uanataca.com/api/v1/sign/1464
-
-params.json for Uanataca SMS:
-
-	{
-		"secret": "123456"
-	}
-
-params.json for other authentication methods:
-
-	{
-		"secret": "123456"
-		"ext_unlock_type": "biometric"
-		"ext_unlock_value": "12345678-12345678"
-	}
-
-</br>
-
-A successful call will result in the following response:
-
-	{
-		"status": "200 OK",
-		"details": "Documents correctly signed"
-	}
-
-</br>
-
-> **STEP 7: RETRIEVE SIGNED P7M**
-
-</br>
-
-API reference: <a href="#tag/Documents/paths/~1api~1v1~1document~1{pk}~1{type}~1{uid}/get">Retrieve Document</a>
-
-Once the signature is done, the next step is to get the signed document.
-
-To do this, query with an HTTP GET request the endpoint /api/v1/document/{pk}/{type}/{uid}, where {pk} is the Request's unique identifier, {type} is the type of the document (it can be "original" for the uploaded document or "signed" for the digitally-signed version) and {uid} is the document unique identifier.
-
-	curl -X GET https://one-shot.developers.uanataca.com/api/v1/document/1464/signed/712c29ac-a2dc-4530-8c67-d0f227d8294b
-
-The response obtained by the server will be the signed hash in a p7m structure, it's important to add .p7m extension to the information obtained
-
-
-
-</br>
-
-> **STEP 8: DELETE DOCUMENTS FROM OPTIMIZER**
-
-</br>
-
-**API reference:** <a href="#tag/Documents/paths/~1api~1v1~1documents~1{pk}/delete">Delete All Documents</a>
-
-<blockquote style="background-color: #faf3ac; border-color: #5a5a5a; color: #3b3b3b;">⚠ Since the service does not delete uploaded files unless explicitly requested through an API call, it is <strong>strongly recommended</strong> that you backup any file you want to preserve using an alternative system.</blockquote>
-
-Delete all documents associated to a finished digital signature request.
-
-	curl -X DELETE https://one-shot.developers.uanataca.com/api/v1/documents/1464
-
-
-</br>
-
-##Asynchronous mode flow
-
-This functionality is focused on providing the user with more transparency about the processes running in the background. Through a webhook designated by the user it is possible to collect state changes and the information they carry in order to enhance the end-user experience.
-Asynchronous flow includes shorter API response times to save resources, but the overall processing time is still the same as classic workflow.
-
-*The asynchronous signature process involves the following steps:*
-
-**1) RETRIEVE AN EXISTING TOKEN FOR THE RAO**
-
-**2) CREATE A NEW DIGITAL SIGNATURE REQUEST**
-
-**3) UPLOAD A DOCUMENT**
-
-**4) RETRIEVE SERVICE CONTRACT**
-
-**5) GENERATE AN OTP (only for Uanataca SMS)**
-
-**6) SIGN THE DOCUMENT**
-
-**7) RETRIEVE SIGNED DOCUMENT**
-
-**8) DELETE DOCUMENTS FROM OPTIMIZER**
-
-</br>
-
-> **STEP 1: RETRIEVE AN EXISTING TOKEN FOR THE RAO**
-
-</br>
-
-**API Reference:** <a href="#tag/Tokens/paths/~1api~1v1~1tokens/get">List Tokens</a>
-
-The test-mode One-Shot Optimizer is pre-configured with a Registration Authority Officer (RAO) account ready to be used within the test environment. This account has an associated token that can be used to identify the RAO in API calls.
-
-	curl -X GET https://one-shot.developers.uanataca.com/api/v1/tokens
-
-This call should return the following JSON object:
-
-	{
-		"status": "200 OK",
-		"details": {
-			"fd6a21e6fb7d43b9893a520d67d6ff60": {
-				"username": "1125824",
+			"6d1cae4d55be4cdf9cac50ee36f73406": {
+				"username": "9001800",
 				"password": true,
 				"pin": true
 			}
@@ -717,8 +213,6 @@ This call must include enough information to identify both the signing user and 
 		 --form 'document_front=@document_front.png' \
 		 --form 'document_rear=@document_rear.png' \
 		 --form 'document_owner=@document_owner.png'
-		 --form 'useasync=true'
-		 --form 'callback=https://callback.com'
 
 where "token" is the token representing the RAO's credentials obtained in the previous step.
 
@@ -745,11 +239,6 @@ After creating the the signature request, we can associate all pdf documents tha
 
 	curl -F "file=@doc.pdf" -X POST https://one-shot.developers.uanataca.com/api/v1/document/1464
 
-	#For multiple documents
-	curl -F "file=@doc.pdf" -X POST https://one-shot.developers.uanataca.com/api/v1/document/1464 \
-		 -F "file2=@doc.pdf" -X POST https://one-shot.developers.uanataca.com/api/v1/document/1464 \
-
-
 Note that the number at the end of the call is the request id we obtained in the previous step.
 
 If the upload is successful, the response will contain the identifier assigned to each document:
@@ -757,25 +246,6 @@ If the upload is successful, the response will contain the identifier assigned t
 	{
 		"status": "200 OK",
 		"details": "712c29ac-a2dc-4530-8c67-d0f227d8294b"
-	}
-
-	#Multiple documents response
-	{
-	"status": "200 OK",
-	"details": [
-	{
-	"digest": "8cb5502501c9e5c9fb6869670fd83ad4f7df948f01826a41e6e5649fa0d8b3ad",
-	"uid": "ec27331a-a78a-4461-b897-8e2ca158cef7",
-	"key": "file2",
-	"filename": "doc.pdf"
-	},
-	{
-	"digest": "8cb5502501c9e5c9fb6869670fd83ad4f7df948f01826a41e6e5649fa0d8b3ad",
-	"uid": "7c0acde7-2f56-49b3-a129-a00d910912ef",
-	"key": "file",
-	"filename": "doc.pdf"
-			}
-		]
 	}
 
 </br>
@@ -857,7 +327,7 @@ A successful call will result in the following response:
 
 	{
 		"status": "200 OK",
-		"details": "Your documents are going to be signed. You will receive them in a few seconds"
+		"details": "Documents correctly signed"
 	}
 
 </br>
@@ -893,19 +363,10 @@ Delete all documents associated to a finished digital signature request.
 
 	curl -X DELETE https://one-shot.developers.uanataca.com/api/v1/documents/1464
 
-> **STEP 8: DELETE DOCUMENTS FROM OPTIMIZER**
 
 </br>
 
-**API reference:** <a href="#tag/Documents/paths/~1api~1v1~1documents~1{pk}/delete">Delete All Documents</a>
 
-<blockquote style="background-color: #faf3ac; border-color: #5a5a5a; color: #3b3b3b;">⚠ Since the service does not delete uploaded files unless explicitly requested through an API call, it is <strong>strongly recommended</strong> that you backup any file you want to preserve using an alternative system.</blockquote>
-
-Delete all documents associated to a finished digital signature request.
-
-	curl -X DELETE https://one-shot.developers.uanataca.com/api/v1/documents/1464
-
-</br>
 # Video ID Workflows
 
 
@@ -954,7 +415,7 @@ This call must include preliminary information to identify the signer.
 		-d '{
 			"mobile_phone_number": "+34699999999",
 			"email": "mail@domain",
-			"registration_authority": "44",
+			"registration_authority": "139",
 			"profile": "PFnubeQAFCiudadano",
 			"videoid_mode": 1,
 			"webhook_url": "my-webhook-url.com"
@@ -1037,11 +498,6 @@ After creating the the signature request, we can associate all pdf documents tha
 
 	curl -F "file=@doc.pdf" -X POST https://one-shot.developers.uanataca.com/api/v1/document/1464
 
-	#For multiple documents
-	curl -F "file=@doc.pdf" -X POST https://one-shot.developers.uanataca.com/api/v1/document/1464 \
-		 -F "file2=@doc.pdf" -X POST https://one-shot.developers.uanataca.com/api/v1/document/1464 \
-
-
 Note that the number at the end of the call is the request id we obtained in the previous step.
 
 If the upload is successful, the response will contain the identifier assigned to each document:
@@ -1049,25 +505,6 @@ If the upload is successful, the response will contain the identifier assigned t
 	{
 		"status": "200 OK",
 		"details": "712c29ac-a2dc-4530-8c67-d0f227d8294b"
-	}
-
-	#Multiple documents response
-	{
-	"status": "200 OK",
-	"details": [
-	{
-	"digest": "8cb5502501c9e5c9fb6869670fd83ad4f7df948f01826a41e6e5649fa0d8b3ad",
-	"uid": "ec27331a-a78a-4461-b897-8e2ca158cef7",
-	"key": "file2",
-	"filename": "doc.pdf"
-	},
-	{
-	"digest": "8cb5502501c9e5c9fb6869670fd83ad4f7df948f01826a41e6e5649fa0d8b3ad",
-	"uid": "7c0acde7-2f56-49b3-a129-a00d910912ef",
-	"key": "file",
-	"filename": "doc.pdf"
-			}
-		]
 	}
 
 </br>
@@ -1191,7 +628,7 @@ Delete all documents associated to a finished digital signature request.
 
 ## External Mode
 
-In External mode Video ID, digital evidences are uploaded to an independent Video ID platform.
+In External mode Video ID, digital evidences are uploaded to an independent Video ID platform. External mode Video ID can be executed in 1 or 2 steps.
 
 </br>
 
@@ -1206,19 +643,21 @@ In External mode Video ID, digital evidences are uploaded to an independent Vide
 
 **2) UPLOAD DATA & VIDEO**
 
-**3) REQUEST APPROVAL**
+**3) REQUEST VALIDATION**
 
-**4) UPLOAD A DOCUMENT**
+**4) REQUEST APPROVAL**
 
-**5) RETRIEVE SERVICE CONTRACT**
+**5) UPLOAD A DOCUMENT**
 
-**6) GENERATE AN OTP (only for Uanataca SMS)**
+**6) RETRIEVE SERVICE CONTRACT**
 
-**7) SIGN THE DOCUMENT**
+**7) GENERATE AN OTP (only for Uanataca SMS)**
 
-**8) RETRIEVE SIGNED DOCUMENT**
+**8) SIGN THE DOCUMENT**
 
-**9) DELETE DOCUMENTS FROM OPTIMIZER**
+**9) RETRIEVE SIGNED DOCUMENT**
+
+**10) DELETE DOCUMENTS FROM OPTIMIZER**
 
 </br>
 
@@ -1235,7 +674,7 @@ This call must include preliminary information to identify the signer.
 		-d '{
 			"mobile_phone_number": "+34699999999",
 			"email": "mail@domain",
-			"registration_authority": "44",
+			"registration_authority": "139",
 			"profile": "PFnubeQAFCiudadano",
 			"videoid_mode": 1
 		}'
@@ -1282,9 +721,7 @@ Data objects in detail:
 - `images`: Pictures associated to the client's ID document plus a face selfie of him/her. </br>
 - `ocr_data` : Text information extracted from the client's ID document via Optical Character Recognition (OCR). </br>
 - `security_checks` : Set of validation fields associated to the client's identity (underaging, matching info, liveliness, etc) </br>
-- `similarity_level` : Similarity level between document picture and face selfie. Ranges within 0 to 100 
-
-This call must include all the information mentioned above.
+- `similarity_level` : Similarity level between document picture and face selfie. Ranges within 0 to 100] 
 
 	curl -i -X POST https://one-shot.developers.uanataca.com/api/v1/videoid/45836/evidences \
 		-H 'Content-Type: application/json' \
@@ -1360,13 +797,51 @@ If the uploaded video needs to be retrieved, use <a href="#tag/Video-ID/paths/~1
 
 </br>
 
-> **STEP 3: REQUEST APPROVAL**
+> **STEP 4: REQUEST VALIDATION** `2-step mode only`
+
+</br>
+
+**API Reference:** <a href="#tag/Video-ID/paths/~1api~1v1~1videoid~1{request_pk}~1validate/post">Validate Request</a>
+
+A Registration Authority Officer must validate the request data and evidences before approval. This call is used only for 2-step mode.  
+
+	curl -i -X POST https://api.uanataca.com/api/v1/videoid/45836/validate \
+		-H 'Content-Type: application/json' \
+		-d '{
+			"username": "5012345",
+			"password": "Gy6F37xK",
+			"pin": "belorado74",
+			"rao": "1400"
+		}'
+
+	OR
+
+	curl -i -X POST 'https://api.uanataca.com/api/v1/request/45836/validate' \
+		-H 'Content-Type: application/json' \
+		-d '{
+			"token": "f734066d1ce36f9cae4d55be4cdac50e"
+		}'	
+
+In case of using a token containing RAO's credentials.
+
+The validation successful response status is a JSON object containing request information, as the request status changes to **CREATED**.
+
+	{
+		"status": "200 OK",
+		"details": "Videoid validated"
+	}
+
+For unsuccessful validations leading to a request refusal, the corresponding call is  <a href="#tag/Video-ID/paths/~1api~1v1~1videoid~1{request_pk}~1refuse/post">Refuse Request</a>. Check API Reference.
+
+</br>
+
+> **STEP 5: REQUEST APPROVAL**
 
 </br>
 
 **API Reference:** <a href="#tag/Video-ID/paths/~1api~1v1~1videoid~1{request_pk}~1validate/post">Approve Request</a>
 
-This call makes the request ready for signature. Its status changes to **ENROLLREADY**.
+This call makes the request ready for signature. Its status changes to **ENROLLREADY**. In 1-step mode, both validation and approval occur when executing this call.
 
 	curl -i -X POST 'https://api.uanataca.com/api/v1/request/45836/approve' \
 		-H 'Content-Type: application/json' \
@@ -1388,7 +863,7 @@ In case of not approving a request for any reason, the call <a href="#tag/Reques
 
 </br>
 
-> **STEP 4: UPLOAD A DOCUMENT**
+> **STEP 6: UPLOAD A DOCUMENT**
 
 </br>
 
@@ -1399,11 +874,6 @@ After creating the the signature request, we can associate all pdf documents tha
 
 	curl -F "file=@doc.pdf" -X POST https://one-shot.developers.uanataca.com/api/v1/document/1464
 
-	#For multiple documents
-	curl -F "file=@doc.pdf" -X POST https://one-shot.developers.uanataca.com/api/v1/document/1464 \
-		 -F "file2=@doc.pdf" -X POST https://one-shot.developers.uanataca.com/api/v1/document/1464 \
-
-
 Note that the number at the end of the call is the request id we obtained in the previous step.
 
 If the upload is successful, the response will contain the identifier assigned to each document:
@@ -1413,28 +883,9 @@ If the upload is successful, the response will contain the identifier assigned t
 		"details": "712c29ac-a2dc-4530-8c67-d0f227d8294b"
 	}
 
-	#Multiple documents response
-	{
-	"status": "200 OK",
-	"details": [
-	{
-	"digest": "8cb5502501c9e5c9fb6869670fd83ad4f7df948f01826a41e6e5649fa0d8b3ad",
-	"uid": "ec27331a-a78a-4461-b897-8e2ca158cef7",
-	"key": "file2",
-	"filename": "doc.pdf"
-	},
-	{
-	"digest": "8cb5502501c9e5c9fb6869670fd83ad4f7df948f01826a41e6e5649fa0d8b3ad",
-	"uid": "7c0acde7-2f56-49b3-a129-a00d910912ef",
-	"key": "file",
-	"filename": "doc.pdf"
-			}
-		]
-	}
-
 </br>
 
-> **STEP 5: RETRIEVE SERVICE CONTRACT**
+> **STEP 7: RETRIEVE SERVICE CONTRACT**
 
 </br>
 
@@ -1453,7 +904,7 @@ The response by the server will be the service contract document file in binary 
 
 </br>
 
-> **STEP 6: GENERATE AN OTP (only for Uanataca SMS)**
+> **STEP 8: GENERATE AN OTP (only for Uanataca SMS)**
 
 </br>
 
@@ -1479,7 +930,7 @@ With this call, an SMS with the secret code is sent to the mobile phone number a
 
 </br>
 
-> **STEP 7: SIGN THE DOCUMENT**
+> **STEP 9: SIGN THE DOCUMENT**
 
 </br>
 
@@ -1516,7 +967,7 @@ A successful call will result in the following response:
 
 </br>
 
-> **STEP 8: RETRIEVE SIGNED DOCUMENT**
+> **STEP 10: RETRIEVE SIGNED DOCUMENT**
 
 </br>
 
@@ -1535,7 +986,7 @@ The response obtained by the server will be the document in binary format:
 
 </br>
 
-> **STEP 9: DELETE DOCUMENTS FROM OPTIMIZER**
+> **STEP 11: DELETE DOCUMENTS FROM OPTIMIZER**
 
 </br>
 
@@ -1571,7 +1022,7 @@ See the configuration description in:<br>
 ## One-Shot Optimizer on Docker
 
 
-This configuration requires a server with a Linux operating system.
+This configuration requires a server with a Linux CentOS operating system.
 
 <a href="#section/Video-tutorials/Docker-Optimizer-Configuration"><img src="https://raw.githubusercontent.com/UANATACA/ONESHOT-VIDEOID-REPO/main/img/img4.png"></a><a href="#section/Video-tutorials/Docker-Optimizer-Configuration"><b>&nbsp;Watch on video!</b></a>
 
@@ -1582,12 +1033,12 @@ This configuration requires a server with a Linux operating system.
 
 Run the following commands in this order.
 
-	sudo yum install -y yum-utils
-	sudo yum-config-manager \
-    --add-repo \
-    https://download.docker.com/linux/centos/docker-ce.repo
-	sudo yum install docker-ce docker-ce-cli containerd.io docker-compose-plugin
+	sudo yum update -y
+	yum install -y yum-utils device-mapper-persistent-data lvm2
+	yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+	sudo yum install -y docker-ce docker-ce-cli containerd.io
 	sudo systemctl start docker
+
 
 
 *Docker-Compose*
@@ -1595,10 +1046,11 @@ Run the following commands in this order.
 Run the following commands in this order.
 
 
-	curl -SL https://github.com/docker/compose/releases/download/v2.13.0/docker-compose-linux-x86_64 -o /usr/local/bin/docker-compose
+	sudo curl -L "https://github.com/docker/compose/releases/download/1.28.5/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+	chmod +x /usr/local/bin/docker-compose
 
 
-Run command **docker-compose version** to check the installation. The outcome should show this kind of information:
+Run command **docker-compose version** to check the installation. The outcome should show this information:
 
 
 ![img](https://github.com/UANATACA/ONESHOT-VIDEOID-REPO/raw/main/img/oneshot-docker1.png)
@@ -1707,71 +1159,108 @@ See <a href="#section/Configuration/Service-settings">service settings</a> confi
 </br>
 
 
-# Service settings
+## Service settings
+
+<div style="text-align: justify">
+One-Shot Signature can be configured for usage over test or production environment.
+</div>
+<br></br>
+
+
+> TEST environment
 
 **Requirements:**
 
-- Billing credentials for the selected environment.
-- Credentials or token generated from these belonging to the authorized operator.
-- Certificate (.cer) and key (.key) files for connection to the selected environment.
-- The Id number for the Registration Authority that will issue the certificates.
+- Billing credentials for Uanataca test environment.
 
-This steps are for both sandbox or production environment.
+The `settings.ini` file contains default parameters that can also be adjusted via API using <a href='#tag/Settings/paths/~1api~1v1~1settings/post'>Update Settings</a> call.
 
-You should have received a certificate (.cer) and a key (.key) file to be used to identify your application in communications with Uanataca signature services. Place both files in the certificates folder.
+Except by `tsa_url`, all parameters shown below are replaced every time the <a href='#tag/Video-ID/paths/~1api~1v1~1videoid/post'>Create Video ID Request</a> call is executed. 
 
 settings.ini file location:
 
-**/opt/oneshot_optimizer/common/etc/certs/<sandbox/prod>** or custom mapped volume (Docker)</br>
-**/opt/bit4id/oneshot_optimizer/etc/certs/<sandbox/prod>** (Virtual Machine)
+**/opt/oneshot_optimizer/common/etc/settings.ini** or custom mapped volume (Docker)</br>
+**/opt/bit4id/oneshot_optimizer/etc/settings.ini** (Virtual Machine)
 
-![img](https://github.com/UANATACA/ONESHOT-VIDEOID-REPO/raw/main/img/oneshot-docker5.png)
+<blockquote style="background-color: #faf3ac; border-color: #5a5a5a; color: #3b3b3b;">⚠ If billing password is specified, it must be previously converted into Base64 format.</blockquote>
 
-This is the file that contains all the optimizer setting variables, here you can set values that will be taken as default in case that they did not get sent directly through the api call.
-There are some shared values between the API call and this file, and some regarding background configurations. You can find a brief explanation below.
-</br>
-
-**Important: If billing password is specified, it must be previously converted into Base64 format.** Run the following command to convert your password to base64:
+Run the following command to convert your password to base64:
 
 	echo -n <<billing_password>> | base64
+
+</br>
 
 The following is a view of the settings.ini file: 
 
 	1 |	[general]
-	2 |	environment = sandbox
-	3 | usepdfclean = false
-	4 |	configuration = default
-	5 |	rootstore = uanataca
+	2 |	environment = test
+	3 |
+	4 |	[tsa]
+	5 |	tsa_url = https://tsa.access.bit4id.org:13035/tsa/test01
 	6 |
-	7 |	[tsa]
-	8 |	tsa_url = https://tsa.uanataca.com/tsa/tss03
-	9 |
-	10|	[billing]
-	11|	billing_username = user@uanataca.com
-	12|	billing_password = ejVxTnFrZkaI=
-	13|
-	14|	[request]
-	15|	default_profile = PFnubeQAFCiudadano
-	16|	default_ra = 1000
-	17|
-	18| [proxy]
-	19| useproxy = false
-	20| proxy_host = 192.168.1.34
-	21| proxy_port = 8888
-	22| proxy_protocol = http
-	23| proxy_username = user
-	24| proxy_password = password
-	25| useproxycredentials = true
+	7 |	[billing]
+	8 |	billing_username = user@uanataca.com
+	9 |	billing_password = ejVxTnFrZkI=
+	10|
+	11|	[request]
+	12|	default_profile = PFnubeQAFCiudadano
+	13|	default_ra = 1000
 
-`environment`: Work environment of the optimizer, taken as default if not send through API
-`usepdfclean`: Enables sanitization of loaded documents. If the document contains multiple signatures this process would remove the previous signatures that the document has as they got treaten like an external structure to PDF standard
-`configuration`: Configuration preset, only for determinated use-cases
-`rootstore`: Chains of trust that the optimizer will work with, the value can be set with the customer name, only for determinated use-cases
-`tsa_url`: Timestamping to apply on signatures
-`billing_username`: Billing username of the desired environment
-`billing_password`: Billing password codified in base64
-`default_profile`: Certificate profile to issue, taken as default if not sent through API
-`default_ra`: Registration Authority in which to issue, taken as default if not send through API
+Once you are done editing the file, restart the One-Shot Optimizer service to make changes take effect.
+
+Virtual Machine:
+
+	systemctl restart optimizer
+
+Docker:
+
+	cd /opt/oneshot_optimizer
+	docker-compose restart optimizer
+
+
+<br></br>
+
+> PRODUCTION environment
+
+**Requirements:**
+
+- Billing credentials for Uanataca production environment.
+- Certificate (.cer) and key (.key) files for connection to the Uanataca production environment.
+- The Id number for the Registration Authority that will issue the certificates.
+
+<blockquote style="background-color: #faf3ac; border-color: #5a5a5a; color: #3b3b3b;">⚠ We recommend starting from a clean copy of One-Shot Optimizer for this step. This prevents test environment leftover files from causing errors in production.</blockquote>
+
+You should have received a certificate (.cer) and a key (.key) file to be used to identify your application in communications with the production signature service. Place both files in the certificates folder.
+
+settings.ini file location:
+
+**/opt/oneshot_optimizer/common/etc/certs/prod** or custom mapped volume (Docker)</br>
+**/opt/bit4id/oneshot_optimizer/etc/certs/prod** (Virtual Machine)
+
+![img](https://github.com/UANATACA/ONESHOT-VIDEOID-REPO/raw/main/img/oneshot-docker5.png)
+
+The following is a view of the settings.ini file. **Important: If billing password is specified, it must be previously converted into Base64 format.** Run the following command to convert your password to base64:
+
+	echo -n <<billing_password>> | base64
+
+</br>
+
+settings.ini file:
+
+	1 |	[general]
+	2 |	environment = prod
+	3 |
+	4 |	[tsa]
+	5 |	tsa_url = https://tsa.uanataca.com/tsa/tss03
+	6 |
+	7 |	[billing]
+	8 |	billing_username = user@uanataca.com
+	9 |	billing_password = ejVxTnFrZkI=
+	10|
+	11|	[request]
+	12|	default_profile = PFnubeQAFCiudadano
+	13|	default_ra = 1000
+
 
 The file `settings.ini` contains default parameters that can also be adjusted via API using the <a href='#tag/Settings/paths/~1api~1v1~1settings/post'>Update Settings</a> call.
 
@@ -1793,7 +1282,7 @@ Docker:
 # Webhook Configuration
 
 
-One-Shot API requires a Webhook implemented on customer business side to manage our service callbacks. Every request status change will trigger a simple event-notification via HTTP POST, consisting on a JSON object to an URL that must be explicitly included as an **optional parameter** in the <a href='#tag/Video-ID/paths/~1api~1v1~1videoid/post'>Create Video ID Request</a> call. Keep in mind that the webhook passed as parameter will be only for testing purposes, the definitive webhook has to be set in your belonging RA by Operations Department.
+One-Shot API requires a Webhook implemented on customer business side to manage our service callbacks. Every request status change will trigger a simple event-notification via HTTP POST, consisting on a JSON object to an URL that must be explicitly included as a **required parameter** in the <a href='#tag/Video-ID/paths/~1api~1v1~1videoid/post'>Create Video ID Request</a> call, when using Uanataca 1-step or 2-step mode. 
 
 The following is a sample view of the JSON object that is sent as a callback at every status change:
 
@@ -1806,11 +1295,12 @@ The following is a sample view of the JSON object that is sent as a callback at 
 	}
 
 Where:
-`status` is the most recent status, this is, the status that triggered the notification.</br>
-`date` is the date of the request status change in datetime format.</br>
-`previous_status` is the status inmediately previous to last change.</br>
-`request` is the request unique id.</br>
-`registration_authority` is the Registration Authority id number the request is associated.</br>
+
+**status** is the most recent status, this is, the status that triggered the notification.</br>
+**date** is the date of the request status change in datetime format.</br>
+**previous_status** is the status inmediately previous to last change.</br>
+**request** is the request unique id.</br>
+**registration_authority** is the Registration Authority id number the request is associated.</br>
 
 </br>
 
@@ -1868,14 +1358,14 @@ where {host} is the IP or domain from the server exposing the webhook.
 
 Service logs file `optimizer.log` is stored in a One-Shot Optimizer local folder.
 
-Docker:
+Docker path:
 
-	/opt/oneshot_optimizer/common/logs or custom mapped volume
-	Command 'docker-compose logs > log.txt'
+**/opt/oneshot_optimizer/common/logs** or custom mapped volume
 
-Virtual Machine:
+Virtual Machine path:
 
-	/opt/bit4id/oneshot_optimizer/logs
+**/opt/bit4id/oneshot_optimizer/logs**
+
 
 
 # Postman collection

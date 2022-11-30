@@ -1,10 +1,9 @@
 openapi: 3.0.1
-security: []
 info:
   title: UANATACA ONE-SHOT SIGNATURE API DOCUMENTATION
   description: 
     $ref: ./oneshot_videoid_gui.md
-  version: v1
+  version: 1.0.0
   x-logo:
     url: https://raw.githubusercontent.com/UANATACA/ONESHOT-VIDEOID-REPO/main/img/oneshot_logo.png
     altText: Oneshot logo
@@ -54,16 +53,16 @@ tags:
           <td>POST</td><td><a href='#tag/Metadata/paths/~1api~1v1~1metadata/post'>/metadata</a></td><td>Upload Metadata</td> 
         </tr> 
         <tr> 
-          <td>GET</td><td><a href='#tag/Metadata/paths/~1api~1v1~1metadata/get'>/metadata</a></td><td>List Metadata</td> 
+          <td>GET</td><td><a href='#tag/Metadata/paths/~1api~1v1~1metadata/get'>/settings</a></td><td>List Metadata</td> 
         </tr> 
         <tr> 
-          <td>DELETE</td><td><a href='#tag/Metadata/paths/~1api~1v1~1metadata/delete'>/metadata/{{metadata_uid}}</a></td><td>Delete Metadata</td> 
+          <td>DELETE</td><td><a href='#tag/Metadata/paths/~1api~1v1~1metadata/delete'>/version</a></td><td>Delete Metadata</td> 
         </tr> 
         <tr> 
-          <td>GET</td><td><a href='#tag/Metadata/paths/~1api~1v1~1metadata~1{metadata_uid}/get'>/metadata/{{metadata_uid}}</a></td><td>Get Metadata</td> 
+          <td>GET</td><td><a href='#tag/Metadata/paths/~1api~1v1~1metadata~1{metadata_uid}/get'>/settings</a></td><td>Get Metadata</td> 
         </tr> 
         <tr> 
-          <td>DELETE</td><td><a href='#tag/Metadata/paths/~1api~1v1~1metadata~1{metadata_uid}/delete'>/metadata</a></td><td>Delete All Metadata</td> 
+          <td>DELETE</td><td><a href='#tag/Metadata/paths/~1api~1v1~1metadata~1{metadata_uid}/delete'>/version</a></td><td>Delete All Metadata</td> 
         </tr> 
       </table> 
     
@@ -109,9 +108,6 @@ tags:
         </tr> 
         <tr> 
           <td>GET</td><td><a href='#tag/Requests/paths/~1api~1v1~1request~1{request_pk}/get'>/request/{pk}</a></td><td>Retrieve a new request</td> 
-        </tr> 
-        <tr> 
-        <td>GET</td><td><a href='#tag/Requests/paths/~1api~1v1~1async~1status~1%7Bpk%7D/get'>/async/status/{pk}</a></td><td>Retrieve asynchronous request status</td> 
         </tr> 
         <tr> 
           <td>POST</td><td><a href='#tag/Requests/paths/~1api~1v1~1otp~1{pk}/post'>/otp/{pk}</a></td><td>Generate a new OTP</td> 
@@ -225,15 +221,22 @@ paths:
       tags:
       - Settings
       summary: HELLO
+      security: []
       description: Checks if server is UP.
-      operationId: hello
       responses:
         200:
           description: Successful Response
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ResponseObject"
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: The response status code
+                  details:
+                    type: string
+                    description: The response status message
               example:
                 status: 200 OK
                 details: Hello
@@ -242,8 +245,8 @@ paths:
       tags:
       - Settings
       summary: GET SETTINGS
+      security: []
       description: Retrieves the content of the settings.ini file.
-      operationId: get_settings
       responses:
         200:
           description: Successful Response
@@ -285,46 +288,12 @@ paths:
                             type: string
                             description: The default Billing password
                         description: Billing Settings
-                      proxy:
-                        type: object
-                        properties: 
-                          proxy_port:
-                            type: string
-                            description: Proxy port to be used
-                          proxy_protocol:
-                            type: string
-                            description: desc
-                          proxy_username:
-                            type: string
-                            description: desc
-                          proxy_host:
-                            type: string
-                            description: desc
-                          useproxycredentials:
-                            type: string
-                            description: desc
-                          useproxy:
-                            type: string
-                            description: desc
-                          proxy_password:
-                            type: string
-                            description: desc
-                            
                       general:
                         type: object
                         properties:
                           environment:
                             type: string
                             description: The API environment (test or prod)
-                          rootstore:
-                            type: string
-                            description: Rootstore mode
-                          configuration:
-                            type: string
-                            description: Configuration being used
-                          usepdfclean:
-                            type: boolean
-                            description: PDF sanitization process 
                         description: General Settings
                     description: Miscellaneous API parameter details
               example:
@@ -340,15 +309,13 @@ paths:
                     billing_password: UGVyb2xpdG8xLg==
                   general:
                     environment: test
-                    rootstore: uanataca
-                    configuration: default
-                    usepdfclean: false
     post:
       tags:
       - Settings
       summary: UPDATE SETTINGS
-      description: Updates configuration parameters present in [settings.ini](#section/Configuration/Service-settings) file.
-      operationId: update_settings
+      security: []
+      description: Updates configuration parameters present in <a href="#section/Configuration/Service-settings">settings.ini</a>
+        file.
       requestBody:
         content:
           application/json:
@@ -361,19 +328,33 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ResponseObject"
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: The response status code
+                  details:
+                    type: string
+                    description: The response status message
               example:
                 status: 200 OK
                 details: Settings saved successfully
         400:
-          description: Bad Request
+          description: Invalid JSON
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ResponseObject"
+                type: object
+                properties:
+                  title:
+                    type: string
+                    description: Invalid JSON
+                  description:
+                    type: string
+                    description: The response error message
               example:
                 status: Invalid JSON
-                details: Could not parse JSON body
+                details: Could not parse JSON body - Invalid control character at line 4 column 24 (char 82)
       x-codeSamples:
       - lang: curl
         source: |
@@ -493,8 +474,8 @@ paths:
       tags:
       - Settings
       summary: VERSION
+      security: []
       description: Retrieves the current Optimizer version.
-      operationId: version
       responses:
         200:
           description: Successful Response
@@ -548,15 +529,15 @@ paths:
                     hostname: ip-172-31-5-91
                     system: Linux
                     processor: x86_64
-                  version: "1.5.0"
+                  version: "20210721"
                   name: OneShot Optimizer
   /api/v1/metadata:
     get:
       tags:
       - Metadata
       summary: LIST METADATA
+      security: []
       description: Lists all metadata objects available.
-      operationId: list_metadata
       responses:
         200:
           description: Successful Response
@@ -598,23 +579,13 @@ paths:
                   fc2ec0d5ffc34ac1bae21e5882d746b4:
                     oid: 1.8.6.7.4.1.47289.100.2.9
                     metadata: bmF2ZWdhZG9yIMOhw6HDocOhw6EKMTIzNAplc3RvIGVzIHVuYSBwcnVlYmE6IGhveSBlcwptYXJ0ZXNzcwp4eXoxMjM0
-        404:
-          description: Not Found
-          content: 
-            application/json:
-              schema: 
-                $ref: "#/components/schemas/ResponseObject"
-              example: 
-                status: 404 Not Found
-                details: Metadata not found on disk
-              
-                       
     post:
       tags:
       - Metadata
       summary: UPLOAD METADATA
-      description: Uploads all metadata information previously converted into Base64 format.
-      operationId: upload_metadata
+      security: []
+      description: Uploads all metadata information previously converted into Base64
+        format.
       requestBody:
         content:
           application/json:
@@ -645,24 +616,21 @@ paths:
                 details:
                   metadata: 78d94fead7844136804afcc87f6a80b5
         400:
-          description: Bad Request
+          description: Invalid JSON
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ResponseObject"
-              examples:
-                JSON_error:
-                  summary: Invalid JSON
-                  value:
-                    status: 400 Invalid JSON
-                    details: Could not parse JSON body
-
-                Missing_parameters:
-                  summary: Missing parameters
-                  value: 
-                    status: 400 Bad Request
-                    details: Missing required parameters
-
+                type: object
+                properties:
+                  title:
+                    type: string
+                    description: Invalid JSON
+                  description:
+                    type: string
+                    description: The response error message
+              example:
+                status: Invalid JSON
+                details: Could not parse JSON body - Invalid control character at line 4 column 24 (char 82)
       x-codeSamples:
       - lang: curl
         source: |
@@ -734,15 +702,22 @@ paths:
       tags:
       - Metadata
       summary: DELETE ALL METADATA
+      security: []
       description: Deletes all metadata objects available.
-      operationId: delete_all_metadata
       responses:
         200:
           description: Successful Response
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ResponseObject"
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Successful response code
+                  details:
+                    type: string
+                    description: Successful response message
               example:
                 status: 200 OK
                 details: All metadata deleted
@@ -751,8 +726,8 @@ paths:
       tags:
       - Metadata
       summary: GET METADATA
+      security: []
       description: Retrieves the metadata associated to an specific id.
-      operationId: get_metadata
       parameters:
       - name: metadata_uid
         in: path
@@ -815,11 +790,18 @@ paths:
                     UkcBlLfYQ3eXj4TLEuYYGBzrOCGsUC//M9Qstt1ryIhsVrooa6HsvO92MwbYKKmP2laAJNIziPYN
                     mGItRIKNwB6BNMGb
         404:
-          description: Not Found
+          description: Invalid metadata uid
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ResponseObject"
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: The response status id
+                  details:
+                    type: string
+                    description: The response error message
               example:
                 status: 404 Not Found
                 details: Metadata not found on disk
@@ -871,8 +853,8 @@ paths:
       tags:
       - Metadata
       summary: DELETE METADATA
+      security: []
       description: Deletes the metadata associated to an specific id.
-      operationId: delete_metadata
       parameters:
       - name: metadata_uid
         in: path
@@ -886,16 +868,31 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ResponseObject"
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Successful response code
+                  details:
+                    type: object
+                    properties: {}
+                    description: Successful response message
               example:
                 status: 200 OK
                 details: Metadata successfully deleted
         404:
-          description: Not found
+          description: Invalid metadata uid
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ResponseObject"
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: The response status id
+                  details:
+                    type: string
+                    description: The response error message
               example:
                 status: 404 Not Found
                 details: Metadata not found on disk
@@ -948,9 +945,9 @@ paths:
       tags:
       - Tokens
       summary: CREATE TOKEN
+      security: []
       description: Creates a new token that contains the Registration Authority Officer
         (RAO) credentials.
-      operationId: create_token
       requestBody:
         content:
           application/json:
@@ -963,43 +960,46 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ResponseObject"
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: The response status id
+                  details:
+                    type: string
+                    description: the created token number
               example:
                 status: 200 OK
                 details: a44765ab8ca04e429a565f02d22179a0
         400:
-          description: Bad Request
+          description: Invalid JSON | Token already exists
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ResponseObject"
-              examples:
-                  Missing_parameter:
-                    summary: Missing parameter
-                    value: 
-                      status: 400 Bad Request
-                      details: "Missing required parameter: ''"
-                  Missing_parameters:
-                    summary: Missing parameters
-                    value: 
-                      status: 400 Bad Request
-                      details: "Missing required parameters: username, password, pin"
-                  Invalid_JSON:
-                    summary: Invalid JSON
-                    value: 
-                      status: 400 Bad Request
-                      details: Could not parse JSON body - Expecting xxxx
-                  Token_exists:
-                    summary: Token already created
-                    value: 
-                      status: 400 Bad Request
-                      details: A token with these credentials already exist!
+                type: object
+                properties:
+                  title:
+                    type: string
+                    description: Invalid JSON
+                  description:
+                    type: string
+                    description: The response error message
+              example:
+                status: 400 Bad Request
+                details: A token with these credentials already exist!
         404:
-          description: Not Found
+          description: Invalid username
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ResponseObject"
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: The response status id
+                  details:
+                    type: string
+                    description: The response error message
               example:
                 status: 404 Not Found
                 details: Error getting RAO's id. Make sure the credentials are correct.
@@ -1090,8 +1090,8 @@ paths:
       tags:
       - Tokens
       summary: GET TOKEN
+      security: []
       description: Retrieves the token associated credentials with the given unique identifier.<br> The response gets a `true` or `false` value regarding if password and PIN parameters are associated to the token.
-      operationId: get_token
       parameters:
       - name: uid
         in: path
@@ -1131,25 +1131,22 @@ paths:
                   username: "9001800"
                   password: true
                   pin: true
-        400:
-          description: Bad Request
-          content: 
-            application/json:
-              schema: 
-                $ref: "#/components/schemas/ResponseObject"
-              example:
-                status: 400 Bad Request
-                details: "Missing required parameter: no token uid specified"
-
         404:
-          description: Not Found
+          description: '`uid` not found'
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ResponseObject"
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: The response status id
+                  details:
+                    type: string
+                    description: The response error message
               example:
                 status: 404 Not Found
-                details: Token X not found
+                details: Token not found
       x-codeSamples:
       - lang: curl
         source: "curl -i -X GET \\ \n  https://one-shot.developers.uanataca.com/api/v1/token/a44765ab8ca04e429a565f02d22179a0\n"
@@ -1197,8 +1194,8 @@ paths:
       tags:
       - Tokens
       summary: DELETE TOKEN
+      security: []
       description: Deletes the token with the specified unique identifier.
-      operationId: delete_token
       parameters:
       - name: uid
         in: path
@@ -1212,25 +1209,30 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ResponseObject"
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: The response status id
+                  details:
+                    type: string
+                    description: Successful token deletion confirmation message
               example:
                 status: 200 OK
                 details: Token deleted successfully
-        400:
-          description: Bad Request
-          content: 
-            application/json:
-              schema: 
-                $ref: "#/components/schemas/ResponseObject"
-              example:
-                status: 400 Bad Request
-                details: "Missing required parameter: no token uid specified"
         404:
-          description: Not Found
+          description: '`uid` not found'
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ResponseObject"
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: The response status id
+                  details:
+                    type: string
+                    description: The response error message
               example:
                 status: 404 Not Found
                 details: Token not found
@@ -1284,8 +1286,8 @@ paths:
       tags:
       - Tokens
       summary: LIST TOKENS
+      security: []
       description: Returns a list of all tokens available and their associated data.
-      operationId: list_tokens
       responses:
         200:
           description: Successful Response
@@ -1375,8 +1377,8 @@ paths:
       tags:
       - Requests
       summary: CREATE REQUEST
+      security: []
       description: Creates a new digital signature request for the user identified.
-      operationId: create_request
       requestBody:
         content:
           multipart/form-data:
@@ -1396,9 +1398,6 @@ paths:
               - surname_1
               - token
               - username
-              - id_document_type
-              - id_document_country
-              - communication_language
               type: object
               properties:
                 given_name:
@@ -1418,8 +1417,11 @@ paths:
                      * **PAS** - Identification based on passport number
                      * **PNO** - Identification based on national personal number (national civic registration number)
                      * **TIN** - Tax Identification Number according to the European Commission
-                     * **CI** - Tax Identification Number according to the European Commission
-                     * **CE** - Tax Identification Number according to the European Commission
+                  enum:
+                  - IDC
+                  - PAS
+                  - PNO
+                  - TIN
                 id_document_country:
                   type: string
                   description: The user's id document country two-letters code (ISO
@@ -1451,6 +1453,9 @@ paths:
                     color: #3b3b3b;''><b>⚠ Required only if not set at settings.ini
                     file. Check <a href=''#tag/Settings/paths/~1api~1v1~1settings/post''>Update
                     Settings</a> call.</b></blockquote>'
+                  enum:
+                  - PFnubeQAFCiudadano
+                  - PFnubeNC
                 token:
                   type: string
                   description: 'The Registration Authority Officer (RAO)''s token
@@ -1475,19 +1480,19 @@ paths:
                     #3b3b3b;''><b>⚠ Not required when included in <a href=''#tag/Tokens/paths/~1api~1v1~1token/post''>token</a>.</b></blockquote>'
                 document_front:
                   description: Front side image of the user's identification document (JPEG or PNG).
-                  type: file
+                  type: string
                   format: binary
                 document_rear:
                   description: Rear side image of the user's identification document (JPEG or PNG)
-                  type: file
+                  type: string
                   format: binary
                 document_owner:
                   description: A selfie image of the user holding the identifying document below his/her chin (JPEG or PNG)
-                  type: file
+                  type: string
                   format: binary
                 extra_document:
                   description: An extra document to upload.
-                  type: file
+                  type: string
                   format: binary
                 env:
                   type: string
@@ -1506,7 +1511,6 @@ paths:
                     Settings</a> call.</b></blockquote>'
                 billing_password:
                   type: string
-                  format: base64
                   description: 'The client billing password in Base64 format. </br>
                     <blockquote style=''background-color: #faf3ac; border-color: #5a5a5a;
                     color: #3b3b3b;''><b>⚠ Required only if not set at settings.ini
@@ -1514,28 +1518,10 @@ paths:
                     Settings</a> call.</b></blockquote>'
                 useasync:
                   type: boolean
-                  description: This parameter enables One-Shot asynchronous workflow. When set to true, the `callback` parameter can be set by specifying a Webhook URL.
+                  description: This parameter enables the One-Shot asynchronous workflow. When set to true, the `callback` parameter can be set by specifying a Webhook URL.
                 callback:
                   type: string
-                  description: Webhook URL where the information of the asynchronous flow is going to be sent. 
-                communication_language:
-                  type: string
-                  description: Two letter code language for communications(ISO3166-1 alpha-2).
-                residence:
-                  type: string
-                  description: '</br><blockquote style=''background-color: #faf3ac; border-color: #5a5a5a;color: #3b3b3b;''><b>⚠ Required only in certain profiles</b></blockquote>'
-                residence_city:
-                  type: string
-                  description: '</br><blockquote style=''background-color: #faf3ac; border-color: #5a5a5a;color: #3b3b3b;''><b>⚠ Required only in certain profiles</b></blockquote>'
-                residence_postal_code:
-                  type: string
-                  description: '</br><blockquote style=''background-color: #faf3ac; border-color: #5a5a5a;color: #3b3b3b;''><b>⚠ Required only in certain profiles</b></blockquote>'
-                residence_address:
-                  type: string
-                  description: '</br><blockquote style=''background-color: #faf3ac; border-color: #5a5a5a;color: #3b3b3b;''><b>⚠ Required only in certain profiles</b></blockquote>'
-                special_conditions:
-                  type: string
-                  description: '</br><blockquote style=''background-color: #faf3ac; border-color: #5a5a5a;color: #3b3b3b;''><b>⚠ Required only in certain profiles</b></blockquote>'
+                  description: The Webhook URL for the asynchronous service. 
         required: true
       responses:
         201:
@@ -1555,95 +1541,88 @@ paths:
                 status: 201 Created
                 details: 29571
         400:
-          description: Bad Request
+          description: Missing username/password/pin | Invalid profile
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ResponseObject"
-              examples:   
-                Missing phone:
-                  summary: Phone number missing in the request
-                  value:
-                    status: 400 Bad Request
-                    details: 'Missing parameter: mobile_phone_number required'
-                Missing prefix:
-                  summary: International prefix missing
-                  value: 
-                    status: 400 Bad Request
-                    details: Please use the mobile phone number with an international prefix
-                Invalid field:
-                  summary: Invalid email address format
-                  value: 
-                    status: 400 Bad Request
-                    details: 'Enter a valid email address'
-                Invalid environment:
-                  summary: Invalid Environment
-                  value: 
-                    status: 400 Bad Request
-                    details: The specified environment is not available
-                Missing docs:
-                  summary: Missing document_front, rear, owner or extra
-                  value: 
-                    status: 400 Bad Request
-                    details: "Error occured during request approval: Missing required docs"
-                Missing id type:
-                  summary: Missing or wrong id_document_type parameter
-                  value: 
-                    status: 400 Bad Request
-                    details: "The id_document_type specified is not valid. Valid options are IDC, PAS, PNO, TIN, CI, CE"
-                Blank env parameter:
-                  summary: Blank env parameter, need to disable it or fill it
-                  value: 
-                    status: 400 Bad Request
-                    details: Missing env parameter. Please set it in settings or specify it as parameter
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: The response status id
+                  details:
+                    type: string
+                    description: The response error message
+              example:
+                status: 400 Bad Request
+                details: 'Missing parameter: mobile_phone_number required'
         403:
-          description: Forbidden
+          description: Invalid username | password | PIN  | registration authority
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ResponseObject"
-              examples:   
-                Missing parameter:
-                  summary: Issue with RAO linked data
-                  value:
-                    status: 403 Forbidden
-                    details: 'Invalid RAO Credentials'
-                Invalid field:
-                  summary: Not enough permissions with the API certificate
-                  value: 
-                    status: 403 Forbidden
-                    details: 'You do not have permission to perform this action. Check your authentication certificates'
-                Missing permissions:
-                  summary: Lack of profile permissions
-                  value: 
-                    status: 403 Forbidden
-                    details: You do not have permission to perform this action
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: The response status id
+                  details:
+                    type: string
+                    description: The response error message
+              example:
+                status: 403 Forbidden
+                details: Invalid RAO credentials
         404:
-          description: Not Found
+          description: Invalid username/password/pin
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ResponseObject"
-              examples:
-                Wrong credentials:
-                  summary: Wrong username, password or pin
-                  value:
-                    status: "404 Not Found"
-                    details: "Error getting RAO's id. Make sure the credentials are correct"
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: The response status id
+                  details:
+                    type: string
+                    description: The response error message
+              example:
+                status: "404 Not Found"
+                details: "Error getting RAO's id. Make sure the credentials are correct"
         412:
-          description: Precondition failed
+          description: Missing parameters
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ResponseObject"
-              examples:
-                Invalid fields:
-                  summary: Invalid or missing request fields
-                  value: 
-                    status: 412 Precondition Failed
-                    details: "Error occured during request approval: Invalid request fields: xxxxx"
-
-
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: The response status id
+                  details:
+                    type: string
+                    description: The response error message
+              example:
+                status: 412 Precondition Failed
+                details: 'Error occured during request approval: Invalid request fields:
+                  given_name'
+        500:
+          description: Invalid environment | Invalid registration authority | Invalid
+            certificates | Invalid billing credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: The response status id
+                  details:
+                    type: string
+                    description: The response error message
+              example:
+                status: 500 Internal Server Error
+                details: 'Configuration error: Please check the certificates path
+                  for the environment selected'
       x-codeSamples:
       - lang: curl
         source: |
@@ -1793,6 +1772,7 @@ paths:
       tags:
       - Video ID
       summary: CREATE VIDEO ID REQUEST
+      security: []
       description: Creates a new signature request to be used over Video ID validation
         process.
       requestBody:
@@ -1816,57 +1796,89 @@ paths:
                     type: object
                     properties:
                       videoid_pk:
-                        type: number
+                        type: string
                         description: The Video ID primary key
                       videoid_link:
                         type: string
-                        description: The Video ID access link.
+                        description: The Video ID access link. Available only for
+                          <a href="#section/Video-ID-Workflows/1-Step-validation">1-Step</a>
+                          and <a href="#section/Video-ID-Workflows/2-Step-validation">2-Step</a>
+                          validation mode.
                       request_pk:
-                        type: number
+                        type: string
                         description: The request primary key
               example:
                 status: 200 OK
                 details:
                   videoid_pk: 137
-                  videoid_link: "https://link.com/123456789"
+                  videoid_link: ""
                   request_pk: 45836
         400:
-          description: Bad Request
+          description: Invalid JSON | Missing required parameters
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ResponseObject"
-              examples:
-                VideoID disabled:
-                  summary: VideoID is not enabled in RA settings
-                  value: 
-                    status: "400 Bad Request"
-                    details: "Videoid not enabled for Registration Authority 1234"
-                Missing parameters:
-                  summary: Missing required parameters, check required.
-                  value: 
-                    status: 400 Bad Request
-                    details: Missing required parameters
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Status message
+                  description:
+                    type: string
+                    description: Status description
+              example:
+                status: 400 Bad Request
+                details: Videoid not enabled for Registration Authority 1234
         403:
-          description: Forbidden
+          description: Permission Denied
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ResponseObject"
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Status message
+                  description:
+                    type: string
+                    description: Status description
               example:
                 status: 403 Forbidden
                 details: 'Error creating new videoid request: {"detail":"You do not
                   have permission to perform this action."}'
         404:
-          description: Not Found
+          description: Invalid Registration Authority
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ResponseObject"
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: The response status id
+                  details:
+                    type: string
+                    description: The response error message
               example:
                 status: 404 Not Found
                 details: Registration Authority not found
-
+        500:
+          description: Invalid Billing Credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: The response status id
+                  details:
+                    type: string
+                    description: The response error message
+              example:
+                status: 500 Internal Server Error
+                details: Cannot check the remaining credit for the billing user. Please
+                  check the credentials.
       x-codeSamples:
       - lang: curl
         source: |
@@ -1970,8 +1982,8 @@ paths:
       tags:
       - Video ID
       summary: UPLOAD DATA EVIDENCES
+      security: []
       description: Upload Request associated data
-      operationId: upload_data
       parameters:
       - name: request_pk
         in: path
@@ -1991,30 +2003,66 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ResponseObject"
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: The response status code
+                  details:
+                    type: string
+                    description: The response status message
               example:
                 status: 200 OK
                 details: Videoid evidences uploaded
         400:
-          description: Bad Request
+          description: Invalid JSON | Missing required parameters
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ResponseObject"
+                type: object
+                properties:
+                  title:
+                    type: string
+                    description: Response error message
+                  description:
+                    type: string
+                    description: Message description
               example:
-                status: Invalid JSON
-                details: 'Could not parse JSON body - Expecting '','' delimiter:
+                title: Invalid JSON
+                description: 'Could not parse JSON body - Expecting '','' delimiter:
                   line 5 column 11 (char 205)'
         404:
-          description: Not Found
+          description: Invalid Request pk
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ResponseObject"
+                type: object
+                properties:
+                  title:
+                    type: string
+                    description: Response error message
+                  description:
+                    type: string
+                    description: Message description
               example:
-                status: 404 Not Found
-                details: Request not found
-                
+                title: 404 Not Found
+                description: Request not found
+        500:
+          description: Missing information | Evidences already uploaded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: The response status code
+                  details:
+                    type: string
+                    description: The response error message
+              example:
+                status: 500 Internal Server Error
+                details: 'Cannot upload evidences data for Request 46289: {"code": "412", "id": "22981d7f5029e78d", "error": "Invalid VideoId status ''COMPLETE''"}'
       x-codeSamples:
       - lang: curl
         source: |
@@ -2234,8 +2282,8 @@ paths:
       tags:
       - Video ID
       summary: UPLOAD VIDEO
+      security: []
       description: Upload Request associated video
-      operationId: upload_video
       parameters:
       - name: request_pk
         in: path
@@ -2260,19 +2308,33 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ResponseObject"
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: The response status code
+                  details:
+                    type: string
+                    description: The response status message
               example:
                 status: 200 OK
                 details: Videoid video upload completed
         404:
-          description: Not Found
+          description: Invalid Request pk
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ResponseObject"
+                type: object
+                properties:
+                  title:
+                    type: string
+                    description: Response error message
+                  description:
+                    type: string
+                    description: Message description
               example:
-                status: 404 Not Found
-                details: Request not found
+                title: 404 Not Found
+                description: Request not found
       x-codeSamples:
       - lang: curl
         source: "curl -i -X POST \\\n  https://one-shot.developers.uanataca.com/api/v1/videoid/45836/evidences/video/\
@@ -2353,9 +2415,9 @@ paths:
       tags:
       - Requests
       summary: GET REQUEST
+      security: []
       description: Retrieve request information with the id obtained in the **CREATE
         REQUEST** response.
-      operationId: get_request
       parameters:
       - name: request_pk
         in: path
@@ -2429,22 +2491,12 @@ paths:
                   serial_number: 12345678A
                   scratchcard: "5039078"
                   registration_authority: 139
-                  id_document_type: IDwC
+                  id_document_type: IDC
                   pk: 45836
                   given_name: Name
                   status: ENROLLREADY
                   certificate_set: []
                   id_document_country: ES
-        400:
-                    description: Bad Request
-                    content:
-                      application/json:
-                        schema:
-                          $ref: "#/components/schemas/ResponseObject"
-                        example:
-                          status: 404 Not Found
-                          details: Request not found. Make sure the upload directory is correct.
-
       x-codeSamples:
       - lang: curl
         source: |
@@ -2494,8 +2546,8 @@ paths:
       tags:
       - Video ID
       summary: UPDATE REQUEST
+      security: []
       description: Updates a Video ID signature request.
-      operationId: update_request
       parameters:
       - name: request_pk
         in: path
@@ -2515,11 +2567,96 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ResponseObject"
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: The response status id
+                  details:
+                    type: object
+                    properties:
+                      videoid_pk:
+                        type: string
+                        description: The Video ID primary key
+                      videoid_link:
+                        type: string
+                        description: The Video ID access link
+                      request_pk:
+                        type: string
+                        description: The request pk number
               example:
                 status: 200 OK
-                details: Request updated
-
+                details:
+                  videoid_pk: 137
+                  videoid_link: ""
+                  request_pk: 45836
+        400:
+          description: JSON syntax error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Status message
+                  description:
+                    type: string
+                    description: Status description
+              example:
+                title: Invalid JSON
+                description: 'Could not parse JSON body - Expecting '','' delimiter:
+                  line 9 column 5 (char 220)'
+        403:
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Status message
+                  description:
+                    type: string
+                    description: Status description
+              example:
+                status: 403 Forbidden
+                details: 'Error creating new videoid request: {"detail":"You do not
+                  have permission to perform this action."}'
+        404:
+          description: Invalid Registration Authority
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: The response status id
+                  details:
+                    type: string
+                    description: The response error message
+              example:
+                status: 404 Not Found
+                details: Registration Authority not found
+        500:
+          description: Invalid Request pk | Missing required parameters
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: The response status id
+                  details:
+                    type: string
+                    description: The response error message
+              example:
+                status: 500 Internal Server Error
+                details: 'Cannot update the Request 46263: {"code": "500", "id": "5c05e064d7a903ac",
+                  "error": "Invalid ScratchCard"}'
       x-codeSamples:
       - lang: curl
         source: |
@@ -2634,8 +2771,8 @@ paths:
       tags:
       - Video ID
       summary: CANCEL REQUEST
+      security: []
       description: Cancels the Video ID One-Shot Signature request
-      operationId: cancel_request
       parameters:
       - name: request_pk
         in: path
@@ -2649,16 +2786,30 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ResponseObject"
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: The response status id
+                  details:
+                    type: string
+                    description: The successful response message
               example:
                 status: 200 OK
                 details: Request directory removed successfully
         404:
-          description: Not found
+          description: Invalid Request pk
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ResponseObject"
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: The response status id
+                  details:
+                    type: string
+                    description: The response error message
               example:
                 status: 404 Not Found
                 details: Request 1234567 not found
@@ -2706,9 +2857,9 @@ paths:
     get:
       tags:
       - Requests
-      summary: GET ASYNCHRONOUS REQUEST STATUS
+      summary: GET REQUEST ASYNCHRONOUS
+      security: []
       description: Shows the status of a Request executed under asynchronous mode.
-      operationId: async_status
       parameters:
       - name: pk
         in: path
@@ -2722,16 +2873,33 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ResponseObject"
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: The response status id.
+                  details:
+                    type: object
+                    properties: {}
+                    description: 'JSON object with information associated to the request </br> <blockquote style=''background-color:
+            #faf3ac; border-color: #5a5a5a; color: #3b3b3b;''><b>⚠ If the `useasync` parameter is not set or set to false, this call will show an "Unknown" status message.</b></blockquote>'
               example:
                 status: 200 OK
                 details: approved
         400:
-          description: Bad Request
+          description: Request id not found
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ResponseObject"
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: The response status id
+                  details:
+                    type: object
+                    properties: {}
+                    description: JSON object with information associated to the request
               example:
                 status: 404 Not Found
                 details: Request 29571 not found. Make sure the upload directory is correct
@@ -2786,11 +2954,9 @@ paths:
       tags:
       - Requests
       summary: GENERATE OTP
-      operationId: generate_otp
+      security: []
       description: Generates a One-Time Password (OTP) code for the user. The OTP
-        is sent directly to the user's mobile phone as an SMS message.</br> <html><blockquote
-        style='background-color:#faf3ac; border-color:#DFDFDF; color:#3b3b3b;'><b>⚠This
-        method is only required and available for requests using Uanataca SMS method</b></blockquote></html>
+        is sent directly to the user's mobile phone as an SMS message.</br>
       parameters:
       - name: pk
         in: path
@@ -2804,36 +2970,17 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ResponseObject"
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: The response status id
+                  details:
+                    type: string
+                    description: OTP sent code confirmation message
               example:
                 status: 200 OK
                 details: OTP generated
-        404:
-          description: Not Found
-          content:
-            application/json:
-              schema: 
-                $ref: "#/components/schemas/ResponseObject"
-              example:
-                status: 404 Not Found
-                details: Request xxxx not found. Cannot send OTP secret
-        412:
-          description: Precondition Failed
-          content:
-            application/json:
-              schema: 
-                $ref: "#/components/schemas/ResponseObject"
-              examples:
-                OTP retry:
-                  summary: Retry of OTP generation too soon
-                  value: 
-                    status: 412 Precondition Failed
-                    details: "Error occured during OTP generation: Otp generated less than a minute ago"
-                Invalid status:
-                  summary: Invalid request status, already issued or not approved
-                  value: 
-                    status: 412 Precondition Failed
-                    details: "Error occured during OTP generation: Invalid request status"
       x-codeSamples:
       - lang: curl
         source: |
@@ -2884,9 +3031,9 @@ paths:
       tags:
       - Requests
       summary: SIGN
+      security: []
       description: Signs all documents associated to a request using a single-use
         certificate generated for the signature request.
-      operationId: sign
       parameters:
       - name: pk
         in: path
@@ -2906,94 +3053,17 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ResponseObject"
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: The response status id
+                  details:
+                    type: string
+                    description: Successful signature(s) confirmation message
               example:
                 status: 200 OK
                 details: Documents correctly signed
-        
-        400:
-          description: Bad Request
-          content:
-            application/json:
-              schema: 
-                anyOf: 
-                  -  $ref: "#/components/schemas/ResponseObject"
-                  -  $ref: "#/components/schemas/ResponseObject_alt"
-              examples:
-                Missing parameter:
-                  summary: Missing required parameter in the JSON
-                  value: 
-                    status: 400 Bad Request
-                    details: "Missing required parameter: 'secret'"
-                Missing image parameters:
-                  summary: Image parameters missing in one or more documents
-                  value: 
-                    status: 400 Bad Request
-                    details:
-                      f550f6a9-9c71-4964-846e-b72ec0fec837: "Missing required parameter 'position' for file f550f6a9-9c71-4964-846e-b72ec0fec837"
-                      8af62bff-9d21-4416-a2c7-8d0e6c70605a: "Missing required parameter 'page' for file f550f6a9-9c71-4964-846e-b72ec0fec837"
-
-        403:
-          description: Forbidden
-          content: 
-            application/json: 
-              schema: 
-                anyOf: 
-                  -  $ref: "#/components/schemas/ResponseObject"
-                  -  $ref: "#/components/schemas/ResponseObject_alt"
-              examples: 
-                Countersignature creds:
-                  summary: Wrong countersignature username, password or pin
-                  value: 
-                    status: 403 Forbidden
-                    details: Invalid countersignature credentials 
-                Invalid OTP:
-                  summary: Wrong or expired confirmation code
-                  value: 
-                    status: 403 Forbidden
-                    details: Confirmation Code invalid
-
-        404:
-          description: Not Found
-          content: 
-            application/json: 
-              schema: 
-                anyOf: 
-                  -  $ref: "#/components/schemas/ResponseObject"
-                  -  $ref: "#/components/schemas/ResponseObject_alt"
-              examples: 
-                Doc missing:
-                  summary: Document missing in the request tmp directory
-                  value: 
-                    status: 404 Not found
-                    details: The following documents are not found in Request's folders:a6554-adsf54-sdfs46-as456
-                Missing image:
-                  summary: Image missing in one or more documents
-                  value: 
-                    status: 404 Not found
-                    details:
-                      d1f12c55-ba85-45e8-bc81-4f621d87c245: The image 13705f52-3211-49a8-9807-b65b8da25f3 cannot be found on disk
-                      8af62bff-9d21-4416-a2c7-8d0e6c70605a: The image 13705f52-3211-49a8-9807-b65b8da25f3 cannot be found on disk
-                Multiple docs missing:
-                  summary: One or more documents missing
-                  value: 
-                    status: 404 Not Found
-                    details: "The following documents are not found in Request's folders: 8af62bff-9d21-4416-a2c7-8d0e6c70605, f4c69247-01e6-46bc-8f1d-c42ac44fc1c"
-                Request not found:
-                  summary: Wrong request pk or missing in tmp
-                  value: 
-                    status: 404 Not Found
-                    details: Request xxxx not found. Cannot sign documents
-                  
-        412:
-          description: Precondition Failed
-          content: 
-            application/json:
-              schema: 
-                $ref: "#/components/schemas/ResponseObject"
-              example: 
-                status: 412 Precondition Failed
-                details: Request already in ISSUED status
       x-codeSamples:
       - lang: curl
         source: |
@@ -3089,13 +3159,146 @@ paths:
           }
       x-codegen-request-body-name: body
 
+  /api/v1/async/sign/{pk}:
+    post:
+      tags:
+      - Requests
+      summary: ASYNCHRONOUS SIGN 
+      security: []
+      description: (Asynchronous mode) Signs all documents associated to a request using a single-use
+        certificate generated for the signature request. 
+      parameters:
+      - name: pk
+        in: path
+        description: The request unique identifier
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SignObject'
+        required: false
+      responses:
+        200:
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: The response status id
+                  details:
+                    type: string
+                    description: Successful signature(s) confirmation message
+              example:
+                status: 200 OK
+                details: Documents correctly signed
+      x-codeSamples:
+      - lang: curl
+        source: |
+          curl -i -X POST \
+            https://one-shot.developers.uanataca.com/api/v1/async/sign/29571 \
+            -H 'Content-Type: application/json' \
+            -d '{
+                  "secret"   : "052174",
+                  "options": {
+                      "5f04778a-54f6-426a-b204-5573eb01e5da": {
+                          "position": "300, 100, 500, 150",
+                          "image": "b0b6370e-8b54-4d8b-ab6f-a002cf08dd28",
+                          "page": 0
+                      }
+                }'
+      - lang: Python
+        source: |
+          import requests
+
+          url = "https://one-shot.developers.uanataca.com/api/v1/async/sign/29571"
+
+          payload = {
+                      "secret"   : "052174",
+                      "options": {
+                          "5f04778a-54f6-426a-b204-5573eb01e5da": {
+                            "position": "300, 100, 500, 150",
+                            "image": "b0b6370e-8b54-4d8b-ab6f-a002cf08dd28",
+                            "page": 0
+                      }
+                    }
+
+          headers = {"Content-Type": "application/json"}
+
+          response = requests.post(url, json=payload, headers=headers)
+
+          data = response.json()
+          print(data)
+      - lang: Node.js
+        source: |
+          const fetch = require('node-fetch');
+
+          const resp = await fetch(
+            'https://one-shot.developers.uanataca.com/api/v1/async/sign/29571',
+            {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                  "secret"   : "052174",
+                  "options": {
+                      "5f04778a-54f6-426a-b204-5573eb01e5da": {
+                          "position": "300, 100, 500, 150",
+                          "image": "b0b6370e-8b54-4d8b-ab6f-a002cf08dd28",
+                          "page": 0
+                      }
+                    })
+            }
+          );
+
+          const data = await resp.json();
+          console.log(data);
+      - lang: C#
+        source: |
+          using System;
+          using System.Net.Http;
+          using System.Threading.Tasks;
+          using System.Text;
+          using Newtonsoft.Json.Linq;
+
+          public class Program
+          {
+            public static async Task Main(string[] args)
+            {
+              using (var client = new HttpClient())
+              {
+                JObject json = JObject.Parse(@"{
+                  "secret"   : "052174",
+                  "options": {
+                      "5f04778a-54f6-426a-b204-5573eb01e5da": {
+                          "position": "300, 100, 500, 150",
+                          "image": "b0b6370e-8b54-4d8b-ab6f-a002cf08dd28",
+                          "page": 0
+                      }
+                    }");
+                var postData = new StringContent(json.ToString(), Encoding.UTF8, "application/json");
+                var request = await client.PostAsync("https://one-shot.developers.uanataca.com/api/v1/async/sign/29571", postData);
+                var response = await request.Content.ReadAsStringAsync();
+
+                Console.WriteLine(response);
+              }
+            }
+          }
+      x-codegen-request-body-name: body
   /api/v1/document/{pk}:
     post:
       tags:
       - Documents
       summary: UPLOAD DOCUMENT
+      security: []
       description: Uploads a pdf document to be signed. The document is associated
-        to a signature request. It is possible to upload a maximum of 10 documents at once through the same call.
+        to a signature request.</br>In case of raw hash signature instead of 'file', 'hashfile' needs to be used to upload a <a href="#section/Classic-Workflow">JSON file</a> containing a specific structure.
       parameters:
       - name: pk
         in: path
@@ -3110,86 +3313,48 @@ paths:
               type: object
               properties:
                 file:
-                  description: Local path of the pdf file to be signed
+                  description: Local path to the pdf file to be signed
                   type: array
                   items:
                     type: string
                     format: binary
                 hashfile:
-                  description: Local path of the json file with message digest and other structures
+                  description: Local path to the JSON file containing a base64 hash along with all the required information
                   type: array
-                  items:
+                  items: 
                     type: string
                     format: binary
         required: true
       responses:
         200:
-          description: Successful response
+          description: Successful Response
           content:
             application/json:
               schema:
-                anyOf: 
-                  -  $ref: "#/components/schemas/ResponseObject"
-                  -   type: object
-                      properties:
-                        status:
-                          type: string
-                          description: The response status id
-                        details:
-                          description: The uploaded document id
-                          properties:
-                            digest:
-                              type: object
-                              description: Message digest of the document
-                            uid:
-                              type: string
-                              description: Assigned uid to the document
-                            key:
-                              type: string
-                              description: Key name of the file assigned by the user
-                            filename:
-                              type: string
-                              description: Original name of the file
-
-              examples:
-                Multiple docs:
-                  summary: Multiple document upload sample
-                  value: 
-                    status: 200 OK
-                    details:
-                      - digest: 8cb5502501c9e5c9fb6869670fd83ad4f7df948f01826a41e6e5649fa0d8b3ad
-                        uid: ec27331a-a78a-4461-b897-8e2ca158cef7
-                        key: file2
-                        filename: file.pdf
-                      - digest: 8cb5502501c9e5c9fb6869670fd83ad4f7df948f01826a41e6e5649fa0d8b3ad
-                        uid: 7c0acde7-2f56-49b3-a129-a00d910912ef
-                        key: file
-                        filename: file.pdf
-                Single doc:
-                  summary: Single document upload sample
-                  value: 
-                    status: 200 OK
-                    details: db1c8aea-9cc0-4460-925c-72c6c918e5ae
-        415:
-          description: Unsupported Media Type
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ResponseObject"
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: The response status id
+                  details:
+                    type: string
+                    description: The uploaded document id
               example:
-                status: 415 Unsupported Media Type
-                details: "Unsupported file type: xxxx"      
-              
-
-
+                status: 200 OK
+                details: a73b1253-838f-4340-8ae8-e0a1524f7472
       x-codeSamples:
       - lang: curl
         source: |
           curl -i -X POST \
             https://one-shot.developers.uanataca.com/api/v1/document/29571 \
             -H 'Content-Type: multipart/form-data' \
-            -F file=@sample_folder/document.pdf \
-            -F hashfile=@sample_folder/digest.json
+            -F file=@sample_folder/document.pdf
+
+
+          curl -i -X POST \
+            https://one-shot.developers.uanataca.com/api/v1/document/29571 \
+            -H 'Content-Type: multipart/form-data' \
+            -F hashfile=@sample_folder/hash.json
       - lang: Python
         source: |
           import requests
@@ -3263,8 +3428,8 @@ paths:
       tags:
       - Documents
       summary: RETRIEVE DOCUMENT
-      description: Retrieves the specified original or signed document.
-      operationId: retrieve_document
+      security: []
+      description: Retrieves the specified original or signed document. In case of raw hash signature, the result obtained would be a p7m structure.
       parameters:
       - name: pk
         in: path
@@ -3304,16 +3469,7 @@ paths:
                 \ R] >>\n endobj\n\n\n3 0 obj\n <</Type/Page/Parent 2 0 R/Resources<</Font<</F1\
                 \ 5 0 R>>/ExtGState<</GS7 7 0 R/GS8 8 0 R>>/ProcSet[/PDF/Text/ImageB/ImageC/ImageI]\
                 \ >>/MediaBox[ 0 0 595.32 841.92] /Contents 4 0 R/Group<</Type/Group/S/Transparency/CS/DeviceRGB>>/Tabs/S/StructParents\
-                \ 0>>\n endobj\n (...)\n "
-        404:
-          description: Not Found
-          content:
-            application/json:
-              schema: 
-                $ref: "#/components/schemas/ResponseObject"
-              example: 
-                status: 404 Not Found
-                details: Document not found
+                \ 0>>\n endobj\n (...)\n " 
       x-codeSamples:
       - lang: curl
         source: |
@@ -3363,8 +3519,8 @@ paths:
       tags:
       - Documents
       summary: DELETE DOCUMENT
+      security: []
       description: Deletes the specified original or signed document.
-      operationId: delete_document
       parameters:
       - name: pk
         in: path
@@ -3396,29 +3552,17 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ResponseObject"
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: The response status id
+                  details:
+                    type: string
+                    description: Successful document deletion confirmation message
               example:
                 status: 200 OK
                 details: Document successfully deleted
-        400:
-          description: Bad Request
-          content:
-            application/json:
-              schema: 
-                $ref: "#/components/schemas/ResponseObject"
-              example:
-                status: 400 Bad Request
-                details: Missing required parameters
-        404:
-          description: Not Found
-          content:
-            application/json:
-              schema: 
-                $ref: "#/components/schemas/ResponseObject"
-              example:
-                status: 404 Not Found
-                details: Document not found with uid xxxx and type xxxx
-
       x-codeSamples:
       - lang: curl
         source: |
@@ -3469,8 +3613,8 @@ paths:
       tags:
       - Documents
       summary: LIST DOCUMENTS
+      security: []
       description: Lists all documents associated to a specific request.
-      operationId: list_documents
       parameters:
       - name: pk
         in: path
@@ -3527,24 +3671,6 @@ paths:
                     size: 100337
                     mime: application/pdf
                     filename: test.pdf
-        400:
-          description: Bad Request
-          content:
-            application/json:
-              schema: 
-                $ref: "#/components/schemas/ResponseObject"
-              example:
-                status: 400 Bad Request
-                details: "Missing required parameters: Request's pk not specified"
-        404:
-          description: Not Found
-          content:
-            application/json:
-              schema: 
-                $ref: "#/components/schemas/ResponseObject"
-              example:
-                status: 404 Not Found
-                details: No documents found for specified Request
       x-codeSamples:
       - lang: curl
         source: |
@@ -3594,8 +3720,8 @@ paths:
       tags:
       - Documents
       summary: DELETE ALL DOCUMENTS
+      security: []
       description: Deletes all documents associated to a specific request.
-      operationId: delete_all_documents
       parameters:
       - name: pk
         in: path
@@ -3620,24 +3746,6 @@ paths:
               example:
                 status: 200 OK
                 details: Documents deleted successfully
-        400:
-          description: Bad Request
-          content:
-            application/json:
-              schema: 
-                $ref: "#/components/schemas/ResponseObject"
-              example:
-                status: 400 Bad Request
-                details: "Missing required parameters: Request's pk not specified"
-        404:
-          description: Not Found
-          content:
-            application/json:
-              schema: 
-                $ref: "#/components/schemas/ResponseObject"
-              example:
-                status: 404 Not Found
-                details: No documents found for specified Request
       x-codeSamples:
       - lang: curl
         source: |
@@ -3688,6 +3796,7 @@ paths:
       tags:
       - Documents
       summary: RETRIEVE CONTRACT
+      security: []
       description: Retrieve the service contract regarding the user's digital certificate
         issuing.
       parameters:
@@ -3759,8 +3868,8 @@ paths:
       tags:
       - Images
       summary: UPLOAD IMAGE
+      security: []
       description: Uploads an image for using in a visual graphic signature.
-      operationId: upload_image
       requestBody:
         content:
           multipart/form-data:
@@ -3791,24 +3900,6 @@ paths:
               example:
                 status: 200 OK
                 details: bfd74f73-7b22-40a6-ad37-6fc867263309
-        400:
-          description: Bad Request
-          content:
-            application/json:
-              schema: 
-                $ref: "#/components/schemas/ResponseObject"
-              example:
-                status: 400 Bad Request
-                details: "Missing required parameter: 'image'"
-        415:
-          description: Unsupported Media Type
-          content:
-            application/json:
-              schema: 
-                $ref: "#/components/schemas/ResponseObject"
-              example:
-                status: 415 Unsupported Media Type
-                details: "Image file type not supported: xxxx"
       x-codeSamples:
       - lang: curl
         source: |
@@ -3887,8 +3978,8 @@ paths:
       tags:
       - Images
       summary: RETRIEVE IMAGE
+      security: []
       description: Retrieves a previously uploaded image.
-      operationId: retrieve_image
       parameters:
       - name: uid
         in: path
@@ -3900,26 +3991,8 @@ paths:
         200:
           description: Successful Response
           content:
-            image/png:
+            text/png:
               example: The retrieved image in png format
-        400:
-          description: Bad Request
-          content:
-            application/json:
-              schema: 
-                $ref: "#/components/schemas/ResponseObject"
-              example:
-                status: 400 Bad Request
-                details: "Missing required parameters: Image uid not specified"
-        404:
-          description: Not Found
-          content:
-            application/json:
-              schema: 
-                $ref: "#/components/schemas/ResponseObject"
-              example:
-                status: 404 Not Found
-                details: Image with uid 13705f52-3211-49a8-9807-b65b8da25f3 not found
       x-codeSamples:
       - lang: curl
         source: |
@@ -3969,8 +4042,8 @@ paths:
       tags:
       - Images
       summary: DELETE IMAGE
+      security: []
       description: Deletes a previously uploaded image.
-      operationId: delete_image
       parameters:
       - name: uid
         in: path
@@ -3995,24 +4068,6 @@ paths:
               example:
                 status: 200 OK
                 details: Image deleted
-        400:
-          description: Bad Request
-          content:
-            application/json:
-              schema: 
-                $ref: "#/components/schemas/ResponseObject"
-              example:
-                status: 400 Bad Request
-                details: "Missing required parameters: No image uid specified"
-        404:
-          description: Not found
-          content:
-            application/json:
-              schema: 
-                $ref: "#/components/schemas/ResponseObject"
-              example:
-                status: 404 Not Found
-                details: Image with uid 13705f52-3211-49a8-9807-b65b8da25f3 not found on disk
       x-codeSamples:
       - lang: curl
         source: |
@@ -4063,8 +4118,8 @@ paths:
       tags:
       - Images
       summary: LIST IMAGES
+      security: []
       description: Lists all uploaded images.
-      operationId: list_images
       responses:
         200:
           description: Successful Response
@@ -4122,15 +4177,22 @@ paths:
       tags:
       - Images
       summary: DELETE ALL IMAGES
+      security: []
       description: Deletes all uploaded images.
-      operationId: delete_all_images
       responses:
         200:
           description: Successful Response
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ResponseObject"
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: The response status id
+                  details:
+                    type: string
+                    description: The successful image list deletion confirmation message
               example:
                 status: 200 OK
                 details: Images deleted successfully
@@ -4229,8 +4291,8 @@ paths:
       tags:
       - Video ID
       summary: REFUSE REQUEST
+      security: []
       description: Refuse validation for a Video ID Request
-      operationId: refuse_request
       parameters:
       - name: request_pk
         in: path
@@ -4250,43 +4312,68 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ResponseObject"
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Successful response code
+                  details:
+                    type: object
+                    properties: {}
+                    description: Successful response message
               example:
                 status: 200 OK
                 details: Videoid refuse completed
         400:
-          description: Bad Request
+          description: Invalid JSON | Missing required parameters
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ResponseObject"
-              examples:
-                Invalid JSON:
-                  summary: Wrong JSON structure
-                  value: 
-                    status: Invalid JSON
-                    details: 'Could not parse JSON body - Expecting '','' delimiter:
-                      line 5 column 11 (char 205)'
-                Missing parameters:
-                  summary: Missing required parameters on JSON body
-                  value: 
-                    status: 400 Bad Request
-                    details: "Missing required parameters: incomplete RAO's credentials"
-                Missing reason:
-                  summary: Reason parameter not sent or sent blank
-                  value: 
-                    status: 400 Bad Request
-                    details: No reason specified
+                type: object
+                properties:
+                  title:
+                    type: string
+                    description: Response error message
+                  description:
+                    type: string
+                    description: Message description
+              example:
+                title: Invalid JSON
+                description: 'Could not parse JSON body - Expecting '','' delimiter:
+                  line 5 column 11 (char 205)'
         403:
-          description: Forbidden
+          description: Invalid RAO credentials
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ResponseObject"
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Response error message
+                  details:
+                    type: string
+                    description: Message description
               example:
                 status: 403 Forbidden
                 details: Invalid RAO credentials
-
+        500:
+          description: Missing required parameters
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: The response status id
+                  details:
+                    type: string
+                    description: The response status message
+              example:
+                status: 500 Internal Server Error
+                details: 'Error during Videoid validation: {"code": "500", "id": "d6f30c831f827d9e",
+                  "error": "Rao matching query does not exist."}'
       x-codeSamples:
       - lang: curl
         source: |
@@ -4382,9 +4469,9 @@ paths:
       tags:
       - Video ID
       summary: APPROVE REQUEST
+      security: []
       description: Approval of a request by a RAO. At this moment the RAO will sign
         the receipt and the contract.
-      operationId: approve_request
       parameters:
       - name: request_pk
         in: path
@@ -4404,28 +4491,67 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ResponseObject"
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Successful response code
+                  details:
+                    type: object
+                    properties: {}
+                    description: Successful response message
               example:
                 status: 200 OK
                 details: Request approved successfully
         400:
-          description: Bad Request
+          description: Invalid JSON | Missing required parameters
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ResponseObject"
+                type: object
+                properties:
+                  title:
+                    type: string
+                    description: Response error message
+                  description:
+                    type: string
+                    description: Message description
               example:
                 status: 400 Bad Request
-                details: "Missing required parameters: incomplete RAO's credentials"
+                details: 'Missing required parameters: incomplete RAO''s credentials'
         403:
-          description: Forbidden
+          description: Invalid RAO credentials
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ResponseObject"
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Response error message
+                  details:
+                    type: string
+                    description: Message description
               example:
                 status: 403 Forbidden
                 details: Invalid RAO credentials
+        500:
+          description: Missing required parameters | Invalid Request pk
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: The response status id
+                  details:
+                    type: string
+                    description: The response status message
+              example:
+                status: 500 Internal Server Error
+                details: 'Cannot approve Request 46391: Invalid request fields: serial_number;
+                  surname_1; mobile_phone_number; given_name'
       x-codeSamples:
       - lang: curl
         source: |
@@ -4529,8 +4655,8 @@ paths:
       tags:
       - Video ID
       summary: DOWNLOAD VIDEO
+      security: []
       description: Download the video file associated to a Request
-      operationId: download_video
       parameters:
       - name: request_pk
         in: path
@@ -4541,18 +4667,23 @@ paths:
       responses:
         200:
           description: Successful Response
-          content:
-            video/mp4:
-              example: The retrieved video in mp4 format
+          content: {}
         400:
-          description: Bad Request
+          description: Invalid Request pk
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ResponseObject"
+                type: object
+                properties:
+                  title:
+                    type: string
+                    description: Response error message
+                  description:
+                    type: string
+                    description: Message description
               example:
-                status: 404 Not Found
-                details: Request not found
+                title: 404 Not Found
+                description: Request not found
       x-codeSamples:
       - lang: curl
         source: |
@@ -4600,28 +4731,6 @@ paths:
           } 
 components:
   schemas:
-    ResponseObject:
-      type: object
-      properties: 
-        status:
-          type: string
-          description: Response status code
-        details:
-          type: string
-          description: Response message
-    ResponseObject_alt:
-      type: object
-      properties: 
-        status:
-          type: string
-          description: Response status code
-        details:
-          type: object
-          description: Response error message
-          properties: 
-            uuid: 
-              type: string
-              description: Document or image uuid
     SettingsObject:
       type: object
       properties:
@@ -4725,65 +4834,6 @@ components:
           type: string
           description: The id of the external authentication request. This field is
             required for requests using external authenticacion methods.
-        countersignature:
-          type: object
-          description: Countersignature properties
-          properties: 
-            signature_format:
-              type: object
-              description: Format of the graphic signature text
-              properties: 
-                text_format:
-                  type: string
-                  description: This property controls the text that is going to be introduced. Through variables you
-                        retrieve information from the signer certificate.
-                        `%(CN), %(Subject)s, %(Date)s, %(E)s` can be used. 
-                date_format:
-                  type: string
-                  description: Date formatting in dd/mm/YY-HH/MM/SS regex.
-                        An input example would be `%d/%m/%Y %H:%M:%S`
-                timezone:
-                  type: string
-                  description: Selected timezone for the graphic signature.
-                        `Europe/Barcelona`
-            position:
-              type: string
-              description: The coordinates in points (pt) for signature image position
-                and size, starting from bottom left corner (x1,y1,x2,y2).<br> 1px
-                = 0.75pt.
-            username:
-              type: string
-              description: SignCloud account username
-            password:
-              type: string
-              description: SignCloud account password
-            pin:
-              type: string
-              description: SignCloud account pin
-            horizontal:
-              type: string
-              description: Orientation of the graphic signature
-            page:
-              type: integer
-              description: The document page where the signature will be placed. The
-                first page starts at `0`
-        signature_format:
-          type: object
-          description: Format of the graphic signature text
-          properties: 
-            text_format:
-              type: string
-              description: This property controls the text that is going to be introduced. Through variables you
-                    retrieve information from the signer certificate.
-                    `%(CN), %(Subject)s, %(Date)s, %(E)s` can be used. 
-            date_format:
-              type: string
-              description: Date formatting in dd/mm/YY-HH/MM/SS regex.
-                    An input example would be `%d/%m/%Y %H:%M:%S`
-            timezone:
-              type: string
-              description: Selected timezone for the graphic signature.
-                    `Europe/Barcelona`
         options:
           type: object
           properties:
@@ -4797,21 +4847,15 @@ components:
                 and size, starting from bottom left corner (x1,y1,x2,y2).<br> 1px
                 = 0.75pt
             page:
-              type: integer
+              type: number
               description: The document page where the signature will be placed. The
                 first page starts at `0`
             image:
               type: string
               description: The previously uploaded image id
-            usecountersignature:
-              type: boolean
-              description: Enables or disables the use of countersignature in the specified document. In case of multiple
-                documents, it has to be written on each block.
           description: Visual graphic signature properties.<br> **It is required prior
             to image upload.** See <a href='#tag/Images'>images</a> api reference
             <br>
-
-
     CreateReqObject_VID:
       required:
       - billing_password
@@ -4820,7 +4864,6 @@ components:
       - env
       - mobile_phone_number
       - profile
-      - registration_authority
       type: object
       properties:
         mobile_phone_number:
