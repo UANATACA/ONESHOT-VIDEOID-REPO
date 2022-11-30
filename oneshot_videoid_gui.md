@@ -49,7 +49,7 @@ List Tokens call output:
 				"username": "1125824",
 				"password": true,
 				"pin": true,
-				"NOTE": "On this demo environment, this method will only return the demo token"
+				"NOTE": "On this demo optimizer, this method will only return the demo token"
 			}
 		}
 	}
