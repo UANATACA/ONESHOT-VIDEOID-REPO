@@ -60,7 +60,7 @@ When using our test-mode Optimizer, you must consider:
 
 1) Billing credentials are required. </br>
 2) The Registration Authority id number will be explicitly assigned by our staff. </br>
-3) The token ´6d1cae4d55be4cdf9cac50ee36f73406´ is valid for using in <a href="#tag/Requests/paths/~1api~1v1~1request/post">Create Request</a> call. Cannot be deleted. </br>
+3) The token fd6a21e6fb7d43b9893a520d67d6ff60 is valid for using in <a href="#tag/Requests/paths/~1api~1v1~1request/post">Create Request</a> call. Cannot be deleted. </br>
 
 </br>
 
