@@ -1496,7 +1496,7 @@ paths:
                     only if not set at settings.ini file. Check <a href=''#tag/Settings/paths/~1api~1v1~1settings/post''>Update
                     Settings</a> call.</b></blockquote>'
                   enum:
-                  - test
+                  - sandbox
                   - prod
                 billing_username:
                   type: string
