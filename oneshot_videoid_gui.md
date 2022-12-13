@@ -173,7 +173,7 @@ This call should return the following JSON object:
 		}
 	}
 
-This output tells us that a single token "6d1cae4d55be4cdf9cac50ee36f73406" exists. This token is associated to the RAO account with id "9001800" and can be used instead of the password and pin.
+This output tells us that a single token "fd6a21e6fb7d43b9893a520d67d6ff60" exists. This token is associated to the RAO account with id "9001800" and can be used instead of the password and pin.
 
 To use tokens in a production environment, you will need to create them first using the corresponding <a href="#tag/Tokens/paths/~1api~1v1~1token/post">Create token</a> API call.
 
@@ -690,7 +690,7 @@ This call should return the following JSON object:
 		}
 	}
 
-This output tells us that a single token "6d1cae4d55be4cdf9cac50ee36f73406" exists. This token is associated to the RAO account with id "9001800" and can be used instead of the password and pin.
+This output tells us that a single token "fd6a21e6fb7d43b9893a520d67d6ff60" exists. This token is associated to the RAO account with id "9001800" and can be used instead of the password and pin.
 
 To use tokens in a production environment, you will need to create them first using the corresponding <a href="#tag/Tokens/paths/~1api~1v1~1token/post">Create token</a> API call.
 
