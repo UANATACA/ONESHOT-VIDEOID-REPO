@@ -27,7 +27,7 @@ The electronic signatures are performed on Uanataca Trusted Service Center side,
 ![img](https://github.com/UANATACA/ONESHOT-VIDEOID-REPO/raw/main/img/oneshot-hiw.png)
 
 
-# Quick trial optimizer
+# SandBox environment
 
 
 For testing purposes, Uanataca provides integrators of a pre-configured test-mode One-Shot Optimizer accessible at the following URL:
