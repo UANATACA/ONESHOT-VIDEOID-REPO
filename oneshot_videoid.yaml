@@ -1592,10 +1592,15 @@ paths:
                     status: 400 Bad Request
                     details: "The id_document_type specified is not valid. Valid options are IDC, PAS, PNO, TIN, CI, CE"
                 Blank env parameter:
-                  summary: Blank env parameter, need to disable it or fill it
+                  summary: Missing env parameter, fill in settings or parameter
                   value: 
                     status: 400 Bad Request
                     details: Missing env parameter. Please set it in settings or specify it as parameter
+                Incorrect environment:
+                  summary: Incorrect environment
+                  value: 
+                    status: 400 Bad Request
+                    details: Environment xxxxx does not exist
         403:
           description: Forbidden
           content:
@@ -1642,7 +1647,26 @@ paths:
                   value: 
                     status: 412 Precondition Failed
                     details: "Error occured during request approval: Invalid request fields: xxxxx"
-
+        500:
+          description: Internal Server Error
+          content: 
+            application/json:
+              schema:
+                anyOf: 
+                  -  $ref: "#/components/schemas/ResponseObject" 
+              examples:
+                Billing error:
+                  summary: Invalid or missing billing parameters
+                  value: 
+                    status: 500 Internal Server Error
+                    details: "Cannot check the remaining credit for the billing user. Please check the credentials"
+                Email error:
+                  summary: Missing email
+                  value: 
+                    status: 500 Internal Server Error
+                    details:
+                      email:
+                        This field is required
 
       x-codeSamples:
       - lang: curl
@@ -4622,6 +4646,22 @@ components:
             uuid: 
               type: string
               description: Document or image uuid
+    ResponseObject_email:
+      type: object
+      properties: 
+        status:
+          type: string
+          description: Response status code
+        details:
+          type: object
+          description: Response message object
+          properties: 
+            email:
+              type: array
+              minItems: 1
+              maxItems: 2
+              items:
+                type: string 
     SettingsObject:
       type: object
       properties:
