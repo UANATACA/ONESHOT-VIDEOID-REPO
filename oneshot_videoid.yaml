@@ -22,7 +22,7 @@ tags:
           <th>Method</th><th>Endpoint</th><th>Action</th> 
         </tr> 
         <tr>
-          <td>GET</td><td><a href=''#tag/Settings/paths/~1api~1v1~1hello/get''>/hello</a></td><td>Checks for server UP status</td> 
+          <td>GET</td><td><a href=''#operation/hello''>/hello</a></td><td>Checks for server UP status</td> 
         </tr> 
         <tr> 
           <td>POST</td><td><a href=''#tag/Settings/paths/~1api~1v1~1settings/post''>/settings</a></td><td>Update Settings</td> 
