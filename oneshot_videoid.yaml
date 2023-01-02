@@ -1653,20 +1653,57 @@ paths:
             application/json:
               schema:
                 anyOf: 
-                  -  $ref: "#/components/schemas/ResponseObject" 
+                  - $ref: "#/components/schemas/ResponseObject"
+                  - $ref: "#/components/schemas/ResponseObject_email" 
               examples:
                 Billing error:
                   summary: Invalid or missing billing parameters
                   value: 
                     status: 500 Internal Server Error
                     details: "Cannot check the remaining credit for the billing user. Please check the credentials"
-                Email error:
+                Billing password:
+                  summary: Billing password incorrectly formatted or not in b64
+                  value: 
+                    status: 500 Internal Server Error
+                    details: Billing credentials not valid. Please check if they are base64 encoded
+                Email missing:
                   summary: Missing email
                   value: 
                     status: 500 Internal Server Error
+                    details: 
+                      email: [
+                        "This field is required"
+                        ]
+                Email blank:
+                  summary: Blank email
+                  value: 
+                    status: 500 Internal Server Error
+                    details: 
+                      email: [
+                        "This field may not be blank"
+                        ]
+                Email incorrect:
+                  summary: Incorrect email
+                  value: 
+                    status: 500 Internal Server Error
+                    details: 
+                      email: [
+                        "Enter a valid email address"
+                        ]
+                id_document_country error:
+                  summary: id_document_country incorrect or blank
+                  value: 
+                    status: 500 Internal Server Error
                     details:
-                      email:
-                        This field is required
+                      id_document_country: [
+                        "'ESX' is not a valid ISO 3166-1 alpha-2 country code"
+                      ]
+                Auth certificates missing:
+                  summary: Auth certificates missing
+                  value: 
+                    status: 500 Internal Server Error
+                    details: "Configuration error: Please check the certificates path for the environment selected"
+                
 
       x-codeSamples:
       - lang: curl
@@ -2832,6 +2869,15 @@ paths:
               example:
                 status: 200 OK
                 details: OTP generated
+        400:
+          description: Bad Request
+          content: 
+            application/json:
+              schema: 
+                $ref: "#/components/schemas/ResponseObject"
+              example:
+                  status: 400 Bad Request
+                  details: "Missing parameters: Request's pk not specified"
         404:
           description: Not Found
           content:
@@ -3194,6 +3240,35 @@ paths:
                   value: 
                     status: 200 OK
                     details: db1c8aea-9cc0-4460-925c-72c6c918e5ae
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema: 
+                $ref: "#/components/schemas/ResponseObject"
+              examples:
+                Missing request:
+                  summary: Missing request pk
+                  value: 
+                    status: 400 Bad Request
+                    details: "Missing required parameters: Request's pk not specified"
+                Maximum docs:
+                  summary: Number of maximum documents exceeded
+                  value: 
+                    status: 400 Bad Request
+                    details: Maximum number of document reached for Request xxxxx
+        404:
+          description: Not Found
+          content: 
+            application/json:
+              schema: 
+                $ref: "#/components/schemas/ResponseObject"
+              examples:
+                Incorrect request:
+                  summary: Incorrect request pk
+                  value: 
+                    status: 404 Not Found
+                    details: "Cannot upload document: Request xxxxx not found on disk"
         415:
           description: Unsupported Media Type
           content:
@@ -3733,6 +3808,15 @@ paths:
                 \ 5 0 R>>/ExtGState<</GS7 7 0 R/GS8 8 0 R>>/ProcSet[/PDF/Text/ImageB/ImageC/ImageI]\
                 \ >>/MediaBox[ 0 0 595.32 841.92] /Contents 4 0 R/Group<</Type/Group/S/Transparency/CS/DeviceRGB>>/Tabs/S/StructParents\
                 \ 0>>\n endobj\n (...)\n "
+        400:
+          description: Not found
+          content:
+            application/json:
+              schema: 
+                $ref: "#/components/schemas/ResponseObject"
+              example: 
+                status: 404 Not Found
+                details: Request xxxxx not found
       x-codeSamples:
       - lang: curl
         source: |

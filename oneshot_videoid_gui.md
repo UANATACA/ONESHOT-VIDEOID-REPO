@@ -27,7 +27,7 @@ The electronic signatures are performed on Uanataca Trusted Service Center side,
 ![img](https://github.com/UANATACA/ONESHOT-VIDEOID-REPO/raw/main/img/oneshot-hiw.png)
 
 
-# SandBox environment
+# Sandbox environment
 
 
 For testing purposes, Uanataca provides integrators of a pre-configured test-mode One-Shot Optimizer accessible at the following URL:
@@ -36,7 +36,7 @@ For testing purposes, Uanataca provides integrators of a pre-configured test-mod
 
 	https://one-shot.developers.uanataca.com
 
-In test environment, requests can be easily created, validated or approved by using a stored default Operator credentials set represented by an alfanumeric string called token. This token can be found when executing the <a href="#tag/Tokens/paths/~1api~1v1~1tokens/get">List Tokens</a> call. 
+In sandbox environment, requests can be easily created, validated or approved by using a stored default Operator credentials set represented by an alfanumeric string called token. This token can be found when executing the <a href="#tag/Tokens/paths/~1api~1v1~1tokens/get">List Tokens</a> call. 
 
 </br>
 
@@ -156,7 +156,7 @@ The next section presents the workflow for a simple use case of the One-Shot Sig
 
 **API Reference:** <a href="#tag/Tokens/paths/~1api~1v1~1tokens/get">List Tokens</a>
 
-The test-mode One-Shot Optimizer is pre-configured with a Registration Authority Officer (RAO) account ready to be used within the test environment. This account has an associated token that can be used to identify the RAO in API calls.
+The test-mode One-Shot Optimizer is pre-configured with a Registration Authority Officer (RAO) account ready to be used within sandbox environment. This account has an associated token that can be used to identify the RAO in API calls.
 
 	curl -X GET https://one-shot.developers.uanataca.com/api/v1/tokens
 
@@ -422,7 +422,7 @@ This is the structure that the uploaded json needs to contain to be able to perf
 
 **API Reference:** <a href="#tag/Tokens/paths/~1api~1v1~1tokens/get">List Tokens</a>
 
-The test-mode One-Shot Optimizer is pre-configured with a Registration Authority Officer (RAO) account ready to be used within the test environment. This account has an associated token that can be used to identify the RAO in API calls.
+The test-mode One-Shot Optimizer is pre-configured with a Registration Authority Officer (RAO) account ready to be used within sandbox environment. This account has an associated token that can be used to identify the RAO in API calls.
 
 	curl -X GET https://one-shot.developers.uanataca.com/api/v1/tokens
 
@@ -673,7 +673,7 @@ Asynchronous flow includes shorter API response times to save resources, but the
 
 **API Reference:** <a href="#tag/Tokens/paths/~1api~1v1~1tokens/get">List Tokens</a>
 
-The test-mode One-Shot Optimizer is pre-configured with a Registration Authority Officer (RAO) account ready to be used within the test environment. This account has an associated token that can be used to identify the RAO in API calls.
+The test-mode One-Shot Optimizer is pre-configured with a Registration Authority Officer (RAO) account ready to be used within sandbox environment. This account has an associated token that can be used to identify the RAO in API calls.
 
 	curl -X GET https://one-shot.developers.uanataca.com/api/v1/tokens
 
