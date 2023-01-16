@@ -376,10 +376,10 @@ Delete all documents associated to a finished digital signature request.
 
 </br>
 
-#Alternative Workflows
+# Alternative Workflows
 
 
-##Hash signature flow
+## Hash signature flow
 
 Our software nowadays is capable of performing a hash signature with the return of a p7m structure (CMS object) instead of building and returning a whole built document.
 It's important to mention that this modality needs a specific extracted message digest. These would be the objects that the hash should contain to be introduced into the optimizer.
