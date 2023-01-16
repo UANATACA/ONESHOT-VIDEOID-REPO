@@ -487,12 +487,9 @@ The code shown above will be used to identify the created signature request in s
 **API Reference:** <a href="#tag/Documents/paths/~1api~1v1~1document~1{pk}/post">Upload Document</a>
 
 
-After creating the the signature request, we can associate all pdf documents that must be signed by the user.
+After creating the the signature request, we can associate the json that contains the message digest and its properties.
 
-	curl -F "file=@doc.pdf" -X POST https://one-shot.developers.uanataca.com/api/v1/document/1464
-
-	#For multiple documents
-	curl -F "file=@doc.pdf" -F "file2=@doc.pdf" -X POST https://one-shot.developers.uanataca.com/api/v1/document/1464
+	curl -F "hashfile=@test.json" -X POST https://one-shot.developers.uanataca.com/api/v1/document/1464
 
 
 Note that the number at the end of the call is the request id we obtained in the previous step.
@@ -502,25 +499,6 @@ If the upload is successful, the response will contain the identifier assigned t
 	{
 		"status": "200 OK",
 		"details": "712c29ac-a2dc-4530-8c67-d0f227d8294b"
-	}
-
-	#Multiple documents response
-	{
-	"status": "200 OK",
-	"details": [
-	{
-	"digest": "8cb5502501c9e5c9fb6869670fd83ad4f7df948f01826a41e6e5649fa0d8b3ad",
-	"uid": "ec27331a-a78a-4461-b897-8e2ca158cef7",
-	"key": "file2",
-	"filename": "doc.pdf"
-	},
-	{
-	"digest": "8cb5502501c9e5c9fb6869670fd83ad4f7df948f01826a41e6e5649fa0d8b3ad",
-	"uid": "7c0acde7-2f56-49b3-a129-a00d910912ef",
-	"key": "file",
-	"filename": "doc.pdf"
-			}
-		]
 	}
 
 </br>
