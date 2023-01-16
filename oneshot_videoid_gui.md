@@ -227,9 +227,8 @@ After creating the the signature request, we can associate all pdf documents tha
 	curl -F "file=@doc.pdf" -X POST https://one-shot.developers.uanataca.com/api/v1/document/1464
 
 	#For multiple documents
-	curl -F "file=@doc.pdf" -X POST https://one-shot.developers.uanataca.com/api/v1/document/1464 \
-		 -F "file2=@doc.pdf" -X POST https://one-shot.developers.uanataca.com/api/v1/document/1464 \
-
+	curl -F "file=@doc.pdf" -F "file2=@doc.pdf" -X POST https://one-shot.developers.uanataca.com/api/v1/document/1464 
+	
 
 Note that the number at the end of the call is the request id we obtained in the previous step.
 
