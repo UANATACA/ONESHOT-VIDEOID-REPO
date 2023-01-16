@@ -36,7 +36,7 @@ For testing purposes, Uanataca provides integrators of a pre-configured test-mod
 
 	https://one-shot.developers.uanataca.com
 
-In sandbox environment, requests can be easily created, validated or approved by using a stored default Operator credentials set represented by an alfanumeric string called token. This token can be found when executing the <a href="#tag/Tokens/paths/~1api~1v1~1tokens/get">List Tokens</a> call. 
+In sandbox environment, requests can be easily created, validated or approved by using a stored default Operator credentials set represented by an alfanumeric string called token. This token can be found when executing the <a href="#operation/list_tokens">List Tokens</a> call. 
 
 </br>
 
@@ -60,7 +60,7 @@ When using our test-mode Optimizer, you must consider:
 
 1) Billing credentials are required. </br>
 2) The Registration Authority id number will be explicitly assigned by our staff. </br>
-3) The token fd6a21e6fb7d43b9893a520d67d6ff60 is valid for using in <a href="#tag/Requests/paths/~1api~1v1~1request/post">Create Request</a> call. Cannot be deleted. </br>
+3) The token fd6a21e6fb7d43b9893a520d67d6ff60 is valid for using in <a href="#operation/create_request">Create Request</a> call. Cannot be deleted. </br>
 
 </br>
 
@@ -154,7 +154,7 @@ The next section presents the workflow for a simple use case of the One-Shot Sig
 
 </br>
 
-**API Reference:** <a href="#tag/Tokens/paths/~1api~1v1~1tokens/get">List Tokens</a>
+**API Reference:** <a href="#operation/list_tokens">List Tokens</a>
 
 The test-mode One-Shot Optimizer is pre-configured with a Registration Authority Officer (RAO) account ready to be used within sandbox environment. This account has an associated token that can be used to identify the RAO in API calls.
 
@@ -175,7 +175,7 @@ This call should return the following JSON object:
 
 This output tells us that a single token "fd6a21e6fb7d43b9893a520d67d6ff60" exists. This token is associated to the RAO account with id "9001800" and can be used instead of the password and pin.
 
-To use tokens in a production environment, you will need to create them first using the corresponding <a href="#tag/Tokens/paths/~1api~1v1~1token/post">Create token</a> API call.
+To use tokens in a production environment, you will need to create them first using the corresponding <a href="#operation/create_token">Create token</a> API call.
 
 
 </br>
@@ -219,7 +219,7 @@ The code shown above will be used to identify the created signature request in s
 
 </br>
 
-**API Reference:** <a href="#tag/Documents/paths/~1api~1v1~1document~1{pk}/post">Upload Document</a>
+**API Reference:** <a href="#operation/upload_document">Upload Document</a>
 
 
 After creating the the signature request, we can associate all pdf documents that must be signed by the user.
@@ -264,7 +264,7 @@ If the upload is successful, the response will contain the identifier assigned t
 
 </br>
 
-**API Reference:** <a href="#tag/Documents/paths/~1api~1v1~1document~1{pk}~1contract/get">Retrieve Contract</a>
+**API Reference:** <a href="#operation/retrieve_document">Retrieve Contract</a>
 
 As a Trusted Service Provider, Uanataca must inform certificate requesters about terms and conditions ruling the issuance of certificates. 
 
@@ -283,7 +283,7 @@ The response by the server will be the service contract document file in binary 
 
 </br>
 
-**API Reference:** <a href="#tag/Requests/paths/~1api~1v1~1otp~1{pk}/post">Generate OTP code</a>
+**API Reference:** <a href="#operation/generate_otp">Generate OTP code</a>
 
 <blockquote style="background-color: #faf3ac; border-color: #5a5a5a; color: #3b3b3b;">This step applies only for signatures made using Uanataca SMS method.</blockquote>
 
@@ -309,7 +309,7 @@ With this call, an SMS with the secret code is sent to the mobile phone number a
 
 </br>
 
-**API Reference:** <a href="#tag/Requests/paths/~1api~1v1~1sign~1{pk}/post">Sign</a>
+**API Reference:** <a href="#operation/sign">Sign</a>
 
 In this step the digital signature certificate is issued, then it signs all documents previously uploaded for the signature request.
 
@@ -346,7 +346,7 @@ A successful call will result in the following response:
 
 </br>
 
-API reference: <a href="#tag/Documents/paths/~1api~1v1~1document~1{pk}~1{type}~1{uid}/get">Retrieve Document</a>
+API reference: <a href="#operation/retrieve_document">Retrieve Document</a>
 
 Once the signature is done, the next step is to get all signed documents.
 
@@ -365,7 +365,7 @@ The response obtained by the server will be the document in binary format:
 
 </br>
 
-**API reference:** <a href="#tag/Documents/paths/~1api~1v1~1documents~1{pk}/delete">Delete All Documents</a>
+**API reference:** <a href="#operation/delete_all_documents">Delete All Documents</a>
 
 <blockquote style="background-color: #faf3ac; border-color: #5a5a5a; color: #3b3b3b;">⚠ Since the service does not delete uploaded files unless explicitly requested through an API call, it is <strong>strongly recommended</strong> that you backup any file you want to preserve using an alternative system.</blockquote>
 
@@ -419,7 +419,7 @@ This is the structure that the uploaded json needs to contain to be able to perf
 
 </br>
 
-**API Reference:** <a href="#tag/Tokens/paths/~1api~1v1~1tokens/get">List Tokens</a>
+**API Reference:** <a href="#operation/list_tokens">List Tokens</a>
 
 The test-mode One-Shot Optimizer is pre-configured with a Registration Authority Officer (RAO) account ready to be used within sandbox environment. This account has an associated token that can be used to identify the RAO in API calls.
 
@@ -440,7 +440,7 @@ This call should return the following JSON object:
 
 This output tells us that a single token "fd6a21e6fb7d43b9893a520d67d6ff60" exists. This token is associated to the RAO account with id "1125824" and can be used instead of the password and pin.
 
-To use tokens in a production environment, you will need to create them first using the corresponding <a href="#tag/Tokens/paths/~1api~1v1~1token/post">Create token</a> API call.
+To use tokens in a production environment, you will need to create them first using the corresponding <a href="#operation/create_token">Create token</a> API call.
 
 
 </br>
@@ -484,7 +484,7 @@ The code shown above will be used to identify the created signature request in s
 
 </br>
 
-**API Reference:** <a href="#tag/Documents/paths/~1api~1v1~1document~1{pk}/post">Upload Document</a>
+**API Reference:** <a href="#operation/upload_document">Upload Document</a>
 
 
 After creating the the signature request, we can associate the json that contains the message digest and its properties.
@@ -507,7 +507,7 @@ If the upload is successful, the response will contain the identifier assigned t
 
 </br>
 
-**API Reference:** <a href="#tag/Documents/paths/~1api~1v1~1document~1{pk}~1contract/get">Retrieve Contract</a>
+**API Reference:** <a href="#operation/retrieve_document">Retrieve Contract</a>
 
 As a Trusted Service Provider, Uanataca must inform certificate requesters about terms and conditions ruling the issuance of certificates. 
 
@@ -526,7 +526,7 @@ The response by the server will be the service contract document file in binary 
 
 </br>
 
-**API Reference:** <a href="#tag/Requests/paths/~1api~1v1~1otp~1{pk}/post">Generate OTP code</a>
+**API Reference:** <a href="#operation/generate_otp">Generate OTP code</a>
 
 <blockquote style="background-color: #faf3ac; border-color: #5a5a5a; color: #3b3b3b;">This step applies only for signatures made using Uanataca SMS method.</blockquote>
 
@@ -552,7 +552,7 @@ With this call, an SMS with the secret code is sent to the mobile phone number a
 
 </br>
 
-**API Reference:** <a href="#tag/Requests/paths/~1api~1v1~1sign~1{pk}/post">Sign</a>
+**API Reference:** <a href="#operation/sign">Sign</a>
 
 In this step the digital signature certificate is issued, then it signs all documents previously uploaded for the signature request.
 
@@ -589,7 +589,7 @@ A successful call will result in the following response:
 
 </br>
 
-API reference: <a href="#tag/Documents/paths/~1api~1v1~1document~1{pk}~1{type}~1{uid}/get">Retrieve Document</a>
+API reference: <a href="#operation/retrieve_document">Retrieve Document</a>
 
 Once the signature is done, the next step is to get the signed document.
 
@@ -607,7 +607,7 @@ The response obtained by the server will be the signed hash in a p7m structure, 
 
 </br>
 
-**API reference:** <a href="#tag/Documents/paths/~1api~1v1~1documents~1{pk}/delete">Delete All Documents</a>
+**API reference:** <a href="#operation/delete_all_documents">Delete All Documents</a>
 
 <blockquote style="background-color: #faf3ac; border-color: #5a5a5a; color: #3b3b3b;">⚠ Since the service does not delete uploaded files unless explicitly requested through an API call, it is <strong>strongly recommended</strong> that you backup any file you want to preserve using an alternative system.</blockquote>
 
@@ -647,7 +647,7 @@ Asynchronous flow includes shorter API response times to save resources, but the
 
 </br>
 
-**API Reference:** <a href="#tag/Tokens/paths/~1api~1v1~1tokens/get">List Tokens</a>
+**API Reference:** <a href="#operation/list_tokens">List Tokens</a>
 
 The test-mode One-Shot Optimizer is pre-configured with a Registration Authority Officer (RAO) account ready to be used within sandbox environment. This account has an associated token that can be used to identify the RAO in API calls.
 
@@ -668,7 +668,7 @@ This call should return the following JSON object:
 
 This output tells us that a single token "fd6a21e6fb7d43b9893a520d67d6ff60" exists. This token is associated to the RAO account with id "9001800" and can be used instead of the password and pin.
 
-To use tokens in a production environment, you will need to create them first using the corresponding <a href="#tag/Tokens/paths/~1api~1v1~1token/post">Create token</a> API call.
+To use tokens in a production environment, you will need to create them first using the corresponding <a href="#operation/create_token">Create token</a> API call.
 
 
 </br>
@@ -714,7 +714,7 @@ The code shown above will be used to identify the created signature request in s
 
 </br>
 
-**API Reference:** <a href="#tag/Documents/paths/~1api~1v1~1document~1{pk}/post">Upload Document</a>
+**API Reference:** <a href="#operation/upload_document">Upload Document</a>
 
 
 After creating the the signature request, we can associate all pdf documents that must be signed by the user.
@@ -759,7 +759,7 @@ If the upload is successful, the response will contain the identifier assigned t
 
 </br>
 
-**API Reference:** <a href="#tag/Documents/paths/~1api~1v1~1document~1{pk}~1contract/get">Retrieve Contract</a>
+**API Reference:** <a href="#operation/retrieve_document">Retrieve Contract</a>
 
 As a Trusted Service Provider, Uanataca must inform certificate requesters about terms and conditions ruling the issuance of certificates. 
 
@@ -778,7 +778,7 @@ The response by the server will be the service contract document file in binary 
 
 </br>
 
-**API Reference:** <a href="#tag/Requests/paths/~1api~1v1~1otp~1{pk}/post">Generate OTP code</a>
+**API Reference:** <a href="#operation/generate_otp">Generate OTP code</a>
 
 <blockquote style="background-color: #faf3ac; border-color: #5a5a5a; color: #3b3b3b;">This step applies only for signatures made using Uanataca SMS method.</blockquote>
 
@@ -804,7 +804,7 @@ With this call, an SMS with the secret code is sent to the mobile phone number a
 
 </br>
 
-**API Reference:** <a href="#tag/Requests/paths/~1api~1v1~1sign~1{pk}/post">Sign</a>
+**API Reference:** <a href="#operation/sign">Sign</a>
 
 In this step the digital signature certificate is issued, then it signs all documents previously uploaded for the signature request.
 
@@ -841,7 +841,7 @@ A successful call will result in the following response:
 
 </br>
 
-API reference: <a href="#tag/Documents/paths/~1api~1v1~1document~1{pk}~1{type}~1{uid}/get">Retrieve Document</a>
+API reference: <a href="#operation/retrieve_document">Retrieve Document</a>
 
 Once the signature is done, the next step is to get all signed documents.
 
@@ -860,7 +860,7 @@ The response obtained by the server will be the document in binary format:
 
 </br>
 
-**API reference:** <a href="#tag/Documents/paths/~1api~1v1~1documents~1{pk}/delete">Delete All Documents</a>
+**API reference:** <a href="#operation/delete_all_documents">Delete All Documents</a>
 
 <blockquote style="background-color: #faf3ac; border-color: #5a5a5a; color: #3b3b3b;">⚠ Since the service does not delete uploaded files unless explicitly requested through an API call, it is <strong>strongly recommended</strong> that you backup any file you want to preserve using an alternative system.</blockquote>
 
@@ -872,7 +872,7 @@ Delete all documents associated to a finished digital signature request.
 
 </br>
 
-**API reference:** <a href="#tag/Documents/paths/~1api~1v1~1documents~1{pk}/delete">Delete All Documents</a>
+**API reference:** <a href="#operation/delete_all_documents">Delete All Documents</a>
 
 <blockquote style="background-color: #faf3ac; border-color: #5a5a5a; color: #3b3b3b;">⚠ Since the service does not delete uploaded files unless explicitly requested through an API call, it is <strong>strongly recommended</strong> that you backup any file you want to preserve using an alternative system.</blockquote>
 
@@ -919,7 +919,7 @@ This workflow defines the complete process of issuing eIDAS certificates.
 
 </br>
 
-**API Reference:** <a href="#tag/Video-ID/paths/~1api~1v1~1videoid/post">Create Video ID Request</a>
+**API Reference:** <a href="#operation/create_videoid">Create Video ID Request</a>
 
 This call must include preliminary information to identify the signer. 
 
@@ -941,7 +941,7 @@ If the signature request is completed successfully, both video and request uniqu
 		"status": "200 OK",
 		"details": {
 			"videoid_pk": 150,
-			"videoid_link": "https://cms.access.bit4id.org:13035/lcmpl/videoid/ZWxlY3Ryb25pY2lkOkl3YlBNdTktcXpBTU1yd0ROeUR0VWNRNk02bVVmVV9SQnZqYnFOR0Vhc2(...)",
+			"videoid_link": "https://cms.sandbox.uanataca.com/lcmpl/videoid/ZWxlY3Ryb25pY2lkOkl3YlBNdTktcXpBTU1yd0ROeUR0VWNRNk02bVVmVV9SQnZqYnFOR0Vhc2(...)",
 			"request_pk": 45836
 		}
 	}
@@ -956,8 +956,8 @@ The request starts at **VIDEOPENDING** status after creation. The request_pk out
 
 To inform business app and validation RAO about this change at the time it takes place, we recommend the implementation of a **Webhook**. Check our documentation for <a href='#section/Configuration/Webhooks'>Webhook Configuration</a>.  
 
-If request data needs to be modified, use the <a href="#tag/Video-ID/paths/~1api~1v1~1request~1{request_pk}/put">Update Request</a> call. Check API Reference.</br>
-If request data needs to be retrieved, use the <a href="#tag/Requests/paths/~1api~1v1~1request~1{request_pk}/get">Get Request</a> call. Check API Reference.
+If request data needs to be modified, use the <a href="#operation/update_request">Update Request</a> call. Check API Reference.</br>
+If request data needs to be retrieved, use the <a href="#operation/get_request">Get Request</a> call. Check API Reference.
 
 </br>
 
@@ -965,7 +965,7 @@ If request data needs to be retrieved, use the <a href="#tag/Requests/paths/~1ap
 
 </br>
 
-**API Reference:** <a href="#tag/Video-ID/paths/~1api~1v1~1videoid~1{request_pk}~1validate/post">Approve Request</a>
+**API Reference:** <a href="#operation/approve_request">Approve Request</a>
 
 This call makes the request ready for signature. Its status changes to **ENROLLREADY** and webhook intervention at this point is important for status update. In 1-step mode, both validation and approval occur when executing this call.
 
@@ -997,7 +997,7 @@ The response is a JSON object with added request approval information.
 		"details": "Request approved successfully"
 	}
 
-In case of not approving a request for any reason, the call <a href="#tag/Requests/paths/~1api~1v1~1requests~1{id}~1cancel/delete">Cancel Request</a> must be executed. Check API Reference.
+In case of not approving a request for any reason, the call <a href="#operation/cancel_request">Cancel Request</a> must be executed. Check API Reference.
 
 </br>
 
@@ -1005,7 +1005,7 @@ In case of not approving a request for any reason, the call <a href="#tag/Reques
 
 </br>
 
-**API Reference:** <a href="#tag/Documents/paths/~1api~1v1~1document~1{pk}/post">Upload Document</a>
+**API Reference:** <a href="#operation/upload_document">Upload Document</a>
 
 
 After creating the the signature request, we can associate all pdf documents that must be signed by the user.
@@ -1050,7 +1050,7 @@ If the upload is successful, the response will contain the identifier assigned t
 
 </br>
 
-**API Reference:** <a href="#tag/Documents/paths/~1api~1v1~1document~1{pk}~1contract/get">Retrieve Contract</a>
+**API Reference:** <a href="#operation/retrieve_document">Retrieve Contract</a>
 
 As a Trusted Service Provider, Uanataca must inform certificate requesters about terms and conditions ruling the issuance of certificates. 
 
@@ -1069,7 +1069,7 @@ The response by the server will be the service contract document file in binary 
 
 </br>
 
-**API Reference:** <a href="#tag/Requests/paths/~1api~1v1~1otp~1{pk}/post">Generate OTP code</a>
+**API Reference:** <a href="#operation/generate_otp">Generate OTP code</a>
 
 <blockquote style="background-color: #faf3ac; border-color: #5a5a5a; color: #3b3b3b;">This step applies only for signatures made using Uanataca SMS method.</blockquote>
 
@@ -1095,7 +1095,7 @@ With this call, an SMS with the secret code is sent to the mobile phone number a
 
 </br>
 
-**API Reference:** <a href="#tag/Requests/paths/~1api~1v1~1sign~1{pk}/post">Sign</a>
+**API Reference:** <a href="#operation/sign">Sign</a>
 
 In this step the digital signature certificate is issued, then it signs all documents previously uploaded for the signature request.
 
@@ -1132,7 +1132,7 @@ A successful call will result in the following response:
 
 </br>
 
-API reference: <a href="#tag/Documents/paths/~1api~1v1~1document~1{pk}~1{type}~1{uid}/get">Retrieve Document</a>
+API reference: <a href="#operation/retrieve_document">Retrieve Document</a>
 
 Once the signature is done, the next step is to get all signed documents.
 
@@ -1151,7 +1151,7 @@ The response obtained by the server will be the document in binary format:
 
 </br>
 
-**API reference:** <a href="#tag/Documents/paths/~1api~1v1~1documents~1{pk}/delete">Delete All Documents</a>
+**API reference:** <a href="#operation/delete_all_documents">Delete All Documents</a>
 
 <blockquote style="background-color: #faf3ac; border-color: #5a5a5a; color: #3b3b3b;">⚠ Since the service does not delete uploaded files unless explicitly requested through an API call, it is <strong>strongly recommended</strong> that you backup any file you want to preserve using an alternative system.</blockquote>
 
@@ -1200,7 +1200,7 @@ In External mode Video ID, digital evidences are uploaded to an independent Vide
 
 </br>
 
-**API Reference:** <a href="#tag/Video-ID/paths/~1api~1v1~1videoid/post">Create Video ID Request</a>
+**API Reference:** <a href="#operation/create_videoid">Create Video ID Request</a>
 
 This call must include preliminary information to identify the signer. 
 
@@ -1227,9 +1227,9 @@ If the signature request is completed successfully, we will get the unique ident
 
 The response is the a JSON containing important request parameters, in **VIDEOPENDING** status after creation. The request_pk output parameter will be used to identify this digital signature request in subsequent calls.
 
-If request data needs to be modified, use the <a href="#tag/Video-ID/paths/~1api~1v1~1request~1{request_pk}/put">Update Request</a> call. Check API Reference.
+If request data needs to be modified, use the <a href="#operation/update_request">Update Request</a> call. Check API Reference.
 
-If request data needs to be retrieved, use the <a href="#tag/Requests/paths/~1api~1v1~1request~1{request_pk}/get">Get Request</a> call. Check API Reference.
+If request data needs to be retrieved, use the <a href="#operation/get_request">Get Request</a> call. Check API Reference.
 
 </br>
 
@@ -1247,7 +1247,7 @@ Data and images are uploaded by using the Upload Data Evidence call.
 
 </br>
 
-**API Reference:** <a href="#tag/Video-ID/paths/~1api~1v1~1videoid~1{request_pk}~1evidences/post">Upload Data Evidence</a>
+**API Reference:** <a href="#operation/upload_data">Upload Data Evidence</a>
 
 Data objects in detail:
 
@@ -1267,7 +1267,7 @@ This call must include all the information mentioned above.
 				"description": "User Accepted Terms and Conditions and Privacy Policy",
 				"url-doc-privacypolicy": "https://www.uanataca.com/public/pki/privacidad-PSC/",
 				"ip": "186.0.91.53",
-				"url-web-videoid": "https://cms.access.bit4id.org:13035/lcmpl/videoid/46b92251-4ba8-4930-a5aa-8631ec4666b6",
+				"url-web-videoid": "https://cms.sandbox.uanataca.com/lcmpl/videoid/46b92251-4ba8-4930-a5aa-8631ec4666b6",
 				"user-agent": "Mozilla/5.0 (Linux; Android 11; AC2003)",
 				"date": 1622823879708,
 				"url-doc-termsconditions": "https://www.uanataca.com/public/pki/terminos-VID/"
@@ -1316,7 +1316,7 @@ In the same way, binary multiformat Video is uploaded by using the Upload Video 
 
 </br>
 
-**API Reference:** <a href="#tag/Video-ID/paths/~1api~1v1~1videoid~1{request_pk}~1evidences~1video/post">Upload Video</a>
+**API Reference:** <a href="#operation/upload_video">Upload Video</a>
 
 	curl -i -X POST https://one-shot.developers.uanataca.com/v1/upload/video/30e57b02819a430d8386fd85be9f499f/ \
 		-H 'Content-Type: multipart/form-data' \
@@ -1329,7 +1329,7 @@ Successful response status
 		"details": "Videoid video upload completed"
 	}
 
-If the uploaded video needs to be retrieved, use <a href="#tag/Video-ID/paths/~1api~1v1~1download~1video~1{video_identifier}/get">Download Video</a>
+If the uploaded video needs to be retrieved, use <a href="#operation/download_video">Download Video</a>
 
 
 </br>
@@ -1338,7 +1338,7 @@ If the uploaded video needs to be retrieved, use <a href="#tag/Video-ID/paths/~1
 
 </br>
 
-**API Reference:** <a href="#tag/Video-ID/paths/~1api~1v1~1videoid~1{request_pk}~1validate/post">Approve Request</a>
+**API Reference:** <a href="#operation/approve_request">Approve Request</a>
 
 This call makes the request ready for signature. Its status changes to **ENROLLREADY**.
 
@@ -1358,7 +1358,7 @@ The response is a JSON object with added request approval information.
 		"details": "Request approved successfully"
 	}
 
-In case of not approving a request for any reason, the call <a href="#tag/Requests/paths/~1api~1v1~1requests~1{id}~1cancel/delete">Cancel Request</a> must be executed. Check API Reference.
+In case of not approving a request for any reason, the call <a href="#operation/cancel_request">Cancel Request</a> must be executed. Check API Reference.
 
 </br>
 
@@ -1366,7 +1366,7 @@ In case of not approving a request for any reason, the call <a href="#tag/Reques
 
 </br>
 
-**API Reference:** <a href="#tag/Documents/paths/~1api~1v1~1document~1{pk}/post">Upload Document</a>
+**API Reference:** <a href="#operation/upload_document">Upload Document</a>
 
 
 After creating the the signature request, we can associate all pdf documents that must be signed by the user.
@@ -1411,7 +1411,7 @@ If the upload is successful, the response will contain the identifier assigned t
 
 </br>
 
-**API Reference:** <a href="#tag/Documents/paths/~1api~1v1~1document~1{pk}~1contract/get">Retrieve Contract</a>
+**API Reference:** <a href="#operation/retrieve_document">Retrieve Contract</a>
 
 As a Trusted Service Provider, Uanataca must inform certificate requesters about terms and conditions ruling the issuance of certificates. 
 
@@ -1430,7 +1430,7 @@ The response by the server will be the service contract document file in binary 
 
 </br>
 
-**API Reference:** <a href="#tag/Requests/paths/~1api~1v1~1otp~1{pk}/post">Generate OTP code</a>
+**API Reference:** <a href="#operation/generate_otp">Generate OTP code</a>
 
 <blockquote style="background-color: #faf3ac; border-color: #5a5a5a; color: #3b3b3b;">This step applies only for signatures made using Uanataca SMS method.</blockquote>
 
@@ -1456,7 +1456,7 @@ With this call, an SMS with the secret code is sent to the mobile phone number a
 
 </br>
 
-**API Reference:** <a href="#tag/Requests/paths/~1api~1v1~1sign~1{pk}/post">Sign</a>
+**API Reference:** <a href="#operation/sign">Sign</a>
 
 In this step the digital signature certificate is issued, then it signs all documents previously uploaded for the signature request.
 
@@ -1493,7 +1493,7 @@ A successful call will result in the following response:
 
 </br>
 
-API reference: <a href="#tag/Documents/paths/~1api~1v1~1document~1{pk}~1{type}~1{uid}/get">Retrieve Document</a>
+API reference: <a href="#operation/retrieve_document">Retrieve Document</a>
 
 Once the signature is done, the next step is to get all signed documents.
 
@@ -1512,7 +1512,7 @@ The response obtained by the server will be the document in binary format:
 
 </br>
 
-**API reference:** <a href="#tag/Documents/paths/~1api~1v1~1documents~1{pk}/delete">Delete All Documents</a>
+**API reference:** <a href="#operation/delete_all_documents">Delete All Documents</a>
 
 <blockquote style="background-color: #faf3ac; border-color: #5a5a5a; color: #3b3b3b;">⚠ Since the service does not delete uploaded files unless explicitly requested through an API call, it is <strong>strongly recommended</strong> that you backup any file you want to preserve using an alternative system.</blockquote>
 
@@ -1748,7 +1748,7 @@ The following is a view of the settings.ini file:
 
 The file `settings.ini` contains default parameters that can also be adjusted via API using the <a href='#tag/Settings/paths/~1api~1v1~1settings/post'>Update Settings</a> call.
 
-Except by `tsa_url`, all parameters shown below are replaced every time the <a href='#tag/Video-ID/paths/~1api~1v1~1videoid/post'>Create Video ID Request</a> call is executed.  
+Except by `tsa_url`, all parameters shown below are replaced every time the <a href='#operation/create_videoid'>Create Video ID Request</a> call is executed.  
 
 Once you are done editing the file, restart the One-Shot Optimizer service to changes take effect.
 
@@ -1766,7 +1766,7 @@ Docker:
 # Webhook Configuration
 
 
-One-Shot API requires a Webhook implemented on customer business side to manage our service callbacks. Every request status change will trigger a simple event-notification via HTTP POST, consisting on a JSON object to an URL that must be explicitly included as an **optional parameter** in the <a href='#tag/Video-ID/paths/~1api~1v1~1videoid/post'>Create Video ID Request</a> call. Keep in mind that the webhook passed as parameter will be only for testing purposes, the definitive webhook has to be set in your belonging RA by Operations Department.
+One-Shot API requires a Webhook implemented on customer business side to manage our service callbacks. Every request status change will trigger a simple event-notification via HTTP POST, consisting on a JSON object to an URL that must be explicitly included as an **optional parameter** in the <a href='#operation/create_videoid'>Create Video ID Request</a> call. Keep in mind that the webhook passed as parameter will be only for testing purposes, the definitive webhook has to be set in your belonging RA by Operations Department.
 
 The following is a sample view of the JSON object that is sent as a callback at every status change:
 
@@ -1791,7 +1791,7 @@ Where:
 
 In this sample, every JSON object is stored in a file named 'videoid'.
 
-The webhook parameter used in the <a href='#tag/Video-ID/paths/~1api~1v1~1videoid/post'>Create Video ID Request</a> call is defined as:
+The webhook parameter used in the <a href='#operation/create_videoid'>Create Video ID Request</a> call is defined as:
 
 	{host}/videoid
 

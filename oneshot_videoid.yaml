@@ -2088,7 +2088,7 @@ paths:
                 "description": "User Accepted Terms and Conditions and Privacy Policy",
                 "url-doc-privacypolicy": "https://www.uanataca.com/public/pki/privacidad-PSC/",
                 "ip": "186.0.91.53",
-                "url-web-videoid": "https://cms.access.bit4id.org:13035/lcmpl/videoid/46b92251-4ba8-4930-a5aa-8631ec4666b6",
+                "url-web-videoid": "https://cms.sandbox.uanataca.com/lcmpl/videoid/46b92251-4ba8-4930-a5aa-8631ec4666b6",
                 "user-agent": "Mozilla/5.0 (Linux; Android 11; AC2003)",
                 "date": 1622823879708,
                 "url-doc-termsconditions": "https://www.uanataca.com/public/pki/terminos-VID/"
@@ -2133,7 +2133,7 @@ paths:
               "description": "User Accepted Terms and Conditions and Privacy Policy",
               "url-doc-privacypolicy": "https://www.uanataca.com/public/pki/privacidad-PSC/",
               "ip": "186.0.91.53",
-              "url-web-videoid": "https://cms.access.bit4id.org:13035/lcmpl/videoid/46b92251-4ba8-4930-a5aa-8631ec4666b6",
+              "url-web-videoid": "https://cms.sandbox.uanataca.com/lcmpl/videoid/46b92251-4ba8-4930-a5aa-8631ec4666b6",
               "user-agent": "Mozilla/5.0 (Linux; Android 11; AC2003) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.88 Mobile Safari/537.36",
               "date": 1622823879708,
               "url-doc-termsconditions": "https://www.uanataca.com/public/pki/terminos-VID/"
@@ -2190,7 +2190,7 @@ paths:
                   description: 'User Accepted Terms and Conditions and Privacy Policy',
                   url-doc-privacypolicy: 'https://www.uanataca.com/public/pki/privacidad-PSC/',
                   ip: '186.0.91.53',
-                  url-web-videoid: 'https://cms.access.bit4id.org:13035/lcmpl/videoid/46b92251-4ba8-4930-a5aa-8631ec4666b6',
+                  url-web-videoid: 'https://cms.sandbox.uanataca.com/lcmpl/videoid/46b92251-4ba8-4930-a5aa-8631ec4666b6',
                   user-agent: 'Mozilla/5.0 (Linux; Android 11; AC2003) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.88 Mobile Safari/537.36',
                   date: '1622823879708',
                   url-doc-termsconditions: 'https://www.uanataca.com/public/pki/terminos-VID/'
@@ -2248,7 +2248,7 @@ paths:
                     description: User Accepted Terms and Conditions and Privacy Policy,
                     url-doc-privacypolicy: https://www.uanataca.com/public/pki/privacidad-PSC/,
                     ip: 186.0.91.53,
-                    url-web-videoid: https://cms.access.bit4id.org:13035/lcmpl/videoid/46b92251-4ba8-4930-a5aa-8631ec4666b6,
+                    url-web-videoid: https://cms.sandbox.uanataca.com/lcmpl/videoid/46b92251-4ba8-4930-a5aa-8631ec4666b6,
                     user-agent: Mozilla/5.0 (Linux; Android 11; AC2003) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.88 Mobile Safari/537.36,
                     date: 1622823879708,
                     url-doc-termsconditions: https://www.uanataca.com/public/pki/terminos-VID/
