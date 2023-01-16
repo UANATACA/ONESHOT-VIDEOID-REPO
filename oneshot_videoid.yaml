@@ -315,7 +315,7 @@ paths:
                         properties:
                           environment:
                             type: string
-                            description: The API environment (test or prod)
+                            description: The API environment (sandbox or prod)
                           rootstore:
                             type: string
                             description: Rootstore mode
@@ -331,7 +331,7 @@ paths:
                 status: 200 OK
                 details:
                   tsa:
-                    tsa_url: https://tsa.access.bit4id.org:13035/tsa/test01
+                    tsa_url: https://tsa.sandbox.uanataca.com/tsa/tss01
                   request:
                     default_profile: PFnubeQAFCiudadano
                     default_ra: "9999"
@@ -339,7 +339,7 @@ paths:
                     billing_username: user@uanataca.com
                     billing_password: UGVyb2xpdG8xLg==
                   general:
-                    environment: test
+                    environment: sandbox
                     rootstore: uanataca
                     configuration: default
                     usepdfclean: false
@@ -382,7 +382,7 @@ paths:
             -H 'Content-Type: application/json' \
             -d '{
               "tsa": {
-                "tsa_url": "https://tsa.access.bit4id.org:13035/tsa/test01"
+                "tsa_url": "https://tsa.sandbox.uanataca.com/tsa/tss01"
               },
               "request": {
                 "default_profile": "PFnubeQAFCiudadano",
@@ -393,7 +393,7 @@ paths:
                 "billing_password": "ejVxTnFrZkI="
               },
               "general": {
-                "environment": "test"
+                "environment": "sandbox"
               }
             }'
       - lang: Python
@@ -404,7 +404,7 @@ paths:
 
           payload = {
             "tsa": {
-              "tsa_url": "https://tsa.access.bit4id.org:13035/tsa/test01"
+              "tsa_url": "https://tsa.sandbox.uanataca.com/tsa/tss01"
             },
             "request": {
               "default_profile": "PFnubeQAFCiudadano",
@@ -415,7 +415,7 @@ paths:
               "billing_password": "ejVxTnFrZkI="
             },
             "general": {
-              "environment": "test"
+              "environment": "sandbox"
             }
           }
 
@@ -437,7 +437,7 @@ paths:
                 'Content-Type': 'application/json'
               },
               body: JSON.stringify({
-                tsa: {tsa_url: 'https://tsa.access.bit4id.org:13035/tsa/test01'},
+                tsa: {tsa_url: 'https://tsa.sandbox.uanataca.com/tsa/tss01'},
                 request: {
                   default_profile: 'PFnubeQAFCiudadano',
                   default_ra: '1000'
@@ -446,7 +446,7 @@ paths:
                   billing_username: 'user@uanataca.com',
                   billing_password: 'ejVxTnFrZkI='
                 },
-                general: {environment: 'test'}
+                general: {environment: 'sandbox'}
               })
             }
           );
@@ -468,7 +468,7 @@ paths:
               using (var client = new HttpClient())
               {
                 JObject json = JObject.Parse(@"{
-                  tsa: {tsa_url: 'https://tsa.access.bit4id.org:13035/tsa/test01'},
+                  tsa: {tsa_url: 'https://tsa.sandbox.uanataca.com/tsa/tss01'},
                   request: {
                     default_profile: 'PFnubeQAFCiudadano',
                     default_ra: '1000'
@@ -477,7 +477,7 @@ paths:
                     billing_username: 'user@uanataca.com',
                     billing_password: 'ejVxTnFrZkI='
                   },
-                  general: {environment: 'test'}
+                  general: {environment: 'sandbox'}
                 }");
                 var postData = new StringContent(json.ToString(), Encoding.UTF8, "application/json");
                 var request = await client.PostAsync("https://one-shot.developers.uanataca.com/api/v1/settings", postData);
@@ -1012,8 +1012,8 @@ paths:
             -d '{
               "username": "9001800",
               "password": "Gy6F89xK",
-              "pin": "belorado74",
-              "env": "test"
+              "pin": "p1n",
+              "env": "sandbox"
             }'
       - lang: Python
         source: |
@@ -1024,8 +1024,8 @@ paths:
           payload = {
               "username": "1234567",
               "password": "Gy6F37xK",
-              "pin": "belorado74",
-              "env": "test"
+              "pin": "p1n",
+              "env": "sandbox"
           }
 
           headers = {"Content-Type": "application/json"}
@@ -1048,8 +1048,8 @@ paths:
               body: JSON.stringify({
                 'username': '9001800',
                 'password': 'Gy6F89xK',
-                'pin': 'belorado74',
-                'env': 'test'
+                'pin': 'p1n',
+                'env': 'sandbox'
               })
             }
           );
@@ -1073,8 +1073,8 @@ paths:
                 JObject json = JObject.Parse(@"{
                   'username': '9001800',
                   'password': 'Gy6F89xK',
-                  'pin': 'belorado74',
-                  'env': 'test'
+                  'pin': 'p1n',
+                  'env': 'sandbox'
                 }");
                 var postData = new StringContent(json.ToString(), Encoding.UTF8, "application/json");
                 var request = await client.PostAsync("https://one-shot.developers.uanataca.com/api/v1/token", postData);
@@ -1724,11 +1724,11 @@ paths:
             -F token=a44765ab8ca04e429a565f02d22179a0 \
             -F username=9001800 \
             -F password=Gy6F89xK \
-            -F pin=belorado74 \
+            -F pin=p1n \
             -F document_front=@sample_folder/img_front.png \
             -F document_rear=@sample_folder/img_rear.png \
             -F document_owner=@sample_folder/img_owner.png \
-            -F env=test \
+            -F env=sandbox \
             -F billing_username=user@uanataca.com \
             -F billing_password=ejVxTnFrZkI= \
       - lang: Python
@@ -1750,8 +1750,8 @@ paths:
           'token': '6d1cae4d55be4cdf9cac50ee36f73406',
           'username': '9001800',
           'password': 'Gy6F89xK',
-          'pin': 'belorado74',
-          'env': 'test',
+          'pin': 'p1n',
+          'env': 'sandbox',
           'billing_username': 'user@uanataca.com',
           'billing_password': 'ejVxTnFrZkI='}
           files=[
@@ -1787,11 +1787,11 @@ paths:
           formData.append('token', '6d1cae4d55be4cdf9cac50ee36f73406');
           formData.append('username', '9001800');
           formData.append('password', 'Gy6F89xK');
-          formData.append('pin', 'belorado74');
+          formData.append('pin', 'p1n');
           formData.append('document_front', fs.createReadStream('sample_folder/img_front.png'));
           formData.append('document_rear', fs.createReadStream('sample_folder/img_rear.png'));
           formData.append('document_owner', fs.createReadStream('sample_folder/img_owner.png'));
-          formdata.append("env", "test");
+          formdata.append("env", "sandbox");
           formdata.append("billing_username", "user@uanataca.com");
           formdata.append("billing_password", "ejVxTnFrZkI=");
 
@@ -1943,7 +1943,7 @@ paths:
               "billing_username": "user@uanataca.com",
               "billing_password": "ejVxTnFrZkI=",
               "webhook_url": "my-webhook-url.com",
-              "env": "test"
+              "env": "sandbox"
             }'
       - lang: Python
         source: |
@@ -1959,7 +1959,7 @@ paths:
               "billing_username": "user@uanataca.com",
               "billing_password": "ejVxTnFrZkI=",
               "webhook_url": "my-webhook-url.com",
-              "env": "test"
+              "env": "sandbox"
           }
 
           headers = {"Content-Type": "application/json"}
@@ -1987,7 +1987,7 @@ paths:
               'billing_username': 'user@uanatca.com',
               'billing_password': 'ejVxTnFrZkI=',
               'webhook_url': 'my-webhook-url.com',
-              'env': 'test'
+              'env': 'sandbox'
               })
             }
           );
@@ -2016,7 +2016,7 @@ paths:
                   billing_username: 'user@uanataca.com',
                   billing_password: 'ejVxTnFrZkI=',
                   webhook_url: 'my-webhook-url.com',
-                  env: 'test'
+                  env: 'sandbox'
                 }");
                 var postData = new StringContent(json.ToString(), Encoding.UTF8, "application/json");
                 var request = await client.PostAsync("https://one-shot.developers.uanataca.com/api/v1/videoid", postData);
@@ -4408,7 +4408,7 @@ paths:
               "token": "6d1cae4d55be4cdf9cac50ee36f73406",
               "username": "9001800",
               "password": "Gy6F37xK",
-              "pin": "belorado74",
+              "pin": "p1n",
               "rao_id": "1400",
               "reason": "Expired document"
             }'
@@ -4422,7 +4422,7 @@ paths:
             "token": "6d1cae4d55be4cdf9cac50ee36f73406",
             "username": "9001800",
             "password": "Gy6F37xK",
-            "pin": "belorado74",
+            "pin": "p1n",
             "rao_id": "1400",
             "reason": "Expired document"
           }
@@ -4448,7 +4448,7 @@ paths:
                 token: '6d1cae4d55be4cdf9cac50ee36f73406',
                 username: '5012345',
                 password: 'Gy6F37xK',
-                pin: 'belorado74',
+                pin: 'p1n',
                 rao_id: '1400',
                 reason: 'Expired document'
               })
@@ -4475,7 +4475,7 @@ paths:
                   token: '6d1cae4d55be4cdf9cac50ee36f73406',
                   username: '5012345',
                   password: 'Gy6F37xK',
-                  pin: 'belorado74',
+                  pin: 'p1n',
                   rao_id: '1400',
                   reason: 'Expired document'
                 }");
@@ -4547,7 +4547,7 @@ paths:
               "token": "6d1cae4d55be4cdf9cac50ee36f73406",
               "username": "9001800",
               "password": "Gy6F89xK",
-              "pin": "belorado74",
+              "pin": "p1n",
               "rao": "898"
             }'
       - lang: Python
@@ -4560,7 +4560,7 @@ paths:
             "token": "6d1cae4d55be4cdf9cac50ee36f73406",
             "username": "9001800",
             "password": "Gy6F89xK",
-            "pin": "belorado74",
+            "pin": "p1n",
             "rao": "898"
           }
 
@@ -4585,7 +4585,7 @@ paths:
                 token: '6d1cae4d55be4cdf9cac50ee36f73406',
                 username: 'RAO_Name',
                 password: 'Gy6F89xK',
-                pin: 'belorado74',
+                pin: 'p1n',
                 rao: '898'
               })
             }
@@ -4623,7 +4623,7 @@ paths:
                   token: '6d1cae4d55be4cdf9cac50ee36f73406',
                   username: 'RAO_Name',
                   password: 'Gy6F89xK',
-                  pin: 'belorado74',
+                  pin: 'p1n',
                   rao: '898'
                 }");
                 var postData = new StringContent(json.ToString(), Encoding.UTF8, "application/json");
@@ -4786,7 +4786,7 @@ components:
               type: string
               description: The API work environment
               enum:
-              - test
+              - sandbox
               - prod
           description: General Settings
     MetadataObject:
@@ -4825,7 +4825,7 @@ components:
             not set at settings.ini file. Check <a href=''#tag/Settings/paths/~1api~1v1~1settings/post''>Update
             Settings</a> call.</b></blockquote>'
           enum:
-          - test
+          - sandbox
           - prod
     SignObject:
       required:
@@ -4993,7 +4993,7 @@ components:
             not set at settings.ini file. Check <a href=''#tag/Settings/paths/~1api~1v1~1settings/post''>Update
             Settings</a> call.</b></blockquote>'
           enum:
-          - test
+          - sandbox
           - prod
     UpdateReqObject_VID:
       required:
