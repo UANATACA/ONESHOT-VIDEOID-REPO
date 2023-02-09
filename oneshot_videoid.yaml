@@ -4864,7 +4864,7 @@ components:
                   type: string
                   description: This property controls the text that is going to be introduced. Through variables you
                         retrieve information from the signer certificate.
-                        `%(CN), %(SUBJECT)s, %(DATE)s, %(E)s` can be used. 
+                        '%(CN)', '%(SUBJECT)s', '%(DATE)s', '%(E)s' can be used. 
                 date_format:
                   type: string
                   description: Date formatting in dd/mm/YY-HH/MM/SS regex.
