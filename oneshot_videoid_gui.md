@@ -1709,6 +1709,7 @@ Prior to following the steps, you must have a mapped volume with rootstore folde
 In case you don't have this volumes, below you can find an example showing how to define them.
 
 ```
+
     optimizer:
         image: oneshot_optimizer:0.2.8
         environment:
