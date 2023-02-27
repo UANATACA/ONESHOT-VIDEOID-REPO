@@ -1710,46 +1710,46 @@ In case you don't have this volumes, below you can find an example showing how t
 
 ```
 
-    optimizer:
-        image: oneshot_optimizer:0.2.8
-        environment:
-            - OPTIMIZER_BIND=socket
-            - TZ=Europe/Madrid
-        networks:
-            oneshot-optimizer:
-                aliases:
-                    - optimizer.oneshot-optimizer.loc
-        volumes:
-            - optimizer-sock:/opt/bit4id/oneshot_optimizer/var/run/
-            # Digital signature requests and images folder
-            # This volume must be set as it is in imgconverter volumes
-            # - [your_data_folder]:/opt/bit4id/oneshot_optimizer/tmp:rw
-            - ./common/tmp:/opt/bit4id/oneshot_optimizer/tmp:rw
-            
-            # Logs folder
-            # This volume must be set as it is in imgconverter volumes
-            # - [your_logs_folder]:/opt/bit4id/oneshot_optimizer/logs:rw
-            - ./common/logs:/opt/bit4id/oneshot_optimizer/logs:rw
-            
-            # Client authentication certificate files
-            # - [your_certs_folder]:/opt/bit4id/oneshot_optimizer/etc/certs:ro
-            - ./common/etc/certs:/opt/bit4id/oneshot_optimizer/etc/certs:ro
+optimizer:
+	image: oneshot_optimizer:0.2.8
+	environment:
+		- OPTIMIZER_BIND=socket
+		- TZ=Europe/Madrid
+	networks:
+		oneshot-optimizer:
+			aliases:
+				- optimizer.oneshot-optimizer.loc
+	volumes:
+		- optimizer-sock:/opt/bit4id/oneshot_optimizer/var/run/
+		# Digital signature requests and images folder
+		# This volume must be set as it is in imgconverter volumes
+		# - [your_data_folder]:/opt/bit4id/oneshot_optimizer/tmp:rw
+		- ./common/tmp:/opt/bit4id/oneshot_optimizer/tmp:rw
+		
+		# Logs folder
+		# This volume must be set as it is in imgconverter volumes
+		# - [your_logs_folder]:/opt/bit4id/oneshot_optimizer/logs:rw
+		- ./common/logs:/opt/bit4id/oneshot_optimizer/logs:rw
+		
+		# Client authentication certificate files
+		# - [your_certs_folder]:/opt/bit4id/oneshot_optimizer/etc/certs:ro
+		- ./common/etc/certs:/opt/bit4id/oneshot_optimizer/etc/certs:ro
 
-            # Service settings file
-            # - [your_settings_folder]/settings.ini:/opt/bit4id/oneshot_optimizer/etc/settings.ini:rw
-            - ./common/etc/settings.ini:/opt/bit4id/oneshot_optimizer/etc/settings.ini:rw
+		# Service settings file
+		# - [your_settings_folder]/settings.ini:/opt/bit4id/oneshot_optimizer/etc/settings.ini:rw
+		- ./common/etc/settings.ini:/opt/bit4id/oneshot_optimizer/etc/settings.ini:rw
 
-            # Tokens file
-            # - [your_folder]/tokens.json:/opt/bit4id/oneshot_optimizer/etc/tokens.json:rw
-            - ./common/etc/tokens.json:/opt/bit4id/oneshot_optimizer/etc/tokens.json:rw
+		# Tokens file
+		# - [your_folder]/tokens.json:/opt/bit4id/oneshot_optimizer/etc/tokens.json:rw
+		- ./common/etc/tokens.json:/opt/bit4id/oneshot_optimizer/etc/tokens.json:rw
 
-            # Rootstore files
-            # - [your_folder]:/opt/bit4id/oneshot_optimizer/rootstore:rw
-            - ./common/etc/rootstore:/opt/bit4id/oneshot_optimizer/rootstore:rw
+		# Rootstore files
+		# - [your_folder]:/opt/bit4id/oneshot_optimizer/rootstore:rw
+		- ./common/etc/rootstore:/opt/bit4id/oneshot_optimizer/rootstore:rw
 
-            # Script file
-            # - [your_folder]:/opt/bit4id/oneshot_optimizer/rootstore:rw
-            - ./common/etc/dockergeneraterootstore.sh:/opt/bit4id/oneshot_optimizer:rw
+		# Script file
+		# - [your_folder]:/opt/bit4id/oneshot_optimizer/rootstore:rw
+		- ./common/etc/dockergeneraterootstore.sh:/opt/bit4id/oneshot_optimizer:rw
 
 ```
 
