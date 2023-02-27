@@ -1708,8 +1708,7 @@ Prior to following the steps, you must have a mapped volume with rootstore folde
 
 In case you don't have this volumes, below you can find an example showing how to define them.
 
-```
-
+~~~
 optimizer:
 	image: oneshot_optimizer:0.2.8
 	environment:
@@ -1750,8 +1749,7 @@ optimizer:
 		# Script file
 		# - [your_folder]:/opt/bit4id/oneshot_optimizer/rootstore:rw
 		- ./common/etc/dockergeneraterootstore.sh:/opt/bit4id/oneshot_optimizer:rw
-
-```
+~~~
 
 > STEP 1: Load certificates in the optimizer
 
