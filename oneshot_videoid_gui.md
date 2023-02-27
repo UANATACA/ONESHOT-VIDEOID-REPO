@@ -1679,6 +1679,127 @@ See <a href="#section/Configuration/Service-settings">service settings</a> confi
 
 </br>
 
+## Rootstore configuration
+
+As a requirement for LTV/LTVLITE signature level, we must add to the optimizer every chain of trust for each certificate that is involved in the signature.
+
+In case that you don't make use of LTV/LVTLITE signature level, this process is NOT necessary.
+
+This process vary depending on the selected optimizer install method.
+
+Every certificate introduced in the optimizer regarding the rootstore needs to be formatted as a PEM file and introduced in a specific folder.
+Below an example of the general structure that is needed.
+
+Note: Number of lines below the header are not representative of a real certificate.
+
+```
+-----BEGIN CERTIFICATE-----
+MIIIWjCCBkKgAwIBAgIIICfKLtFjrRMwDQYJKoZIhvcNAQELBQAwgbkxCzAJBgNV
+BAYTAkVTMUQwQgYDVQQHDDtCYXJjZWxvbmEgKHNlZSBjdXJyZW50IGFkZHJlc3Mg
+YXQgd3d3LnVhbmF0YWNhLmNvbS9hZGRyZXNzKTEWMBQGA1UECgwNVUFOQVRBQ0Eg
+Uy5BLjEVMBMGA1UECwwMVFNQLVVBTkFUQUNBMRswGQYDVQQDDBJVQU5BVEFDQSBS
+K+0fx83luCN81YLsUpdpc3e0URG7eDMKNG54WvtW
+-----END CERTIFICATE-----
+```
+
+### *Docker*
+
+Prior to following the steps, you must have a mapped volume with rootstore folder and a mapped volume with 'dockergeneraterootstore.sh' file.
+
+In case you don't have this volumes, below you can find an example showing how to define them.
+
+```
+    optimizer:
+        image: oneshot_optimizer:0.2.8
+        environment:
+            - OPTIMIZER_BIND=socket
+            - TZ=Europe/Madrid
+        networks:
+            oneshot-optimizer:
+                aliases:
+                    - optimizer.oneshot-optimizer.loc
+        volumes:
+            - optimizer-sock:/opt/bit4id/oneshot_optimizer/var/run/
+            # Digital signature requests and images folder
+            # This volume must be set as it is in imgconverter volumes
+            # - [your_data_folder]:/opt/bit4id/oneshot_optimizer/tmp:rw
+            - ./common/tmp:/opt/bit4id/oneshot_optimizer/tmp:rw
+            
+            # Logs folder
+            # This volume must be set as it is in imgconverter volumes
+            # - [your_logs_folder]:/opt/bit4id/oneshot_optimizer/logs:rw
+            - ./common/logs:/opt/bit4id/oneshot_optimizer/logs:rw
+            
+            # Client authentication certificate files
+            # - [your_certs_folder]:/opt/bit4id/oneshot_optimizer/etc/certs:ro
+            - ./common/etc/certs:/opt/bit4id/oneshot_optimizer/etc/certs:ro
+
+            # Service settings file
+            # - [your_settings_folder]/settings.ini:/opt/bit4id/oneshot_optimizer/etc/settings.ini:rw
+            - ./common/etc/settings.ini:/opt/bit4id/oneshot_optimizer/etc/settings.ini:rw
+
+            # Tokens file
+            # - [your_folder]/tokens.json:/opt/bit4id/oneshot_optimizer/etc/tokens.json:rw
+            - ./common/etc/tokens.json:/opt/bit4id/oneshot_optimizer/etc/tokens.json:rw
+
+            # Rootstore files
+            # - [your_folder]:/opt/bit4id/oneshot_optimizer/rootstore:rw
+            - ./common/etc/rootstore:/opt/bit4id/oneshot_optimizer/rootstore:rw
+
+            # Script file
+            # - [your_folder]:/opt/bit4id/oneshot_optimizer/rootstore:rw
+            - ./common/etc/dockergeneraterootstore.sh:/opt/bit4id/oneshot_optimizer:rw
+
+```
+
+> STEP 1: Load certificates in the optimizer
+
+Load the PEM files in the following path or your mapped volume:
+
+	/oneshot_optimizer/common/etc/rootstore/cert
+
+
+> STEP 2: Execute the script
+
+It is needed the execution of the script **INSIDE** the container, this can be done through
+
+	docker exec -it <container_id> ./dockergeneraterootstore.sh
+
+> STEP 3: Restart the service
+
+After all the desired certificates have been loaded into the optimizer and the script got executed, we must fully restart the services with
+
+	docker compose down
+
+Followed by
+
+	docker compose up -d
+
+### *OVA*
+
+
+> STEP 1: Load certificates in the optimizer
+
+Load the PEM files in the following path:
+
+	/opt/bit4id/oneshot_optimizer/rootstore/cert
+
+> STEP 2: Execute the script
+
+It is needed the execution of the script that must be located at **/opt/bit4id/oneshot_optimizer** , this can be done through
+
+	./generaterootstore.sh
+
+> STEP 3: Restart the service
+
+After all the desired certificates have been loaded into the optimizer, we must fully restart the services with
+
+	systemctl stop optimizer imgconverter nginx
+
+Followed by
+
+	systemctl start optimizer imgconverter nginx
+
 
 # Service settings
 
