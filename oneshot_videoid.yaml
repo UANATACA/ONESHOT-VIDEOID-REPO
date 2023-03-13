@@ -1398,7 +1398,6 @@ paths:
               - username
               - id_document_type
               - id_document_country
-              - communication_language
               type: object
               properties:
                 given_name:
@@ -1521,6 +1520,10 @@ paths:
                 communication_language:
                   type: string
                   description: Two letter code language for communications(ISO3166-1 alpha-2).
+                  enum: 
+                    - ES
+                    - PL
+                    - EN
                 residence:
                   type: string
                   description: '</br><blockquote style=''background-color: #faf3ac; border-color: #5a5a5a;color: #3b3b3b;''><b>⚠ Required only in certain profiles</b></blockquote>'
