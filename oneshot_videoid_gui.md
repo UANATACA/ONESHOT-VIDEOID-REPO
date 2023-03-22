@@ -1732,14 +1732,43 @@ Load the PEM files in the following path or your mapped volume:
 
 	/oneshot_optimizer/common/etc/rootstore/cert
 
+> STEP 2: Set settings.ini (only for latest versions where this param is already in the file)
 
-> STEP 2: Execute the script
+Set rootstore with "manual" value
+
+	1 |[general]
+	2 |environment = sandbox
+	3 |usepdfclean = false
+	4 |configuration = default
+	5 |rootstore = manual
+	6 |
+	7 |[tsa]
+	8 |tsa_url = https://tsa.uanataca.com/tsa/tss03
+	9 |
+	10|[billing]
+	11|billing_username = user@uanataca.com
+	12|billing_password = ejVxTnFrZkaI=
+	13|
+	14|[request]
+	15|default_profile = PFnubeQAFCiudadano
+	16|default_ra = 1000
+	17|
+	18|[proxy]
+	19|useproxy = false
+	20|proxy_host = 192.168.1.34
+	21|proxy_port = 8888
+	22|proxy_protocol = http
+	23|proxy_username = user
+	24|proxy_password = password
+	25|useproxycredentials = true
+
+> STEP 3: Execute the script
 
 It is needed the execution of the script **INSIDE** the container, this can be done through
 
 	docker exec -it <container_id> ./dockergeneraterootstore.sh
 
-> STEP 3: Restart the service
+> STEP 4: Restart the service
 
 After all the desired certificates have been loaded into the optimizer and the script got executed, we must fully restart the services with
 
