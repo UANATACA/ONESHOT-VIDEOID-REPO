@@ -1734,7 +1734,7 @@ Load the PEM files in the following path or your mapped volume:
 
 > STEP 2: Set settings.ini (only for latest versions where this param is already in the file)
 
-Set rootstore with "manual" value
+Set rootstore parameter with "manual" value
 
 	1 |[general]
 	2 |environment = sandbox
