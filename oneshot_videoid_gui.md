@@ -1724,7 +1724,7 @@ In case you don't have this volumes, below you can find an example showing how t
 
 				# Script file
 				# - [your_folder]:/opt/bit4id/oneshot_optimizer/rootstore:rw
-				- ./common/etc/dockergeneraterootstore.sh:/opt/bit4id/oneshot_optimizer:rw
+				- ./common/etc/dockergeneraterootstore.sh:/dockergeneraterootstore.sh:rw
 
 > STEP 1: Load certificates in the optimizer
 
