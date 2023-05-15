@@ -1,8 +1,8 @@
 apis:
   main@v1:
     root: oneshot_videoid.yaml
-extends: 
-  - minimal
+rules:
+  spec: warn
 theme:
   openapi:
     hideDownloadButton: true
