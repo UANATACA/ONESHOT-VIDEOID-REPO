@@ -22,7 +22,7 @@ theme:
         sectionVertical: 35 
       colors:
         primary:
-          main: '#FFFFFF'
+          main: '#585856'
         success:
           main: '#2F8132'
         warning:
