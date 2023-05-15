@@ -1,7 +1,7 @@
 apis:
   main@v1:
     root: oneshot_videoid.yaml
-features.openapi:
+theme.openapi:
   hideDownloadButton: true
   scrollYOffset: main-header # Esto baja el panel verical izquierdo justo debajo del header
   generateCodeSamples:
