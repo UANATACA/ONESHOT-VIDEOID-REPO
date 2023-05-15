@@ -1545,36 +1545,28 @@ See the configuration description in:<br>
 
 
 This configuration requires a server with a Linux operating system.
-
+The commands show belown are suitable for CentOS. Each Linux distribution will require it's own commands.
 <a href="#section/Video-tutorials/Docker-Optimizer-Configuration"><img src="https://raw.githubusercontent.com/UANATACA/ONESHOT-VIDEOID-REPO/main/img/img4.png"></a><a href="#section/Video-tutorials/Docker-Optimizer-Configuration"><b>&nbsp;Watch on video!</b></a>
 
 
 > STEP 1: Install Docker and Docker-Compose.
 
-*Docker*
+*Docker and Docker-Compose*
 
 Run the following commands in this order.
 
 	sudo yum install -y yum-utils
+
 	sudo yum-config-manager \
     --add-repo \
     https://download.docker.com/linux/centos/docker-ce.repo
-	sudo yum install docker-ce docker-ce-cli containerd.io docker-compose-plugin
+
+	sudo yum install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+	
 	sudo systemctl start docker
 
 
-*Docker-Compose*
-
-Run the following commands in this order.
-
-
-	curl -SL https://github.com/docker/compose/releases/download/v2.13.0/docker-compose-linux-x86_64 -o /usr/local/bin/docker-compose
-
-
-Run command **docker-compose version** to check the installation. The outcome should show this kind of information:
-
-
-![img](https://github.com/UANATACA/ONESHOT-VIDEOID-REPO/raw/main/img/oneshot-docker1.png)
+Run command **sudo docker run hello-world** to check the installation.
 
 </br>
 
