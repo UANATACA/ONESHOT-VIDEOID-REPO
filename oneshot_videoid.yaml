@@ -3075,8 +3075,8 @@ paths:
             https://one-shot.developers.uanataca.com/api/v1/sign/29571 \
             -H 'Content-Type: application/json' \
             -d '{
-                  "secret"   : "052174",
-                  "options": {
+                  "secret":"052174",
+                  "options":{
                       "5f04778a-54f6-426a-b204-5573eb01e5da": {
                           "position": "300, 100, 500, 150",
                           "image": "b0b6370e-8b54-4d8b-ab6f-a002cf08dd28",
@@ -4902,7 +4902,7 @@ components:
           description: Format of the graphic signature text
           properties: 
             text_format:
-              type: string
+              type: array
               description: This property controls the text that is going to be introduced. Through variables you
                     retrieve information from the signer certificate.
                     `%(CN), %(SUBJECT)s, %(DATE)s, %(E)s` can be used. 
