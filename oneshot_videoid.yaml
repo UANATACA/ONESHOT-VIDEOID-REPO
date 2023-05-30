@@ -4864,7 +4864,7 @@ components:
               description: Format of the graphic signature text
               properties: 
                 text_format:
-                  type: string
+                  type: array
                   description: This property controls the text that is going to be introduced. Through variables you
                         retrieve information from the signer certificate.
                         '%(CN)', '%(SUBJECT)s', '%(DATE)s', '%(E)s' can be used. 
