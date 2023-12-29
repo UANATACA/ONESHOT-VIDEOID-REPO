@@ -2871,7 +2871,7 @@ paths:
               properties: 
                 delivery_method:
                   type: string
-                  description: Method selector to send the code
+                  description: Method selector to send the code. Default "sms" if field is not included or not set in settings file.
                   enum:
                     - sms
                     - whatsapp
