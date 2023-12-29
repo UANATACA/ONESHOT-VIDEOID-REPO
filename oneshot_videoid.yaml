@@ -2863,6 +2863,16 @@ paths:
         required: true
         schema:
           type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: 
+                delivery_method:
+                  type: string
+                  description: Method to send the code
+        required: false
       responses:
         200:
           description: Successful Response
