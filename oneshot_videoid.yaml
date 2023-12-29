@@ -2871,7 +2871,10 @@ paths:
               properties: 
                 delivery_method:
                   type: string
-                  description: Method to send the code
+                  description: Method selector to send the code
+                  enum:
+                    - sms
+                    - whatsapp
         required: false
       responses:
         200:
