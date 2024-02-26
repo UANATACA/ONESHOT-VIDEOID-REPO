@@ -4931,25 +4931,25 @@ components:
           type: object
           properties:
             document:
-              type: string
-              description: The previously uploaded document id. In
-                case of multiple documents, a properties block would be required for each document desired
-            position:
-              type: string
-              description: The coordinates in points (pt) for signature image position
-                and size, starting from bottom left corner (x1,y1,x2,y2).<br> 1px
-                = 0.75pt
-            page:
-              type: integer
-              description: The document page where the signature will be placed. The
-                first page starts at `0`
-            image:
-              type: string
-              description: The previously uploaded image id
-            usecountersignature:
-              type: boolean
-              description: Enables or disables the use of countersignature in the specified document. In case of multiple
-                documents, it has to be written on each block.
+              type: object
+              description: The previously uploaded document id. In case of multiple documents, a properties block would be required for each document desired
+              properties:
+                position:
+                  type: string
+                  description: The coordinates in points (pt) for signature image position
+                    and size, starting from bottom left corner (x1,y1,x2,y2).<br> 1px
+                    = 0.75pt
+                page:
+                  type: integer
+                  description: The document page where the signature will be placed. The
+                    first page starts at `0`
+                image:
+                  type: string
+                  description: The previously uploaded image id
+                usecountersignature:
+                  type: boolean
+                  description: Enables or disables the use of countersignature in the specified document. In case of multiple
+                    documents, it has to be written on each block.
           description: Visual graphic signature properties.<br> **It is required prior
             to image upload.** See <a href='#tag/Images'>images</a> api reference
             <br>
