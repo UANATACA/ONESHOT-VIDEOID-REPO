@@ -1525,11 +1525,9 @@ Delete all documents associated to a finished digital signature request.
 
 # Configuration
 
-One-Shot Optimizer can be supplied as a **Docker** or as a **Virtual Machine** image.
+One-Shot Optimizer can be supplied as a **Docker** image.
 See the configuration description in:<br>
 <a href="#section/Configuration/One-Shot-Optimizer-on-Docker"> One-Shot Optimizer on Docker</a><br>
-<a href="#section/Configuration/One-Shot-Optimizer-on-Virtual-Machine-(OVA)"> One-Shot Optimizer on Virtual Machine</a>
-
 
 ## Hardware requirements
 
