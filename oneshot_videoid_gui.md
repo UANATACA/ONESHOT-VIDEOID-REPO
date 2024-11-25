@@ -1640,39 +1640,6 @@ See <a href="#section/Configuration/Service-settings">service settings</a> confi
 </br>
 
 
-## One-Shot Optimizer on Virtual Machine
-
-<div style="text-align: justify">
-The Virtual Machine is supplied in an OVA file. One-Shot Optimizer image is compatible with common virtual environments such as VMWare, AWS, Azure or VirtualBox.
-</div>
-</br>
-
-> STEP 1: Import One-Shot Optimizer (VM) in the virtual environment.
-
-<div style="text-align: justify">
-Adjust the system requirements for optimal usage considering host terminal resources described in <a href="#section/Configuration/Hardware-requirements"> hardware requirements</a>.
-</div>
-
-</br>
-
-> STEP 2: Network configuration.
-
-The network settings are configured in the file `ifcfg-ens33`, which can be found in the path **/etc/sysconfig/network-scripts**. Edit the file and insert the correct IP address, network mask, gateway and DNS for your network.
-
-Then restart network services with command **service network restart**.
-
-Example:
-
-![img](https://github.com/UANATACA/ONESHOT-VIDEOID-REPO/raw/main/img/oneshot-docker4.png)
-
-</br>
-
-> STEP 3: Service settings.
-
-See <a href="#section/Configuration/Service-settings">service settings</a> configuration section.
-
-</br>
-
 ## Rootstore configuration
 
 As a requirement for LTV/LTVLITE signature level, we must add to the optimizer every chain of trust for each certificate that is involved in the signature.
@@ -1771,31 +1738,6 @@ After all the desired certificates have been loaded into the optimizer and the s
 Followed by
 
 	docker compose up -d
-
-### *OVA*
-
-
-> STEP 1: Load certificates in the optimizer
-
-Load the PEM files in the following path:
-
-	/opt/bit4id/oneshot_optimizer/rootstore/cert
-
-> STEP 2: Execute the script
-
-It is needed the execution of the script that must be located at **/opt/bit4id/oneshot_optimizer** , this can be done through
-
-	./generaterootstore.sh
-
-> STEP 3: Restart the service
-
-After all the desired certificates have been loaded into the optimizer, we must fully restart the services with
-
-	systemctl stop optimizer imgconverter nginx
-
-Followed by
-
-	systemctl start optimizer imgconverter nginx
 
 
 # Service settings
